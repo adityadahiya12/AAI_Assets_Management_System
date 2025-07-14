@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airport Authority of India | Connecting the Nation</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- Hero Background Animation -->
+    <div class="hero-bg"></div>
+    
+    <!-- Flight Path Animation -->
+    <div class="flight-path" id="flightPath"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Airports_Authority_of_India_Logo.svg/1200px-Airports_Authority_of_India_Logo.svg.png" alt="AAI Logo" class="img-fluid">
+                AAI
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/features.html">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/workflow.html">Workflow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/contact.html">Help</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-aai" href="pages/login.html">Employee Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container hero-content">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="animate__animated animate__fadeInDown">Connecting India Through Aviation</h1>
+                    <p class="animate__animated animate__fadeIn animate__delay-1s">Managing 137 airports across the nation with world-class infrastructure and services</p>
+                    <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="pages/dashboard.html" class="btn btn-aai btn-lg me-3">Explore Dashboard <i class="fas fa-chart-line me-2"></i></a>
+                        <a href="#airport-network" class="btn btn-aai-outline btn-lg">View Airports <i class="fas fa-map-marked-alt me-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-scroll-down" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section light-bg">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6" data-aos="fade-up">
+                    <div class="stat-item">
+                        <div class="stat-number" id="airportCounter">137</div>
+                        <div class="stat-label">Airports Managed</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-item">
+                        <div class="stat-number" id="passengerCounter">345</div>
+                        <div class="stat-label">Million Passengers</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-item">
+                        <div class="stat-number" id="flightCounter">2.1</div>
+                        <div class="stat-label">Million Flights</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-item">
+                        <div class="stat-number" id="employeeCounter">17,500</div>
+                        <div class="stat-label">Dedicated Employees</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <h2 class="section-title" id="section-title-our-key">Our Key Features</h2>
+            <p class="text-center mb-5"  id="text-in-section">Innovative solutions for modern airport management</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-network"></i>
+                        </div>
+                        <h3>Comprehensive Dashboard</h3>
+                        <p>Real-time monitoring of all airport operations with customizable widgets and analytics.</p>
+                        <a href="pages/dashboard.html" class="btn btn-aai-outline btn-sm mt-3">Click here</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3>IT Ticketing System</h3>
+                        <p>Streamlined processes for asset management, maintenance, and resource allocation.</p>
+                        <a href="pages/ITticketing.html" class="btn btn-aai-outline btn-sm mt-3">Click here</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <h3>Department of the assets</h3>
+                        <p>Integrated items for all AAI assets and operations.</p>
+                        <a href="asset/department.html" class="btn btn-aai-outline btn-sm mt-3">Click here</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Maintenance Tracking</h3>
+                        <p>Proactive maintenance scheduling and history for all critical infrastructure.</p>
+                        <a href="pages/maintance.html" class="btn btn-aai-outline btn-sm mt-3">Click here</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Security Integration</h3>
+                        <p>Centralized security management with real-time alerts and incident reporting.</p>
+                        <a href="pages/securitypolicy.html" class="btn btn-aai-outline btn-sm mt-3">Click here</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h3>Flight Network</h3>
+                        <p>Interactive map of India's airport network and flight connections.</p>
+                        <a href="#airport-network" class="btn btn-aai-outline btn-sm mt-3">View Network</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Airport Network Section -->
+    <section class="section light-bg" id="airport-network">
+        <div class="container">
+            <h2 class="section-title">India's Airport Network</h2>
+            <p class="text-center mb-5" id="text-in-section">Interactive map showing all international airports and flight connections</p>
+            
+            <div class="airport-network-container" data-aos="fade-up">
+                <div id="airport-network-map"></div>
+                <div class="airport-controls">
+                    <div class="control-group">
+                        <label for="origin">Departure Airport</label>
+                        <select id="origin">
+                            <option value="">Select departure airport</option>
+                            <option value="DEL">Indira Gandhi International Airport (Delhi)</option>
+                            <option value="BOM">Chhatrapati Shivaji Maharaj International Airport (Mumbai)</option>
+                            <option value="MAA">Chennai International Airport (Chennai)</option>
+                            <option value="BLR">Kempegowda International Airport (Bangalore)</option>
+                            <option value="HYD">Rajiv Gandhi International Airport (Hyderabad)</option>
+                            <option value="CCU">Netaji Subhas Chandra Bose International Airport (Kolkata)</option>
+                            <option value="COK">Cochin International Airport (Kochi)</option>
+                            <option value="GOI">Dabolim Airport (Goa)</option>
+                            <option value="TRV">Trivandrum International Airport (Thiruvananthapuram)</option>
+                            <option value="AMD">Sardar Vallabhbhai Patel International Airport (Ahmedabad)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="destination">Arrival Airport</label>
+                        <select id="destination">
+                            <option value="">Select arrival airport</option>
+                            <option value="DEL">Indira Gandhi International Airport (Delhi)</option>
+                            <option value="BOM">Chhatrapati Shivaji Maharaj International Airport (Mumbai)</option>
+                            <option value="MAA">Chennai International Airport (Chennai)</option>
+                            <option value="BLR">Kempegowda International Airport (Bangalore)</option>
+                            <option value="HYD">Rajiv Gandhi International Airport (Hyderabad)</option>
+                            <option value="CCU">Netaji Subhas Chandra Bose International Airport (Kolkata)</option>
+                            <option value="COK">Cochin International Airport (Kochi)</option>
+                            <option value="GOI">Dabolim Airport (Goa)</option>
+                            <option value="TRV">Trivandrum International Airport (Thiruvananthapuram)</option>
+                            <option value="AMD">Sardar Vallabhbhai Patel International Airport (Ahmedabad)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <a href="pages/showroute.html"><button id="show-route" class="btn btn-aai">Show Flight Route</button></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flight-info-container">
+                <div class="flight-info-box">
+                    <h3>Fly high, land with pride</h3>
+                    <div class="flight-list" id="departures">
+                        <!-- Departure flights will be added here by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="flight-info-box">
+                    <h3>Elevate lives, innovate the skies.</h3>
+                    <div class="flight-list" id="arrivals">
+                        <!-- Arrival flights will be added here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="section" id="blog">
+        <div class="container">
+            <h2 class="section-title"  id="section-title-our-key">Latest Updates</h2>
+            <p class="text-center mb-5" id="text-in-section">News and insights from the Airport Authority of India</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="blog-img" alt="New Terminal">
+                        <div class="blog-body">
+                            <span class="blog-date">June 15, 2025</span>
+                            <h4>New Terminal Inauguration at Delhi Airport</h4>
+                            <p>The state-of-the-art Terminal 4 at Indira Gandhi International Airport opens to the public.</p>
+                            <a href="pages/blog.html" class="btn btn-aai-outline btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80" class="blog-img" alt="Sustainability">
+                        <div class="blog-body">
+                            <span class="blog-date">May 28, 2025</span>
+                            <h4>Sustainability Initiatives Across AAI Airports</h4>
+                            <p>AAI announces ambitious plans for carbon neutrality by 2030 with solar power and water recycling.</p>
+                            <a href="pages/blog.html" class="btn btn-aai-outline btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="blog-img" alt="Technology">
+                        <div class="blog-body">
+                            <span class="blog-date">April 10, 2025</span>
+                            <h4>New Biometric Boarding Systems Rolled Out</h4>
+                            <p>Facial recognition technology now operational at 15 major airports across India.</p>
+                            <a href="pages/blog.html" class="btn btn-aai-outline btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4" data-aos="fade-up">
+                <a href="pages/blog.html" class="btn btn-aai">View All Updates</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section dark-bg">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8" data-aos="fade-right">
+                    <h2>Ready to Experience Our Platform?</h2>
+                    <p class="lead">Join thousands of AAI employees who are already managing India's aviation infrastructure with our powerful tools.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end" data-aos="fade-left">
+                    <a href="pages/login.html" class="btn btn-aai btn-lg me-3">Employee Login</a>
+                    <a href="pages/contact.html" class="btn btn-aai-outline btn-lg">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Airport Authority of India</h5>
+                    <p>Connecting the nation through world-class airport infrastructure and services.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" id="footer-navagation">Home</a></li>
+                        <li><a href="pages/dashboard.html" id="footer-navagation">Dashboard</a></li>
+                        <li><a href="pages/workflow.html" id="footer-navagation">Workflow</a></li>
+                        <li><a href="pages/features.html" id="footer-navagation">Features</a></li>
+                        <li><a href="pages/blog.html" id="footer-navagation">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" id="footer-navagation">User Guides</a></li>
+                        <li><a href="#" id="footer-navagation">Training Videos</a></li>
+                        <li><a href="#" id="footer-navagation">FAQs</a></li>
+                        <li><a href="#" id="footer-navagation">Policy Documents</a></li>
+                        <li><a href="#" id="footer-navagation">System Updates</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> AAI ,IGI terminal 3 , New Delhi</li>
+                        <li><i class="fas fa-phone me-2"></i> +91 11 2463 2950</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@aai.aero</li>
+                        <li><i class="fas fa-clock me-2"></i> Mon-Fri: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">Copyright &copy; 2025 Airport Authority of India. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="pages/privacypolicy.html" id="footer-navagation">Privacy Policy</a>
+                        <a href="pages/termsofuse.html" id="footer-navagation">Terms of Use</a>
+                        <a href="pages/sitemap.html" id="footer-navagation">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Leaflet Arc JS for curved flight paths -->
+    <script src="https://unpkg.com/leaflet-arc@1.0.0/L.Arc.js"></script>
+    <!-- Custom JS -->
+    <script src="index.js"></script>
+</body>
+</html>

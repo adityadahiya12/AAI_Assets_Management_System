@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | AAI Asset Management System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --aai-primary: #1a3e72;  /* Deep blue */
+            --aai-secondary: #4b8bbe;  /* Medium blue */
+            --aai-accent: #f6b26b;  /* Warm gold */
+            --aai-light: #e9f2f9;  /* Light blue */
+            --aai-dark: #0d1f3d;  /* Navy blue */
+            --aai-success: #5cb85c;  /* Green */
+            --aai-danger: #d9534f;  /* Red */
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--aai-light);
+        }
+        
+        /* Navbar with Glass Morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            transition: all 0.5s;
+        }
+        
+        .navbar-brand:hover img {
+            transform: rotate(15deg);
+        }
+        
+        .nav-link {
+            color: var(--aai-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover {
+            color: var(--aai-primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 62, 114, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 62, 114, 0.4);
+        }
+        
+        .btn-aai:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-aai:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-aai:hover:before {
+            left: 100%;
+        }
+        
+        .btn-aai-outline {
+            background-color: transparent;
+            color: var(--aai-primary);
+            border: 2px solid var(--aai-primary);
+            box-shadow: none;
+        }
+        
+        .btn-aai-outline:hover {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        /* Admin Login Container */
+        .admin-container {
+            max-width: 500px;
+            margin: 100px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .admin-header {
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-secondary));
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .admin-body {
+            padding: 30px;
+        }
+        
+        .form-control {
+            height: 50px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding-left: 15px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--aai-primary);
+            box-shadow: 0 0 0 0.25rem rgba(26, 62, 114, 0.25);
+        }
+        
+        .face-recognition-btn {
+            width: 100%;
+            height: 200px;
+            background-color: #f8f9fa;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .face-recognition-btn:hover {
+            border-color: var(--aai-primary);
+            background-color: rgba(26, 62, 114, 0.05);
+        }
+        
+        .face-preview {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            object-fit: cover;
+            display: none;
+            margin-bottom: 20px;
+        }
+        
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        /* Camera Modal */
+        .camera-modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .camera-container {
+            width: 100%;
+            height: 400px;
+            background-color: #000;
+            position: relative;
+        }
+        
+        #cameraVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .camera-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .capture-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: white;
+            border: 4px solid var(--aai-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .capture-btn i {
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .admin-container {
+                margin: 50px auto;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .admin-container {
+                margin: 30px 15px;
+            }
+            
+            .login-options {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.png" alt="AAI Logo" class="img-fluid">
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="workflow.html">Workflow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tickets.html">IT Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="help-center.html">Help Center</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-aai" href="login.html">Employee Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Login Container -->
+    <div class="container">
+        <div class="admin-container animate__animated animate__fadeIn">
+            <div class="admin-header">
+                <h3><i class="fas fa-user-shield me-2"></i> Admin Portal Login</h3>
+                <p class="mb-0">Secure access to the Administration Panel</p>
+            </div>
+            
+            <div class="admin-body">
+                <!-- Admin Login Form -->
+                <form id="adminLoginForm">
+                    <div class="mb-3">
+                        <label for="adminId" class="form-label">Administration ID</label>
+                        <input type="text" class="form-control" id="adminId" placeholder="ADM1001" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="adminPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="adminPassword" placeholder="Enter your password" required>
+                        <div class="form-text text-end">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Face Recognition Section -->
+                    <label class="form-label">Face Recognition</label>
+                    <div class="face-recognition-btn" id="faceRecognitionBtn">
+                        <i class="fas fa-camera fa-3x mb-3 text-muted"></i>
+                        <p class="mb-0">Click to verify with face recognition</p>
+                    </div>
+                    <img id="facePreview" class="face-preview" alt="Captured face">
+                    <input type="hidden" id="faceData">
+                    
+                    <button type="submit" class="btn btn-aai w-100" id="adminLoginBtn" disabled>
+                        <i class="fas fa-sign-in-alt me-2"></i> Login
+                    </button>
+                    
+                    <div class="login-options">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="rememberAdmin">
+                            <label class="form-check-label" for="rememberAdmin">Remember me</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forgotPasswordModalLabel">Admin Password Reset</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adminForgotPasswordForm">
+                        <div class="mb-3">
+                            <label for="resetAdminId" class="form-label">Administration ID</label>
+                            <input type="text" class="form-control" id="resetAdminId" placeholder="ADM1001" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="resetAdminEmail" class="form-label">Registered AAI Email</label>
+                            <input type="email" class="form-control" id="resetAdminEmail" placeholder="admin@aai.gov.in" required>
+                        </div>
+                        <button type="submit" class="btn btn-aai w-100">Request Reset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Camera Modal -->
+    <div class="modal fade" id="cameraModal" tabindex="-1" aria-labelledby="cameraModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content camera-modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cameraModalLabel">Face Recognition</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="camera-container">
+                        <video id="cameraVideo" autoplay playsinline></video>
+                        <div class="camera-controls">
+                            <div class="capture-btn" id="captureBtn">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Admin database
+        const admins = [
+            { name: "Amit Dubey", adminId: "ADM1001", email: "amit.d@aai.gov.in", username: "amit_d", password: "admin@aai", faceData: "sample_face_data_1" },
+            { name: "Ramesh Yadav", adminId: "ADM1002", email: "ramesh.y@aai.gov.in", username: "ramesh_y", password: "root@2025", faceData: "sample_face_data_2" },
+            { name: "Priya Kapoor", adminId: "ADM1003", email: "priya.k@aai.gov.in", username: "priya_k", password: "priya@admin", faceData: "sample_face_data_3" }
+        ];
+
+        // DOM Elements
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        const faceRecognitionBtn = document.getElementById('faceRecognitionBtn');
+        const facePreview = document.getElementById('facePreview');
+        const faceDataInput = document.getElementById('faceData');
+        const adminLoginBtn = document.getElementById('adminLoginBtn');
+        const cameraModal = new bootstrap.Modal(document.getElementById('cameraModal'));
+        const cameraVideo = document.getElementById('cameraVideo');
+        const captureBtn = document.getElementById('captureBtn');
+        let stream = null;
+
+        // Face Recognition Button Click
+        faceRecognitionBtn.addEventListener('click', function() {
+            // In a real application, this would initiate face recognition
+            // For this demo, we'll open the camera modal
+            openCamera();
+        });
+
+        // Open Camera
+        function openCamera() {
+            cameraModal.show();
+            
+            // Access camera
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(mediaStream) {
+                        stream = mediaStream;
+                        cameraVideo.srcObject = mediaStream;
+                    })
+                    .catch(function(err) {
+                        console.error("Camera error: ", err);
+                        showAlert('Could not access camera. Please ensure you have granted camera permissions.', 'danger');
+                    });
+            } else {
+                showAlert('Camera access is not supported in your browser.', 'danger');
+            }
+        }
+
+        // Capture Photo
+        captureBtn.addEventListener('click', function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = cameraVideo.videoWidth;
+            canvas.height = cameraVideo.videoHeight;
+            canvas.getContext('2d').drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
+            
+            // Convert to data URL and display
+            const imageDataUrl = canvas.toDataURL('image/jpeg');
+            facePreview.src = imageDataUrl;
+            facePreview.style.display = 'block';
+            faceRecognitionBtn.style.display = 'none';
+            
+            // In a real application, you would send this to a face recognition API
+            // For demo purposes, we'll just store the image data
+            faceDataInput.value = imageDataUrl;
+            
+            // Enable login button
+            adminLoginBtn.disabled = false;
+            
+            // Close camera and stop stream
+            cameraModal.hide();
+            stopCamera();
+        });
+
+        // Stop camera stream
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+                cameraVideo.srcObject = null;
+            }
+        }
+
+        // When camera modal is closed
+        document.getElementById('cameraModal').addEventListener('hidden.bs.modal', function() {
+            stopCamera();
+        });
+
+        // Admin Login Form Submission
+        adminLoginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const adminId = document.getElementById('adminId').value.trim().toUpperCase();
+            const password = document.getElementById('adminPassword').value;
+            const faceData = faceDataInput.value;
+            
+            // Find admin
+            const admin = admins.find(adm => 
+                adm.adminId === adminId && 
+                adm.password === password
+            );
+            
+            // Validate credentials
+            if (!admin) {
+                showAlert('Invalid credentials. Please check your Admin ID and Password.', 'danger');
+            } else if (!faceData) {
+                showAlert('Face recognition is required for admin login.', 'danger');
+            } else {
+                // In a real application, you would verify the face data with the stored face data
+                // For demo purposes, we'll just assume it matches
+                showAlert(`Welcome, ${admin.name}! Redirecting to admin dashboard...`, 'success');
+                
+                // In a real application, you would redirect to the admin dashboard
+                setTimeout(() => {
+                    alert(`Admin login successful!\nThis would redirect to the admin dashboard in a real application.`);
+                }, 1500);
+            }
+        });
+
+        // Forgot Password Form
+        document.getElementById('adminForgotPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const adminId = document.getElementById('resetAdminId').value.trim().toUpperCase();
+            const email = document.getElementById('resetAdminEmail').value.trim().toLowerCase();
+            
+            const admin = admins.find(adm => 
+                adm.adminId === adminId && 
+                adm.email === email
+            );
+            
+            if (admin) {
+                showAlert(`Password reset link has been sent to ${email}`, 'success', 'forgotPasswordModal');
+                document.getElementById('adminForgotPasswordForm').reset();
+                // In a real application, you would send an email with a reset link
+            } else {
+                showAlert('No admin account found with that ID and Email combination.', 'danger', 'forgotPasswordModal');
+            }
+        });
+
+        // Helper function to show alerts
+        function showAlert(message, type, modalId = null) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+            alertDiv.role = 'alert';
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            
+            let container;
+            if (modalId) {
+                container = document.querySelector(`#${modalId} .modal-body`);
+            } else {
+                container = document.querySelector('.admin-body');
+            }
+            
+            // Remove any existing alerts
+            const existingAlert = container.querySelector('.alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+            
+            container.prepend(alertDiv);
+            
+            // Auto-dismiss after 5 seconds
+            setTimeout(() => {
+                const bsAlert = new bootstrap.Alert(alertDiv);
+                bsAlert.close();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

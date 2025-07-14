@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Glide.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.5.0/css/glide.core.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --aai-primary: #1a3e72;  /* Deep blue */
+            --aai-secondary: #4b8bbe;  /* Medium blue */
+            --aai-accent: #f6b26b;  /* Warm gold */
+            --aai-light: #e9f2f9;  /* Light blue */
+            --aai-dark: #0d1f3d;  /* Navy blue */
+            --aai-success: #5cb85c;  /* Green */
+            --aai-danger: #d9534f;  /* Red */
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--aai-white);
+        }
+        
+        /* Particle Background */
+        .particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            background-color: var(--aai-primary);
+        }
+        
+        /* Navbar with Glass Morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            transition: all 0.5s;
+        }
+        
+        .navbar-brand:hover img {
+            transform: rotate(15deg);
+        }
+        
+        .nav-link {
+            color: var(--aai-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover {
+            color: var(--aai-primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 62, 114, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 62, 114, 0.4);
+        }
+        
+        .btn-aai:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-aai:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-aai:hover:before {
+            left: 100%;
+        }
+        
+        .btn-aai-outline {
+            background-color: transparent;
+            color: var(--aai-primary);
+            border: 2px solid var(--aai-primary);
+            box-shadow: none;
+        }
+        
+        .btn-aai-outline:hover {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        /* Hero Section with Parallax */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+        
+        .hero h1 {
+            font-weight: 800;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0.9;
+        }
+        
+        .hero-bg-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .hero-bg-slider.active {
+            opacity: 1;
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            z-index: 1;
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 60px;
+            text-align: center;
+            color: var(--aai-primary);
+            font-weight: 800;
+            font-size: 2.5rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            border-radius: 5px;
+        }
+        
+        .light-bg {
+            background-color: var(--aai-light);
+        }
+        
+        .dark-bg {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark));
+            color: white;
+        }
+        
+        .dark-bg .section-title {
+            color: white;
+        }
+        
+        .dark-bg .section-title:after {
+            background: linear-gradient(90deg, white, var(--aai-accent));
+        }
+        
+        /* Feature Boxes with 3D Effect */
+        .feature-box {
+            text-align: center;
+            padding: 40px 30px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-box:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            transition: all 0.5s;
+        }
+        
+        .feature-box:hover .feature-icon {
+            transform: scale(1.2) rotate(15deg);
+        }
+        
+        /* Asset Cards with Hover Zoom */
+        .asset-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .asset-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .asset-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+        
+        .asset-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .asset-card-body {
+            padding: 25px;
+        }
+        
+        .asset-card h3 {
+            color: var(--aai-primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .asset-card .badge {
+            background-color: var(--aai-accent);
+            color: var(--aai-dark);
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 50px;
+            margin-bottom: 15px;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(246, 178, 107, 0.3);
+        }
+        
+        /* Workflow Steps with Connection Lines */
+        .workflow {
+            position: relative;
+        }
+        
+        .workflow:before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            width: 2px;
+            height: calc(100% - 100px);
+            background: linear-gradient(to bottom, var(--aai-primary), var(--aai-accent));
+            z-index: 0;
+        }
+        
+        .workflow-step {
+            position: relative;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 60px;
+            transition: all 0.5s;
+            border-left: 5px solid var(--aai-primary);
+            z-index: 1;
+        }
+        
+        .workflow-step:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-left: 5px solid var(--aai-accent);
+        }
+        
+        .workflow-step .step-number {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(26, 62, 114, 0.4);
+            transition: all 0.5s;
+        }
+        
+        .workflow-step:hover .step-number {
+            transform: scale(1.1) rotate(15deg);
+            background: linear-gradient(135deg, var(--aai-secondary), var(--aai-accent));
+        }
+        
+        /* IT Ticketing System */
+        .ticket-system {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .ticket-header {
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-secondary));
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .ticket-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .ticket-item {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .ticket-item:hover {
+            background-color: var(--aai-light);
+            transform: translateX(10px);
+        }
+        
+        .ticket-priority {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+        
+        .priority-high {
+            background-color: rgba(217, 83, 79, 0.1);
+            color: var(--aai-danger);
+        }
+        
+        .priority-medium {
+            background-color: rgba(246, 178, 107, 0.1);
+            color: var(--aai-accent);
+        }
+        
+        .priority-low {
+            background-color: rgba(92, 184, 92, 0.1);
+            color: var(--aai-success);
+        }
+        
+        .ticket-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .status-open {
+            background-color: var(--aai-success);
+            animation: pulse 2s infinite;
+        }
+        
+        .status-pending {
+            background-color: var(--aai-accent);
+        }
+        
+        .status-closed {
+            background-color: var(--aai-danger);
+        }
+        
+        /* Dashboard Cards */
+        .dashboard-card {
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            color: white;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card-assets {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-secondary));
+        }
+        
+        .card-tickets {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+        }
+        
+        .card-employees {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+        }
+        
+        .card-maintenance {
+            background: linear-gradient(135deg, #f46b45, #eea849);
+        }
+        
+        /* Search and Filter */
+        .search-filter {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        /* QR Scanner Modal */
+        .qr-scanner {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        
+        .scanner-container {
+            width: 100%;
+            height: 300px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--aai-danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        /* Animation Keyframes */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(92, 184, 92, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(92, 184, 92, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(92, 184, 92, 0); }
+        }
+        
+        @keyframes crazyRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.1); }
+            50% { transform: rotate(180deg) scale(1); }
+            75% { transform: rotate(270deg) scale(0.9); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        
+        @keyframes crazyBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-30px) rotate(10deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-15px) rotate(-10deg); }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .workflow:before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn-aai {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        #footer-nav{
+           
+            color: var(--aai-white);
+            padding: 20px 0;
+            text-align: center;
+            text-decoration: none;
+        }
+        #department-links{
+            text-decoration: none;
+            color: var(--aai-dark);
+            transition: color 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (same as index.html) -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="\logo.png" alt="AAI Logo" class="img-fluid">
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="\index.html">Home</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="\pages\dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="\pages\features.html">Feature</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="\pages\workflow.html">Workflow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="\pages\blog.html">Blog</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="\pages\contact.html">Help Center</a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="\pages\notification.html">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-aai" href="\pages\login.html">Employee Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Department Section -->
+    <section class="section light-bg" id="departments">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">AAI Departments</h2>
+            <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="100">Key departments managing assets across Airport Authority of India</p>
+            
+            <div class="row">
+                <!-- IT Department -->
+                
+                 <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <a href="ITdepartment.html" id="department-links">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>IT Department</h3></a>
+                    </a>
+                        <p>Manages software, hardware, networking, and automation for airports and offices.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">Digital Assets</span>
+                            <span class="badge bg-secondary">Infrastructure</span>
+                        </div>
+                    </div>
+                
+                 </div>
+                
+                <!-- Finance & Accounts -->
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <a href="finance.html" id="department-links"><div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Finance & Accounts</h3></a>
+                        <p>Handles budgeting, financial planning, accounts, audits, and payments.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">Financial Assets</span>
+                            <span class="badge bg-secondary">Records</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Law Cell -->
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <a href="lawcell.html" id="department-links">
+                        <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-gavel"></i>
+                        </div>
+                        <h3>Law Cell</h3></a>
+                        <p>Deals with legal matters, contracts, compliance, litigation, and regulatory frameworks.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">Legal Documents</span>
+                            <span class="badge bg-secondary">Compliance</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Operations -->
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <a href="operational.html" id="department-links"><div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-plane-departure"></i>
+                        </div>
+                        <h3>Operations</h3></a>
+                        <p>Responsible for airport operations, safety, and passenger services.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">Operational Assets</span>
+                            <span class="badge bg-secondary">Safety Equipment</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Engineering -->
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <a href="enginnering.html" id="department-links"><div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <h3>Engineering</h3></a>
+                        <p>Civil, Electrical, and Mechanical engineering for airport infrastructure.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">Infrastructure</span>
+                            <span class="badge bg-secondary">Maintenance</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Commercial -->
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <a href="commerical.html" id="department-links"><div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <h3>Commercial</h3></a>
+                        <p>Revenue generation, tenders, leasing, retail space management.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">Commercial Assets</span>
+                            <span class="badge bg-secondary">Retail</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- HR -->
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <a href="humanresource.html" id="department-links"><div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Human Resources</h3></a>
+                        <p>Recruitment, employee welfare, training, and administrative tasks.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">Employee Assets</span>
+                            <span class="badge bg-secondary">Training</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cargo & Logistics -->
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <a href="cargo&logistics.html" id="department-links"><div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <h3>Cargo & Logistics</h3></a>
+                        <p>Manages cargo terminals, freight operations, and logistics support.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">Cargo Equipment</span>
+                            <span class="badge bg-secondary">Logistics</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Security -->
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <a href="security.html" id="department-links"><div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Security</h3></a>
+                        <p>Works with CISF and other agencies for airport security management.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">Security Assets</span>
+                            <span class="badge bg-secondary">Surveillance</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Air Traffic Management -->
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <a href="airtrafficmanagment.html" id="department-links"><div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-tower-control"></i>
+                        </div>
+                        <h3>Air Traffic Management</h3></a>
+                        <p>Manages air traffic control operations ensuring safe aircraft movement.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">ATC Equipment</span>
+                            <span class="badge bg-secondary">Navigation</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Corporate Communications -->
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <a href="corporatecommunication.html" id="department-links"><div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h3>Corporate Communications</h3></a>
+                        <p>Media handling, internal communications, public relations, and branding.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">Media Assets</span>
+                            <span class="badge bg-secondary">Branding</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Technical -->
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <a href="techincaldepartment.html" id="department-links"><div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Technical Department</h3><a>
+                        <p>Maintenance and technical support for airport systems and infrastructure.</p>
+                        <div class="mt-3">
+                            <span class="badge bg-primary">Technical Assets</span>
+                            <span class="badge bg-secondary">Maintenance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up">
+                <button class="btn btn-aai me-3"><i class="fas fa-download me-2"></i> Download Department List</button>
+                <button class="btn btn-aai-outline"><i class="fas fa-print me-2"></i> Print View</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer  -->
+    <footer class="dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>AAI Asset Management</h5>
+                    <p>Comprehensive asset lifecycle management platform for Airport Authority of India.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/index.html" id="footer-nav">Home</a></li>
+                        <li><a href="department.html" id="footer-nav">Departments</a></li>
+                        <li><a href="\pages\dashboard.html" id="footer-nav">Dashboard</a></li>
+                        <li><a href="\pages\ITticketing.html" id="footer-nav">IT Tickets</a></li>
+                        <li><a href="\pages\contact.html" id="footer-nav">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" id="footer-nav">User Guides</a></li>
+                        <li><a href="#" id="footer-nav">Training Videos</a></li>
+                        <li><a href="#" id="footer-nav">FAQs</a></li>
+                        <li><a href="#" id="footer-nav">Policy Documents</a></li>
+                        <li><a href="#" id="footer-nav">System Updates</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="\pages\privacypolicy.html" id="footer-nav">Privacy Policy</a></li>
+                        <li><a href="\pages\termsofuse.html" id="footer-nav">Terms of Use</a></li>
+                        <li><a href="\pages\securitypolicy.html" id="footer-nav">Security Policy</a></li>
+                        <li><a href="\pages\accessiablity.html" id="footer-nav">Accessibility</a></li>
+                        <li><a href="\pages\feedback.html" id="footer-nav">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">Copyright &copy; 2025 Airport Authority of India. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="\pages\sitemap.html" id="footer-nav">Sitemap</a>
+                        <a href="\pages\accessibility.html" id="footer-nav">Accessibility</a>
+                        <a href="\pages\feedback.html" id="footer-nav">Feedback</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Same scripts as index.html -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+   
+   
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Custom JS -->
+    
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Same other JavaScript functionality as index.html
+        // ...
+            <!-- Bootstrap JS -->
+ 
+    
+        
+        // Back to top button
+        window.addEventListener('scroll', function() {
+            var backToTop = document.querySelector('.back-to-top');
+            var navbar = document.querySelector('.navbar');
+            
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'block';
+                navbar.classList.add('scrolled');
+            } else {
+                backToTop.style.display = 'none';
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Hero background slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-bg-slider');
+        
+        function changeBackground() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        setInterval(changeBackground, 5000);
+        
+        // Form submission handling
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically send the form data to a server
+                alert('Your request has been submitted. Our team will contact you shortly.');
+                this.reset();
+            });
+        }
+        
+        // Initialize particles.js
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        
+        // Crazy animation for ticket items on hover
+        document.querySelectorAll('.ticket-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02) rotate(1deg)';
+                this.style.boxShadow = '0 5px 20px rgba(0,0,0,0.15)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback | AAI Asset Management</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --aai-primary: #1a3e72;
+            --aai-secondary: #4b8bbe;
+            --aai-accent: #f6b26b;
+            --aai-light: #e9f2f9;
+            --aai-dark: #0d1f3d;
+            --aai-success: #5cb85c;
+            --aai-danger: #d9534f;
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+            background-color: var(--aai-white);
+        }
+        
+        /* Navbar with Glass Morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            transition: all 0.5s;
+        }
+        
+        .navbar-brand:hover img {
+            transform: rotate(15deg);
+        }
+        
+        .nav-link {
+            color: var(--aai-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover {
+            color: var(--aai-primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 62, 114, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 62, 114, 0.4);
+        }
+        
+        .btn-aai:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-aai:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-aai:hover:before {
+            left: 100%;
+        }
+        
+        .btn-aai-outline {
+            background-color: transparent;
+            color: var(--aai-primary);
+            border: 2px solid var(--aai-primary);
+            box-shadow: none;
+        }
+        
+        .btn-aai-outline:hover {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 60px;
+            text-align: center;
+            color: var(--aai-primary);
+            font-weight: 800;
+            font-size: 2.5rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            border-radius: 5px;
+        }
+        
+        .light-bg {
+            background-color: var(--aai-light);
+        }
+        
+        .dark-bg {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark));
+            color: white;
+        }
+        
+        .dark-bg .section-title {
+            color: white;
+        }
+        
+        .dark-bg .section-title:after {
+            background: linear-gradient(90deg, white, var(--aai-accent));
+        }
+        
+        /* Feedback-specific styles */
+        .feedback-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .rating-stars {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .rating-stars input {
+            display: none;
+        }
+        
+        .rating-stars label {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 0 5px;
+        }
+        
+        .rating-stars input:checked ~ label,
+        .rating-stars label:hover,
+        .rating-stars label:hover ~ label {
+            color: var(--aai-accent);
+        }
+        
+        .rating-stars input:checked + label {
+            color: var(--aai-accent);
+        }
+        
+        .feedback-type-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .feedback-type-btn {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .feedback-type-btn:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+        
+        .feedback-type-btn:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .feedback-type-btn.active {
+            background: var(--aai-primary);
+            color: white;
+            border-color: var(--aai-primary);
+        }
+        
+        .feedback-type-btn:hover:not(.active) {
+            background: rgba(26, 62, 114, 0.05);
+        }
+        
+        .screenshot-preview {
+            width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .thank-you-message {
+            text-align: center;
+            padding: 60px 0;
+            display: none;
+        }
+        
+        .thank-you-message i {
+            font-size: 4rem;
+            color: var(--aai-success);
+            margin-bottom: 20px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .feedback-type-selector {
+                flex-direction: column;
+            }
+            
+            .feedback-type-btn {
+                border-radius: 8px !important;
+                margin-bottom: 5px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.png" alt="AAI Logo" class="img-fluid">
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="assets.html">Assets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="it-tickets.html">IT Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="help-center.html">Help Center</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="feedback.html">Feedback</a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="#notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-aai" href="login.html">Employee Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="section light-bg">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8" data-aos="fade-right">
+                    <h1 class="section-title text-start mb-3">Share Your Feedback</h1>
+                    <p class="lead">Help us improve the AAI Asset Management System with your valuable input</p>
+                    <div class="d-flex align-items-center mt-4">
+                        <div class="me-4">
+                            <h3 class="mb-0">94%</h3>
+                            <small class="text-muted">User satisfaction</small>
+                        </div>
+                        <div class="me-4">
+                            <h3 class="mb-0">1,200+</h3>
+                            <small class="text-muted">Feedback submissions</small>
+                        </div>
+                        <div>
+                            <h3 class="mb-0">85%</h3>
+                            <small class="text-muted">Implemented suggestions</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-left">
+                    <img src="https://img.freepik.com/free-vector/feedback-concept-illustration_114360-7113.jpg" alt="Feedback" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feedback Form Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="feedback-card" data-aos="fade-up">
+                        <h3 class="text-center mb-4">We Value Your Opinion</h3>
+                        
+                        <form id="feedbackForm">
+                            <!-- Feedback Type Selector -->
+                            <div class="feedback-type-selector">
+                                <button type="button" class="feedback-type-btn active" data-type="general">General Feedback</button>
+                                <button type="button" class="feedback-type-btn" data-type="bug">Bug Report</button>
+                                <button type="button" class="feedback-type-btn" data-type="suggestion">Feature Suggestion</button>
+                                <input type="hidden" id="feedbackType" name="feedbackType" value="general">
+                            </div>
+                            
+                            <!-- Rating -->
+                            <div class="rating-stars">
+                                <input type="radio" id="star5" name="rating" value="5">
+                                <label for="star5"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star4" name="rating" value="4">
+                                <label for="star4"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star3" name="rating" value="3">
+                                <label for="star3"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star2" name="rating" value="2">
+                                <label for="star2"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star1" name="rating" value="1">
+                                <label for="star1"><i class="fas fa-star"></i></label>
+                            </div>
+                            
+                            <!-- User Info -->
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label for="name" class="form-label">Your Name (Optional)</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email (Optional)</label>
+                                    <input type="email" class="form-control" id="email" placeholder="your.email@aai.gov.in">
+                                </div>
+                            </div>
+                            
+                            <!-- Feedback Content -->
+                            <div class="mb-4">
+                                <label for="feedbackText" class="form-label">Your Feedback</label>
+                                <textarea class="form-control" id="feedbackText" rows="5" placeholder="Please share your thoughts, suggestions, or report any issues..." required></textarea>
+                            </div>
+                            
+                            <!-- Screenshot Upload -->
+                            <div class="mb-4">
+                                <label class="form-label">Attach Screenshot (Optional)</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" id="screenshot" accept="image/*">
+                                    <button class="btn btn-aai-outline" type="button" id="captureBtn">
+                                        <i class="fas fa-camera me-2"></i> Capture
+                                    </button>
+                                </div>
+                                <small class="text-muted">Max. file size: 2MB (PNG, JPG)</small>
+                                <img id="screenshotPreview" class="screenshot-preview" alt="Screenshot preview">
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-aai px-5">
+                                    <i class="fas fa-paper-plane me-2"></i> Submit Feedback
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Thank You Message (hidden by default) -->
+                        <div class="thank-you-message" id="thankYouMessage">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Thank You for Your Feedback!</h3>
+                            <p class="lead">We appreciate you taking the time to help us improve our system.</p>
+                            <a href="index.html" class="btn btn-aai mt-3">
+                                <i class="fas fa-home me-2"></i> Return to Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Improvements Section -->
+    <section class="section light-bg">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Recent Improvements Based on Your Feedback</h2>
+            <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="100">See how your suggestions are shaping the system</p>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start">
+                                <div class="me-3 text-primary">
+                                    <i class="fas fa-mobile-alt fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5>Mobile Optimization</h5>
+                                    <p>Improved responsive design for better mobile experience based on 120+ user requests</p>
+                                    <small class="text-muted">Implemented: June 2023</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start">
+                                <div class="me-3 text-primary">
+                                    <i class="fas fa-tachometer-alt fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5>Dashboard Enhancements</h5>
+                                    <p>Added customizable widgets and quick actions as suggested by users</p>
+                                    <small class="text-muted">Implemented: April 2023</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start">
+                                <div class="me-3 text-primary">
+                                    <i class="fas fa-bell fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5>Notification System</h5>
+                                    <p>Revamped notification preferences and delivery based on user feedback</p>
+                                    <small class="text-muted">Implemented: March 2023</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4" data-aos="fade-up">
+                <a href="#" class="btn btn-aai-outline">View All Improvements <i class="fas fa-arrow-right ms-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>AAI Asset Management</h5>
+                    <p>Comprehensive asset lifecycle management platform for Airport Authority of India.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="assets.html">Assets</a></li>
+                        <li><a href="it-tickets.html">IT Tickets</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">User Guides</a></li>
+                        <li><a href="#">Training Videos</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Policy Documents</a></li>
+                        <li><a href="#">System Updates</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Security Policy</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">Copyright &copy; 2025 Airport Authority of India. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="#">Sitemap</a>
+                        <a href="#">Accessibility</a>
+                        <a href="feedback.html">Feedback</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Feedback type selector
+        const feedbackTypeBtns = document.querySelectorAll('.feedback-type-btn');
+        const feedbackTypeInput = document.getElementById('feedbackType');
+        
+        feedbackTypeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                feedbackTypeBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                feedbackTypeInput.value = this.dataset.type;
+            });
+        });
+
+        // Screenshot preview
+        const screenshotInput = document.getElementById('screenshot');
+        const screenshotPreview = document.getElementById('screenshotPreview');
+        
+        screenshotInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('File size exceeds 2MB limit. Please choose a smaller file.');
+                    this.value = '';
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    screenshotPreview.src = event.target.result;
+                    screenshotPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Capture button (simulated - would use camera API in production)
+        document.getElementById('captureBtn').addEventListener('click', function() {
+            alert('In a production environment, this would open your camera to capture a screenshot.');
+        });
+
+        // Form submission
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Hide form and show thank you message
+            this.style.display = 'none';
+            document.getElementById('thankYouMessage').style.display = 'block';
+            
+            // In a real application, you would send the form data to a server here
+            // For demo purposes, we'll just log the data
+            const formData = {
+                type: feedbackTypeInput.value,
+                rating: document.querySelector('input[name="rating"]:checked')?.value || 'Not rated',
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                feedback: document.getElementById('feedbackText').value,
+                screenshot: screenshotInput.files.length > 0 ? 'Attached' : 'None'
+            };
+            
+            console.log('Feedback submitted:', formData);
+            
+            // Reset form after delay
+            setTimeout(() => {
+                this.reset();
+                screenshotPreview.style.display = 'none';
+                this.style.display = 'block';
+                document.getElementById('thankYouMessage').style.display = 'none';
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

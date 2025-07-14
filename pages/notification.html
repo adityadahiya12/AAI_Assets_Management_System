@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAI Asset Management System - Notifications</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --aai-primary: #1a3e72;  /* Deep blue */
+            --aai-secondary: #4b8bbe;  /* Medium blue */
+            --aai-accent: #f6b26b;  /* Warm gold */
+            --aai-light: #e9f2f9;  /* Light blue */
+            --aai-dark: #0d1f3d;  /* Navy blue */
+            --aai-success: #5cb85c;  /* Green */
+            --aai-danger: #d9534f;  /* Red */
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--aai-white);
+        }
+        
+        /* Navbar with Glass Morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            transition: all 0.5s;
+        }
+        
+        .navbar-brand:hover img {
+            transform: rotate(15deg);
+        }
+        
+        .nav-link {
+            color: var(--aai-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover {
+            color: var(--aai-primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 62, 114, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 62, 114, 0.4);
+        }
+        
+        .btn-aai:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-aai:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-aai:hover:before {
+            left: 100%;
+        }
+        
+        .btn-aai-outline {
+            background-color: transparent;
+            color: var(--aai-primary);
+            border: 2px solid var(--aai-primary);
+            box-shadow: none;
+        }
+        
+        .btn-aai-outline:hover {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 60px;
+            text-align: center;
+            color: var(--aai-primary);
+            font-weight: 800;
+            font-size: 2.5rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            border-radius: 5px;
+        }
+        
+        .light-bg {
+            background-color: var(--aai-light);
+        }
+        
+        .dark-bg {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark));
+            color: white;
+        }
+        
+        .dark-bg .section-title {
+            color: white;
+        }
+        
+        .dark-bg .section-title:after {
+            background: linear-gradient(90deg, white, var(--aai-accent));
+        }
+        
+        /* Notification Styles */
+        .notification-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .notification-header {
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-secondary));
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .notification-header h3 {
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .notification-actions {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .notification-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .notification-item {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .notification-item.unread {
+            background-color: rgba(74, 139, 190, 0.05);
+        }
+        
+        .notification-item:hover {
+            background-color: var(--aai-light);
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .icon-asset {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-secondary));
+        }
+        
+        .icon-ticket {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+        }
+        
+        .icon-maintenance {
+            background: linear-gradient(135deg, #f46b45, #eea849);
+        }
+        
+        .icon-security {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+        }
+        
+        .icon-alert {
+            background: linear-gradient(135deg, #d9534f, #f6b26b);
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--aai-dark);
+        }
+        
+        .notification-message {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .notification-time {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .notification-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            margin-left: 10px;
+        }
+        
+        .badge-new {
+            background-color: rgba(217, 83, 79, 0.1);
+            color: var(--aai-danger);
+        }
+        
+        .badge-important {
+            background-color: rgba(246, 178, 107, 0.1);
+            color: var(--aai-accent);
+        }
+        
+        .badge-update {
+            background-color: rgba(92, 184, 92, 0.1);
+            color: var(--aai-success);
+        }
+        
+        .notification-empty {
+            text-align: center;
+            padding: 50px;
+            color: #999;
+        }
+        
+        .notification-empty i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .notification-filter {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .notification-actions {
+                position: static;
+                transform: none;
+                margin-top: 15px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .btn-aai {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .notification-item {
+                flex-direction: column;
+            }
+            
+            .notification-icon {
+                margin-bottom: 10px;
+            }
+        }
+        
+        #footer-nav {
+            color: var(--aai-white);
+            padding: 20px 0;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.png" alt="AAI Logo" class="img-fluid">
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="workflow.html">Workflow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ITticketing.html">IT-Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Help Center</a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link active" href="notification.html">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">50+</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-aai" href="login.html">Employee Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Notifications Section -->
+    <section class="section light-bg">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Notifications</h2>
+            <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="100">Your recent alerts and system notifications</p>
+            
+            <!-- Notification Filter -->
+            <div class="notification-filter" data-aos="fade-up">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <select class="form-select">
+                            <option selected>All Categories</option>
+                            <option>Asset Alerts</option>
+                            <option>IT Tickets</option>
+                            <option>Maintenance</option>
+                            <option>Security</option>
+                            <option>System Updates</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <select class="form-select">
+                            <option selected>All Status</option>
+                            <option>Unread</option>
+                            <option>Read</option>
+                            <option>Important</option>
+                            <option>Archived</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <select class="form-select">
+                            <option selected>Sort By</option>
+                            <option>Newest First</option>
+                            <option>Oldest First</option>
+                            <option>Priority</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-aai me-2"><i class="fas fa-filter me-2"></i> Apply Filters</button>
+                        <button class="btn btn-aai-outline"><i class="fas fa-sync-alt me-2"></i> Reset</button>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <button class="btn btn-aai-outline me-2"><i class="fas fa-check-double me-2"></i> Mark All as Read</button>
+                        <button class="btn btn-aai-outline"><i class="fas fa-trash-alt me-2"></i> Clear All</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Notification List -->
+            <div class="notification-container" data-aos="fade-up">
+                <div class="notification-header">
+                    <h3><i class="fas fa-bell me-2"></i> Your Notifications</h3>
+                    <div class="notification-actions">
+                        <span class="badge bg-white text-dark">50+ New</span>
+                    </div>
+                </div>
+                <div class="notification-list">
+                    <!-- Sample Notifications -->
+                    <div class="notification-item unread">
+                        <div class="notification-icon icon-asset">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                New Asset Assigned
+                                <span class="notification-badge badge-new">New</span>
+                            </div>
+                            <div class="notification-message">
+                                Dell Latitude 5420 laptop has been assigned to you (Serial: DL-5420-78945)
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 5 minutes ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item unread">
+                        <div class="notification-icon icon-ticket">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                IT Ticket Created
+                                <span class="notification-badge badge-important">Important</span>
+                            </div>
+                            <div class="notification-message">
+                                Your ticket #IT-2023-5892 (Printer Jam) has been received and assigned to Tech Support
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 25 minutes ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-maintenance">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Scheduled Maintenance
+                            </div>
+                            <div class="notification-message">
+                                Terminal 3 network maintenance scheduled for tomorrow 2:00 AM - 4:00 AM
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 1 hour ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item unread">
+                        <div class="notification-icon icon-security">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Security Alert
+                                <span class="notification-badge badge-new">New</span>
+                            </div>
+                            <div class="notification-message">
+                                Unusual login attempt detected from New Delhi location. Please verify.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 2 hours ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-asset">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Access Card Renewal
+                            </div>
+                            <div class="notification-message">
+                                Your access card (ID: AC-78945) expires in 7 days. Please visit Security Desk for renewal.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 3 hours ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item unread">
+                        <div class="notification-icon icon-ticket">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Ticket Update
+                                <span class="notification-badge badge-important">Important</span>
+                            </div>
+                            <div class="notification-message">
+                                Technician has been dispatched for your ticket #IT-2023-5876 (Laptop Display Issue)
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 5 hours ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-alert">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Software Update Required
+                            </div>
+                            <div class="notification-message">
+                                Critical security update available for Adobe Creative Cloud on your workstation
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 6 hours ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-asset">
+                            <i class="fas fa-tablet-alt"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Asset Return Reminder
+                            </div>
+                            <div class="notification-message">
+                                Temporary iPad (Serial: IPAD-78945) assigned to you is due for return tomorrow
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 8 hours ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-maintenance">
+                            <i class="fas fa-wrench"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Maintenance Completed
+                            </div>
+                            <div class="notification-message">
+                                Scheduled maintenance on Terminal 1 baggage system has been successfully completed
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 1 day ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-security">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Security Training
+                            </div>
+                            <div class="notification-message">
+                                Mandatory cybersecurity training must be completed by Friday. Click to begin.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 1 day ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-asset">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Monitor Replacement
+                            </div>
+                            <div class="notification-message">
+                                Your Dell 24" monitor has been replaced with a new LG UltraFine 27" model
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 2 days ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-ticket">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Ticket Resolved
+                            </div>
+                            <div class="notification-message">
+                                Your ticket #IT-2023-5872 (Printer Maintenance) has been resolved. Please confirm.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 2 days ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-asset">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Access Permission Changed
+                            </div>
+                            <div class="notification-message">
+                                Your access to Terminal 3 Admin Area has been upgraded to Level 2
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 3 days ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-maintenance">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Upcoming Maintenance
+                            </div>
+                            <div class="notification-message">
+                                Airport WiFi system maintenance scheduled for next Tuesday 1:00 AM - 3:00 AM
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 3 days ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-alert">
+                            <i class="fas fa-battery-quarter"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Low Battery Warning
+                            </div>
+                            <div class="notification-message">
+                                Your assigned laptop battery health is at 65%. Consider replacement soon.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 4 days ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-asset">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                New Mobile Device Policy
+                            </div>
+                            <div class="notification-message">
+                                Updated mobile device usage policy has been published. Please review.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 5 days ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-ticket">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Ticket Escalation
+                            </div>
+                            <div class="notification-message">
+                                Your ticket #IT-2023-5869 has been escalated to Tier 2 support for further investigation
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 1 week ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-security">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Password Reset Required
+                            </div>
+                            <div class="notification-message">
+                                Your network password expires in 3 days. Please reset it immediately.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 1 week ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-asset">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                New Headset Available
+                            </div>
+                            <div class="notification-message">
+                                Noise-cancelling headsets now available for check-out from IT department
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 1 week ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-maintenance">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                System Backup Completed
+                            </div>
+                            <div class="notification-message">
+                                Nightly backup of your workstation files completed successfully
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 2 weeks ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional notifications to reach 50+ -->
+                    <div class="notification-item">
+                        <div class="notification-icon icon-asset">
+                            <i class="fas fa-print"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Printer Toner Low
+                            </div>
+                            <div class="notification-message">
+                                Toner level in HP LaserJet M608 (Office 304) is at 15%. Replacement ordered.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 2 weeks ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-ticket">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                New Ticket Assignment
+                            </div>
+                            <div class="notification-message">
+                                You've been assigned ticket #IT-2023-5865 (Email Configuration)
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 2 weeks ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-security">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                CCTV Maintenance
+                            </div>
+                            <div class="notification-message">
+                                Terminal 2 CCTV cameras will undergo maintenance tomorrow 10 PM - Midnight
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 3 weeks ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-asset">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                WiFi Password Updated
+                            </div>
+                            <div class="notification-message">
+                                Guest WiFi password has been changed. New password available in secure portal.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 3 weeks ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-maintenance">
+                            <i class="fas fa-broom"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Workstation Cleanup
+                            </div>
+                            <div class="notification-message">
+                                IT will perform workstation cleanup and optimization next Monday. Please save all files.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 1 month ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-alert">
+                            <i class="fas fa-shield-virus"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Antivirus Update
+                            </div>
+                            <div class="notification-message">
+                                New antivirus definitions have been automatically installed on your workstation
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 1 month ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-asset">
+                            <i class="fas fa-id-badge"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Badge Access Restored
+                            </div>
+                            <div class="notification-message">
+                                Your access badge has been reactivated after maintenance
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 1 month ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-ticket">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Ticket Feedback Request
+                            </div>
+                            <div class="notification-message">
+                                Please rate your experience with ticket #IT-2023-5852 resolution
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 1 month ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-security">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Door Access Issue
+                            </div>
+                            <div class="notification-message">
+                                Intermittent issues reported with Terminal 1 Staff Door. Temporary access procedures in place.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 1 month ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon icon-asset">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-title">
+                                Asset Audit Reminder
+                            </div>
+                            <div class="notification-message">
+                                Quarterly asset audit begins next week. Please verify all assigned equipment.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock me-1"></i> 2 months ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center p-4">
+                    <button class="btn btn-aai">Load More Notifications <i class="fas fa-chevron-down ms-2"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>AAI Asset Management</h5>
+                    <p>Comprehensive asset lifecycle management platform for Airport Authority of India.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" id="footer-nav">Home</a></li>
+                        <li><a href="dashboard.html" id="footer-nav">Dashboard</a></li>
+                        <li><a href="workflow.html" id="footer-nav">Workflow</a></li>
+                                                <li><a href="ITticketing.html" id="footer-nav">IT Tickets</a></li>
+                        <li><a href="contact.html" id="footer-nav">Help Center</a></li>
+                        <li><a href="notifications.html" id="footer-nav">Notifications</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" id="footer-nav">Documentation</a></li>
+                        <li><a href="#" id="footer-nav">Training Videos</a></li>
+                        <li><a href="#" id="footer-nav">FAQs</a></li>
+                        <li><a href="#" id="footer-nav">API Documentation</a></li>
+                        <li><a href="#" id="footer-nav">Release Notes</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> AAI Headquarters, New Delhi</li>
+                        <li><i class="fas fa-phone-alt me-2"></i> +91 11 2463 2999</li>
+                        <li><i class="fas fa-envelope me-2"></i> support@aaiasset.in</li>
+                        <li><i class="fas fa-clock me-2"></i> 24/7 Support Available</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 Airport Authority of India. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="#" id="footer-nav">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a href="#" id="footer-nav">Terms of Service</a></li>
+                        <li class="list-inline-item"><a href="#" id="footer-nav">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animation
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Navbar scroll effect
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 100) {
+                $('.navbar').addClass('scrolled');
+                $('#backToTop').fadeIn();
+            } else {
+                $('.navbar').removeClass('scrolled');
+                $('#backToTop').fadeOut();
+            }
+        });
+
+        // Back to top button
+        $('#backToTop').click(function(e) {
+            e.preventDefault();
+            $('html, body').animate({scrollTop: 0}, '300');
+        });
+
+        // Notification item click handler
+        $('.notification-item').click(function() {
+            $(this).removeClass('unread');
+            $(this).find('.badge-new').remove();
+        });
+
+        // Mark all as read button
+        $('.btn-aai-outline').first().click(function() {
+            $('.notification-item').removeClass('unread');
+            $('.badge-new').remove();
+            $('.notification-badge').text('0 New');
+        });
+
+        // Clear all button
+        $('.btn-aai-outline').last().click(function() {
+            if (confirm('Are you sure you want to clear all notifications?')) {
+                $('.notification-list').html(`
+                    <div class="notification-empty">
+                        <i class="far fa-bell-slash"></i>
+                        <h4>No Notifications</h4>
+                        <p>You're all caught up! No new notifications at this time.</p>
+                    </div>
+                `);
+                $('.notification-badge').text('0 New');
+            }
+        });
+
+        // Load more notifications
+        $('.btn-aai').last().click(function() {
+            // Simulate loading more notifications
+            $(this).html('<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Loading...');
+            setTimeout(() => {
+                $(this).text('Load More Notifications').prepend('<i class="fas fa-chevron-down ms-2"></i>');
+                // In a real app, this would load more notifications via AJAX
+                alert('More notifications would be loaded in a real application');
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
+                

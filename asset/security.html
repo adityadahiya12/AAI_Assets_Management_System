@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAI IT Department Asset Categories</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --aai-primary: #1a3e72;  /* Deep blue */
+            --aai-secondary: #4b8bbe;  /* Medium blue */
+            --aai-accent: #f6b26b;  /* Warm gold */
+            --aai-light: #e9f2f9;  /* Light blue */
+            --aai-dark: #0d1f3d;  /* Navy blue */
+            --aai-success: #5cb85c;  /* Green */
+            --aai-danger: #d9534f;  /* Red */
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--aai-white);
+        }
+        
+        /* Navbar with Glass Morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            transition: all 0.5s;
+        }
+        
+        .navbar-brand:hover img {
+            transform: rotate(15deg);
+        }
+        
+        .nav-link {
+            color: var(--aai-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover {
+            color: var(--aai-primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 62, 114, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 62, 114, 0.4);
+        }
+        
+        .btn-aai:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-aai:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-aai:hover:before {
+            left: 100%;
+        }
+        
+        .btn-aai-outline {
+            background-color: transparent;
+            color: var(--aai-primary);
+            border: 2px solid var(--aai-primary);
+            box-shadow: none;
+        }
+        
+        .btn-aai-outline:hover {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 60px;
+            text-align: center;
+            color: var(--aai-primary);
+            font-weight: 800;
+            font-size: 2.5rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            border-radius: 5px;
+        }
+        
+        .light-bg {
+            background-color: var(--aai-light);
+        }
+        
+        .dark-bg {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark));
+            color: white;
+        }
+        
+        .dark-bg .section-title {
+            color: white;
+        }
+        
+        .dark-bg .section-title:after {
+            background: linear-gradient(90deg, white, var(--aai-accent));
+        }
+        
+        /* Asset Category Cards */
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin-bottom: 30px;
+            border-top: 5px solid var(--aai-primary);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-top-color: var(--aai-accent);
+        }
+        
+        .category-header {
+            background-color: var(--aai-primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .category-body {
+            padding: 25px;
+        }
+        
+        .asset-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .asset-table th {
+            background-color: var(--aai-light);
+            color: var(--aai-primary);
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .asset-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .asset-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .asset-table tr:hover td {
+            background-color: rgba(233, 242, 249, 0.5);
+        }
+        
+        .badge-category {
+            background-color: var(--aai-accent);
+            color: var(--aai-dark);
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .btn-aai {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        #footer-nav {
+            color: var(--aai-white);
+            padding: 20px 0;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.png" alt="AAI Logo" class="img-fluid">
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="\index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="\pages\dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="\pages\workflow.html">Workflow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="\pages\ITticketing.html">IT Tickets</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="\pages\contact.html">Help Center</a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="\pages\notification.html">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-aai" href="\pages\login.html">Employee Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark)); padding: 150px 0 100px; color: white;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-4">Security Asset Categories</h1>
+                    <p class="lead mb-4">Comprehensive inventory of all security assets managed by Airport Authority of India</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#categories" class="btn btn-aai">Explore Categories <i class="fas fa-arrow-down ms-2"></i></a>
+                        <a href="ITticketing.html" class="btn btn-aai-outline">Report  Issue <i class="fas fa-ticket-alt ms-2"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-none d-lg-block">
+                    <img src="https://img.freepik.com/free-vector/cloud-computing-security-abstract-concept-illustration_335657-3823.jpg" alt="IT Assets" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="section light-bg" id="security-categories">
+  <div class="container">
+    <h2 class="section-title">Security Asset Categories</h2>
+    <p class="text-center mb-5">Detailed classification of all security-related assets managed by AAI's Security & Safety Division in coordination with CISF</p>
+
+    <!-- Surveillance Hardware -->
+    <div class="category-card" data-aos="fade-up">
+      <div class="category-header">
+        <h3><i class="fas fa-video me-2"></i> Surveillance Equipment</h3>
+      </div>
+      <div class="category-body">
+        <span class="badge-category">Category SEC-SURV</span>
+        <div class="table-responsive">
+          <table class="asset-table">
+            <thead>
+              <tr>
+                <th>Asset ID</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Location / Zone</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SEC-SURV-101</td>
+                <td>CCTV Cameras</td>
+                <td>High-definition, night vision capable</td>
+                <td>Terminal 1 - Check-in Area</td>
+                <td>Active</td>
+              </tr>
+              <tr>
+                <td>SEC-SURV-201</td>
+                <td>DVR/NVR Systems</td>
+                <td>24/7 recording, multi-channel storage</td>
+                <td>Security Control Room</td>
+                <td>Active</td>
+              </tr>
+              <tr>
+                <td>SEC-SURV-301</td>
+                <td>Body Scanners</td>
+                <td>Millimeter wave scanners for passenger security</td>
+                <td>Security Hold Area (SHA)</td>
+                <td>Operational</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personnel & ID Tracking -->
+    <div class="category-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="category-header">
+        <h3><i class="fas fa-id-card-alt me-2"></i> Personnel & Access</h3>
+      </div>
+      <div class="category-body">
+        <span class="badge-category">Category SEC-AC</span>
+        <div class="table-responsive">
+          <table class="asset-table">
+            <thead>
+              <tr>
+                <th>Asset ID</th>
+                <th>Type</th>
+                <th>Details</th>
+                <th>Access Zone</th>
+                <th>Authorization Level</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SEC-AC-101</td>
+                <td>CISF ID Cards</td>
+                <td>Biometric-enabled security IDs</td>
+                <td>All Terminals</td>
+                <td>High</td>
+              </tr>
+              <tr>
+                <td>SEC-AC-201</td>
+                <td>Visitor Pass Management</td>
+                <td>QR-based timed access for guests</td>
+                <td>Admin Buildings Only</td>
+                <td>Time-limited</td>
+              </tr>
+              <tr>
+                <td>SEC-AC-301</td>
+                <td>Employee Access Logs</td>
+                <td>Swipe log data of secure area entry</td>
+                <td>Restricted Zones</td>
+                <td>Logged</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Emergency Equipment -->
+    <div class="category-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="category-header">
+        <h3><i class="fas fa-shield-alt me-2"></i> Emergency & Safety Equipment</h3>
+      </div>
+      <div class="category-body">
+        <span class="badge-category">Category SEC-EMG</span>
+        <div class="table-responsive">
+          <table class="asset-table">
+            <thead>
+              <tr>
+                <th>Asset ID</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Maintenance Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SEC-EMG-101</td>
+                <td>Fire Extinguishers</td>
+                <td>ABC dry powder, CO2, Foam</td>
+                <td>Runways, Terminal Back Office</td>
+                <td>Inspected Monthly</td>
+              </tr>
+              <tr>
+                <td>SEC-EMG-201</td>
+                <td>Emergency Alarms</td>
+                <td>Multi-zone alert systems</td>
+                <td>All Terminals</td>
+                <td>Operational</td>
+              </tr>
+              <tr>
+                <td>SEC-EMG-301</td>
+                <td>Evacuation Maps</td>
+                <td>Printed & digital signage with escape routes</td>
+                <td>Inside Terminals</td>
+                <td>Updated Annually</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Incident Reporting & Logs -->
+    <div class="category-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="category-header">
+        <h3><i class="fas fa-file-alt me-2"></i> Incident Reports & Logs</h3>
+      </div>
+      <div class="category-body">
+        <span class="badge-category">Category SEC-LOG</span>
+        <div class="table-responsive">
+          <table class="asset-table">
+            <thead>
+              <tr>
+                <th>Asset ID</th>
+                <th>Log Type</th>
+                <th>Details Captured</th>
+                <th>Retention Period</th>
+                <th>Access Control</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SEC-LOG-101</td>
+                <td>Security Breach Logs</td>
+                <td>Time, Location, Type, Action Taken</td>
+                <td>5 years</td>
+                <td>Security HQ Only</td>
+              </tr>
+              <tr>
+                <td>SEC-LOG-201</td>
+                <td>Daily CISF Reports</td>
+                <td>Patrol timings, personnel deployment</td>
+                <td>2 years</td>
+                <td>CISF Supervisors</td>
+              </tr>
+              <tr>
+                <td>SEC-LOG-301</td>
+                <td>Lost & Found Reports</td>
+                <td>Item description, passenger details, recovery status</td>
+                <td>1 year</td>
+                <td>Helpdesk + Security</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>AAI Asset Management</h5>
+                    <p>Comprehensive asset lifecycle management platform for Airport Authority of India.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href=".\index.html" id="footer-nav">Home</a></li>
+                        <li><a href="..\pages\dashboard.html" id="footer-nav">Dashboard</a></li>
+                        <li><a href="..\pages\workflow.html" id="footer-nav">Workflow</a></li>
+                        <li><a href="..\pages\ITticketing.html" id="footer-nav">IT Tickets</a></li>
+                        <li><a href="..\pages\contact.html" id="footer-nav">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" id="footer-nav">User Guides</a></li>
+                        <li><a href="#" id="footer-nav">Training Videos</a></li>
+                        <li><a href="#" id="footer-nav">FAQs</a></li>
+                        <li><a href="#" id="footer-nav">Policy Documents</a></li>
+                        <li><a href="#" id="footer-nav">System Updates</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" id="footer-nav">Privacy Policy</a></li>
+                        <li><a href="#" id="footer-nav">Terms of Use</a></li>
+                        <li><a href="#" id="footer-nav">Security Policy</a></li>
+                        <li><a href="#" id="footer-nav">Accessibility</a></li>
+                        <li><a href="#" id="footer-nav">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">Copyright &copy; 2025 Airport Authority of India. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="#" id="footer-nav">Sitemap</a>
+                        <a href="#" id="footer-nav">Accessibility</a>
+                        <a href="#" id="footer-nav">Feedback</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            var navbar = document.querySelector('.navbar');
+            if (window.pageYOffset > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

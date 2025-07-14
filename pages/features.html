@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features | Airport Authority of India</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --aai-primary: #1a3e72;  /* Deep blue */
+            --aai-secondary: #4b8bbe;  /* Medium blue */
+            --aai-accent: #f6b26b;  /* Warm gold */
+            --aai-light: #e9f2f9;  /* Light blue */
+            --aai-dark: #0d1f3d;  /* Navy blue */
+            --aai-success: #5cb85c;  /* Green */
+            --aai-danger: #d9534f;  /* Red */
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--aai-white);
+        }
+        
+        /* Hero Background Animation */
+        .feature-hero-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, rgba(26, 62, 114, 0.9), rgba(13, 31, 61, 0.9)), 
+                        url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80');
+            background-size: cover;
+            background-position: center;
+            animation: bgPan 30s infinite alternate;
+        }
+        
+        @keyframes bgPan {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+        
+        /* Navbar with Glass Morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            transition: all 0.5s;
+        }
+        
+        .navbar-brand:hover img {
+            transform: rotate(15deg);
+        }
+        
+        .nav-link {
+            color: var(--aai-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover {
+            color: var(--aai-primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 62, 114, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 62, 114, 0.4);
+        }
+        
+        .btn-aai:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-aai:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-aai:hover:before {
+            left: 100%;
+        }
+        
+        .btn-aai-outline {
+            background-color: transparent;
+            color: var(--aai-primary);
+            border: 2px solid var(--aai-primary);
+            box-shadow: none;
+        }
+        
+        .btn-aai-outline:hover {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        /* Feature Hero Section */
+        .feature-hero-section {
+            height: 60vh;
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .feature-hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding-top: 100px;
+        }
+        
+        .feature-hero-section h1 {
+            font-weight: 800;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+        
+        .feature-hero-section p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0.9;
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 60px;
+            text-align: center;
+            color: var(--aai-primary);
+            font-weight: 800;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 1;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        .light-bg {
+            background-color: var(--aai-light);
+        }
+        
+        .dark-bg {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark));
+            color: white;
+        }
+        
+        .dark-bg .section-title {
+            color: white;
+        }
+        
+        .dark-bg .section-title:after {
+            background: linear-gradient(90deg, white, var(--aai-accent));
+        }
+        
+        /* Feature Cards */
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            height: 100%;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-left: 5px solid var(--aai-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-left-color: var(--aai-accent);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--aai-primary);
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            color: var(--aai-accent);
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--aai-dark);
+        }
+        
+        .feature-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        /* Feature Detail Section */
+        .feature-detail {
+            margin-bottom: 80px;
+        }
+        
+        .feature-detail-img {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .feature-detail-img:hover {
+            transform: scale(1.02);
+        }
+        
+        .feature-detail-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .feature-detail-content {
+            padding: 30px;
+        }
+        
+        .feature-detail-content h3 {
+            color: var(--aai-primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .feature-benefits {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .feature-benefits li {
+            padding: 10px 0;
+            padding-left: 40px;
+            position: relative;
+            color: #555;
+        }
+        
+        .feature-benefits li:before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 10px;
+            color: var(--aai-success);
+        }
+        
+        /* Testimonials */
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: '\f10d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 3rem;
+            color: rgba(26, 62, 114, 0.1);
+            z-index: 0;
+        }
+        
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .author-info h5 {
+            margin-bottom: 0;
+            color: var(--aai-primary);
+        }
+        
+        .author-info p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-section h2 {
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.2rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .feature-hero-section h1 {
+                font-size: 3.5rem;
+            }
+            
+            .feature-hero-section p {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .feature-hero-section {
+                min-height: 400px;
+                height: 50vh;
+            }
+            
+            .feature-hero-section h1 {
+                font-size: 2.8rem;
+            }
+            
+            .feature-detail {
+                margin-bottom: 50px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .feature-hero-section h1 {
+                font-size: 2.2rem;
+            }
+            
+            .feature-hero-section p {
+                font-size: 1rem;
+            }
+            
+            .btn-aai {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .btn-aai-outline {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Background Animation -->
+    <div class="feature-hero-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Airports_Authority_of_India_Logo.svg/1200px-Airports_Authority_of_India_Logo.svg.png" alt="AAI Logo" class="img-fluid">
+                AAI
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="features.html">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="workflow.html">Workflow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-aai" href="login.html">Employee Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Feature Hero Section -->
+    <section class="feature-hero-section">
+        <div class="container feature-hero-content">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="animate__animated animate__fadeInDown">Powerful Features for Aviation Management</h1>
+                    <p class="animate__animated animate__fadeIn animate__delay-1s">Discover the comprehensive tools and systems that help us manage India's aviation infrastructure efficiently</p>
+                    <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="#feature-list" class="btn btn-aai btn-lg me-3">Explore Features <i class="fas fa-arrow-down me-2"></i></a>
+                        <a href="dashboard.html" class="btn btn-aai-outline btn-lg">View Dashboard <i class="fas fa-chart-line me-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features List Section -->
+    <section class="section light-bg" id="feature-list">
+        <div class="container">
+            <h2 class="section-title">Our Comprehensive Features</h2>
+            <p class="text-center mb-5">Designed to streamline airport operations and enhance management efficiency</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-network"></i>
+                        </div>
+                        <h3>Real-time Dashboard</h3>
+                        <p>Monitor all airport operations through a centralized, customizable dashboard with live data feeds.</p>
+                        <a href="#dashboard-detail" class="btn btn-aai-outline btn-sm mt-3">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3>IT Ticketing System</h3>
+                        <p>Efficient issue tracking and resolution workflow for all IT-related airport infrastructure.</p>
+                        <a href="#ticketing-detail" class="btn btn-aai-outline btn-sm mt-3">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <h3>Asset Management</h3>
+                        <p>Comprehensive tracking and management of all airport assets and resources.</p>
+                        <a href="#asset-detail" class="btn btn-aai-outline btn-sm mt-3">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Maintenance Tracking</h3>
+                        <p>Schedule, track, and analyze maintenance activities for all critical infrastructure.</p>
+                        <a href="#maintenance-detail" class="btn btn-aai-outline btn-sm mt-3">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Security Integration</h3>
+                        <p>Centralized security management with real-time alerts and incident reporting.</p>
+                        <a href="#security-detail" class="btn btn-aai-outline btn-sm mt-3">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-plane-departure"></i>
+                        </div>
+                        <h3>Flight Operations</h3>
+                        <p>Comprehensive tools for managing flight schedules, gates, and ground operations.</p>
+                        <a href="#flight-detail" class="btn btn-aai-outline btn-sm mt-3">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Details Section -->
+    <section class="section" id="dashboard-detail">
+        <div class="container">
+            <div class="feature-detail">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <div class="feature-detail-img">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Dashboard Feature">
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <div class="feature-detail-content">
+                            <h3>Real-time Operational Dashboard</h3>
+                            <p>Our comprehensive dashboard provides airport managers with a real-time overview of all critical operations. Monitor passenger flow, flight statuses, security alerts, and facility status from a single, intuitive interface.</p>
+                            <ul class="feature-benefits">
+                                <li>Customizable widgets for different operational areas</li>
+                                <li>Real-time data visualization and analytics</li>
+                                <li>Role-based access to relevant information</li>
+                                <li>Mobile-responsive design for on-the-go access</li>
+                                <li>Automated alerts for critical situations</li>
+                            </ul>
+                            <a href="dashboard.html" class="btn btn-aai">Explore Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-detail" id="ticketing-detail">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 order-lg-2" data-aos="fade-left">
+                        <div class="feature-detail-img">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ticketing System">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1" data-aos="fade-right">
+                        <div class="feature-detail-content">
+                            <h3>IT Ticketing System</h3>
+                            <p>Streamline your IT support processes with our comprehensive ticketing system designed specifically for airport environments. Track, prioritize, and resolve technical issues efficiently.</p>
+                            <ul class="feature-benefits">
+                                <li>Automated ticket routing based on issue type</li>
+                                <li>Integration with asset management system</li>
+                                <li>SLA tracking and performance analytics</li>
+                                <li>Knowledge base integration for common solutions</li>
+                                <li>Mobile app for field technicians</li>
+                            </ul>
+                            <a href="ITticketing.html" class="btn btn-aai">Learn About Ticketing</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-detail" id="asset-detail">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <div class="feature-detail-img">
+                            <img src="https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Asset Management">
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <div class="feature-detail-content">
+                            <h3>Comprehensive Asset Management</h3>
+                            <p>Track and manage all airport assets from critical infrastructure to mobile equipment. Our system provides complete visibility into asset location, status, maintenance history, and lifecycle.</p>
+                            <ul class="feature-benefits">
+                                <li>Barcode and RFID asset tracking</li>
+                                <li>Depreciation and financial reporting</li>
+                                <li>Preventive maintenance scheduling</li>
+                                <li>Vendor and contract management</li>
+                                <li>Integration with procurement system</li>
+                            </ul>
+                            <a href="asset/department.html" class="btn btn-aai">View Asset System</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section light-bg">
+        <div class="container">
+            <h2 class="section-title">What Our Teams Say</h2>
+            <p class="text-center mb-5">Hear from AAI employees using these features daily</p>
+            
+            <div class="row">
+                <div class="col-lg-4" data-aos="fade-up">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "The real-time dashboard has transformed how we monitor operations at Delhi Airport. Having all critical metrics in one place has improved our response times by at least 40%."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rajiv Sharma">
+                            <div class="author-info">
+                                <h5>Rajiv Sharma</h5>
+                                <p>Operations Manager, DEL</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "The asset management system has saved us countless hours in tracking equipment across our large campus. The mobile access is particularly useful for our field teams."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya Patel">
+                            <div class="author-info">
+                                <h5>Priya Patel</h5>
+                                <p>Facilities Director, BOM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "As an IT manager, the ticketing system has dramatically improved our team's efficiency. The automated routing and SLA tracking ensure nothing falls through the cracks."
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Arjun Mehta">
+                            <div class="author-info">
+                                <h5>Arjun Mehta</h5>
+                                <p>IT Director, MAA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Experience These Features?</h2>
+                <p>Join thousands of AAI employees who are already managing India's aviation infrastructure with our powerful tools.</p>
+                <div>
+                    <a href="login.html" class="btn btn-aai btn-lg me-3">Employee Login</a>
+                    <a href="contact.html" class="btn btn-aai-outline btn-lg">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Airport Authority of India</h5>
+                    <p>Connecting the nation through world-class airport infrastructure and services.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="workflow.html">Workflow</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">User Guides</a></li>
+                        <li><a href="#">Training Videos</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Policy Documents</a></li>
+                        <li><a href="#">System Updates</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> AAI ,IGI terminal 3 , New Delhi</li>
+                        <li><i class="fas fa-phone me-2"></i> +91 11 2463 2950</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@aai.aero</li>
+                        <li><i class="fas fa-clock me-2"></i> Mon-Fri: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">Copyright &copy; 2023 Airport Authority of India. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="privacypolicy.html">Privacy Policy</a>
+                        <a href="termsofuse.html">Terms of Use</a>
+                        <a href="sitemap.html">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            var navbar = document.querySelector('.navbar');
+            if (window.pageYOffset > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

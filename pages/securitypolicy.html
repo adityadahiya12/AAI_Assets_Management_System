@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Policy | AAI Asset Management System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --aai-primary: #1a3e72;  /* Deep blue */
+            --aai-secondary: #4b8bbe;  /* Medium blue */
+            --aai-accent: #f6b26b;  /* Warm gold */
+            --aai-light: #e9f2f9;  /* Light blue */
+            --aai-dark: #0d1f3d;  /* Navy blue */
+            --aai-success: #5cb85c;  /* Green */
+            --aai-danger: #d9534f;  /* Red */
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--aai-white);
+        }
+        
+        /* Navbar with Glass Morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            transition: all 0.5s;
+        }
+        
+        .navbar-brand:hover img {
+            transform: rotate(15deg);
+        }
+        
+        .nav-link {
+            color: var(--aai-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover {
+            color: var(--aai-primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 62, 114, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 62, 114, 0.4);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--aai-primary);
+            font-weight: 800;
+            font-size: 2.5rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            border-radius: 5px;
+        }
+        
+        .light-bg {
+            background-color: var(--aai-light);
+        }
+        
+        .dark-bg {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark));
+            color: white;
+        }
+        
+        .dark-bg .section-title {
+            color: white;
+        }
+        
+        .dark-bg .section-title:after {
+            background: linear-gradient(90deg, white, var(--aai-accent));
+        }
+        
+        /* Security Policy Content */
+        .security-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .security-content h3 {
+            color: var(--aai-primary);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .security-content h4 {
+            color: var(--aai-secondary);
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .security-content ul {
+            padding-left: 20px;
+        }
+        
+        .security-content li {
+            margin-bottom: 8px;
+        }
+        
+        .security-badge {
+            display: inline-block;
+            background-color: var(--aai-light);
+            color: var(--aai-primary);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .security-alert {
+            background-color: rgba(217, 83, 79, 0.1);
+            border-left: 4px solid var(--aai-danger);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .security-note {
+            background-color: rgba(246, 178, 107, 0.1);
+            border-left: 4px solid var(--aai-accent);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .last-updated {
+            font-style: italic;
+            color: #666;
+            text-align: right;
+            margin-top: 30px;
+        }
+        
+        /* Footer */
+        #footer-nav {
+            color: var(--aai-white);
+            padding: 20px 0;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .security-content {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../logo.png" alt="AAI Logo" class="img-fluid">
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/workflow.html">Workflow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/ITticketing.html">IT Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/contact.html">Help Center</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-aai" href="../pages/login.html">Employee Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Security Policy Section -->
+    <section class="section light-bg">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Security Policy</h2>
+            <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="100">Last updated: June 15, 2025</p>
+            
+            <div class="security-content" data-aos="fade-up" data-aos-delay="200">
+                <h3>Introduction</h3>
+                <p>The Airport Authority of India (AAI) Asset Management System is designed with security as a fundamental principle. This Security Policy outlines the measures we implement to protect our systems, data, and users from security threats.</p>
+                
+                <div class="security-alert">
+                    <strong><i class="fas fa-exclamation-triangle me-2"></i>Security Alert:</strong> Any suspected security incidents should be reported immediately to the AAI Security Operations Center at <strong>soc@aai.gov.in</strong> or by calling <strong>+91-11-2467-SECU (7328)</strong>.
+                </div>
+                
+                <h3>System Security Measures</h3>
+                <p>We implement multiple layers of security to protect the AAI Asset Management System:</p>
+                
+                <h4>Access Control</h4>
+                <ul>
+                    <li><span class="security-badge">RBAC</span> Role-Based Access Control for all system functions</li>
+                    <li><span class="security-badge">MFA</span> Multi-Factor Authentication for all user accounts</li>
+                    <li><span class="security-badge">JIT</span> Just-In-Time access provisioning for privileged accounts</li>
+                    <li>Regular access rights reviews and recertification</li>
+                </ul>
+                
+                <h4>Data Protection</h4>
+                <ul>
+                    <li><span class="security-badge">TLS 1.3</span> Encryption of all data in transit</li>
+                    <li><span class="security-badge">AES-256</span> Encryption for sensitive data at rest</li>
+                    <li>Data masking for sensitive information in logs and reports</li>
+                    <li>Regular data backup with air-gapped storage</li>
+                </ul>
+                
+                <h4>Network Security</h4>
+                <ul>
+                    <li>Firewalls with application-layer filtering</li>
+                    <li>Intrusion Detection and Prevention Systems (IDPS)</li>
+                    <li>Network segmentation and micro-segmentation</li>
+                    <li>Continuous network traffic monitoring</li>
+                </ul>
+                
+                <h3>User Responsibilities</h3>
+                <p>All users of the AAI Asset Management System must adhere to the following security practices:</p>
+                
+                <div class="security-note">
+                    <strong><i class="fas fa-shield-alt me-2"></i>Note:</strong> Failure to comply with these security requirements may result in disciplinary action under AAI policies.
+                </div>
+                
+                <h4>Account Security</h4>
+                <ul>
+                    <li>Never share your login credentials with anyone</li>
+                    <li>Use strong, unique passwords (minimum 12 characters)</li>
+                    <li>Immediately report any suspicious account activity</li>
+                    <li>Lock your workstation when leaving your desk</li>
+                </ul>
+                
+                <h4>Data Handling</h4>
+                <ul>
+                    <li>Only access data required for your job function</li>
+                    <li>Never store sensitive data on personal devices</li>
+                    <li>Follow data classification and handling procedures</li>
+                    <li>Report any suspected data breaches immediately</li>
+                </ul>
+                
+                <h4>Physical Security</h4>
+                <ul>
+                    <li>Never allow tailgating at secure access points</li>
+                    <li>Challenge unbadged individuals in secure areas</li>
+                    <li>Secure all devices when not in use</li>
+                    <li>Follow clean desk policies</li>
+                </ul>
+                
+                <h3>Incident Response</h3>
+                <p>AAI maintains a comprehensive incident response plan for security events:</p>
+                <ul>
+                    <li><strong>Detection:</strong> 24/7 monitoring by Security Operations Center</li>
+                    <li><strong>Containment:</strong> Immediate isolation of affected systems</li>
+                    <li><strong>Investigation:</strong> Forensic analysis and root cause determination</li>
+                    <li><strong>Eradication:</strong> Removal of threats and vulnerabilities</li>
+                    <li><strong>Recovery:</strong> Secure restoration of systems and data</li>
+                    <li><strong>Lessons Learned:</strong> Process improvement and training</li>
+                </ul>
+                
+                <h3>Vulnerability Management</h3>
+                <p>We maintain a proactive vulnerability management program:</p>
+                <ul>
+                    <li>Monthly vulnerability scanning of all systems</li>
+                    <li>Quarterly penetration testing by certified ethical hackers</li>
+                    <li>Patch management within 7 days for critical vulnerabilities</li>
+                    <li>Continuous monitoring of threat intelligence feeds</li>
+                </ul>
+                
+                <h3>Compliance Standards</h3>
+                <p>The AAI Asset Management System complies with the following standards:</p>
+                <ul>
+                    <li>ISO/IEC 27001:2022 Information Security Management</li>
+                    <li>National Critical Information Infrastructure Protection Centre (NCIIPC) guidelines</li>
+                    <li>Cert-In (Indian Computer Emergency Response Team) directives</li>
+                    <li>AAI Information Security Policy</li>
+                </ul>
+                
+                <h3>Security Training</h3>
+                <p>All AAI employees receive regular security awareness training:</p>
+                <ul>
+                    <li>Mandatory annual security awareness training</li>
+                    <li>Quarterly phishing simulation exercises</li>
+                    <li>Role-specific security training for system administrators</li>
+                    <li>Secure coding training for developers</li>
+                </ul>
+                
+                <h3>Contact Security Team</h3>
+                <p>For security-related questions or concerns:</p>
+                <p><strong>AAI Security Operations Center</strong><br>
+                Email: soc@aai.gov.in<br>
+                Phone: +91-11-2467-SECU (7328)<br>
+                24/7 Emergency: +91-11-2467-EMER (3637)</p>
+                
+                <div class="last-updated">
+                    <p>This document was last updated on June 15, 2025</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>AAI Asset Management</h5>
+                    <p>Comprehensive asset lifecycle management platform for Airport Authority of India.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../index.html" id="footer-nav">Home</a></li>
+                        <li><a href="../index.html#assets" id="footer-nav">Assets</a></li>
+                        <li><a href="../pages/workflow.html" id="footer-nav">Workflow</a></li>
+                        <li><a href="../pages/ITticketing.html" id="footer-nav">IT Tickets</a></li>
+                        <li><a href="../pages/contact.html" id="footer-nav">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" id="footer-nav">User Guides</a></li>
+                        <li><a href="#" id="footer-nav">Training Videos</a></li>
+                        <li><a href="#" id="footer-nav">FAQs</a></li>
+                        <li><a href="#" id="footer-nav">Policy Documents</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../legal/privacy-policy.html" id="footer-nav">Privacy Policy</a></li>
+                        <li><a href="#" id="footer-nav" class="active">Security Policy</a></li>
+                        <li><a href="#" id="footer-nav">Terms of Use</a></li>
+                        <li><a href="#" id="footer-nav">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">Copyright &copy; 2025 Airport Authority of India. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="#" id="footer-nav">Sitemap</a>
+                        <a href="#" id="footer-nav">Accessibility</a>
+                        <a href="#" id="footer-nav">Feedback</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            var navbar = document.querySelector('.navbar');
+            
+            if (window.pageYOffset > 300) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

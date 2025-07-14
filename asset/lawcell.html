@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Cell Forms | AAI Asset Management System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --aai-primary: #1a3e72;  /* Deep blue */
+            --aai-secondary: #4b8bbe;  /* Medium blue */
+            --aai-accent: #f6b26b;  /* Warm gold */
+            --aai-light: #e9f2f9;  /* Light blue */
+            --aai-dark: #0d1f3d;  /* Navy blue */
+            --aai-success: #5cb85c;  /* Green */
+            --aai-danger: #d9534f;  /* Red */
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--aai-white);
+        }
+        
+        /* Navbar with Glass Morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            transition: all 0.5s;
+        }
+        
+        .navbar-brand:hover img {
+            transform: rotate(15deg);
+        }
+        
+        .nav-link {
+            color: var(--aai-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover {
+            color: var(--aai-primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 62, 114, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 62, 114, 0.4);
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--aai-primary);
+            font-weight: 800;
+            font-size: 2.5rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            border-radius: 5px;
+        }
+        
+        .light-bg {
+            background-color: var(--aai-light);
+        }
+        
+        .dark-bg {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark));
+            color: white;
+        }
+        
+        /* Form Styles */
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .form-header {
+            border-bottom: 2px solid var(--aai-accent);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .form-title {
+            color: var(--aai-primary);
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .form-icon {
+            color: var(--aai-accent);
+            font-size: 1.8rem;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: var(--aai-dark);
+        }
+        
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--aai-secondary);
+            box-shadow: 0 0 0 0.25rem rgba(75, 139, 190, 0.25);
+        }
+        
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-upload-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--aai-light);
+            color: var(--aai-dark);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-upload-label:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+        }
+        
+        .file-name {
+            margin-left: 10px;
+            font-size: 0.9rem;
+            color: var(--aai-dark);
+        }
+        
+        .btn-submit {
+            background-color: var(--aai-primary);
+            color: white;
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background-color: var(--aai-secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 62, 114, 0.3);
+        }
+        
+        .btn-reset {
+            background-color: var(--aai-light);
+            color: var(--aai-dark);
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-reset:hover {
+            background-color: #d1d9e0;
+        }
+        
+        /* Accordion Styles */
+        .accordion-button {
+            font-weight: 600;
+            color: var(--aai-primary);
+            background-color: var(--aai-light);
+            border-radius: 8px !important;
+            padding: 15px 20px;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(26, 62, 114, 0.25);
+        }
+        
+        .accordion-body {
+            padding: 20px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .form-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .form-icon {
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../logo.png" alt="AAI Logo" class="img-fluid">
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/workflow.html">Workflow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/ITticketing.html">IT Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/contact.html">Help Center</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-aai" href="../pages/login.html">Employee Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Law Cell Forms Section -->
+    <section class="section light-bg">
+        <div class="container">
+            <h2 class="section-title">Law Cell Forms</h2>
+            <p class="text-center mb-5">Comprehensive forms for legal case management and documentation</p>
+            
+            <div class="accordion mb-5" id="formsAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <i class="fas fa-gavel me-2"></i> Legal Case File Form
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#formsAccordion">
+                        <div class="accordion-body">
+                            <form id="legalCaseForm" class="form-container">
+                                <div class="form-header">
+                                    <h3 class="form-title">Legal Case File Form</h3>
+                                    <i class="fas fa-gavel form-icon"></i>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="caseId" class="form-label">Case ID</label>
+                                        <input type="text" class="form-control" id="caseId" value="AAI-LAW-2025-XXX" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="caseTitle" class="form-label">Case Title</label>
+                                        <input type="text" class="form-control" id="caseTitle" placeholder="e.g., AAI vs Vendor" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="petitioner" class="form-label">Petitioner</label>
+                                        <input type="text" class="form-control" id="petitioner" placeholder="AAI or external party" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="respondent" class="form-label">Respondent</label>
+                                        <input type="text" class="form-control" id="respondent" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="courtName" class="form-label">Court Name</label>
+                                        <select class="form-select" id="courtName" required>
+                                            <option value="" selected disabled>Select Court</option>
+                                            <option value="District Court">District Court</option>
+                                            <option value="High Court">High Court</option>
+                                            <option value="Supreme Court">Supreme Court</option>
+                                            <option value="NCLT">NCLT</option>
+                                            <option value="Arbitration">Arbitration</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="caseNumber" class="form-label">Case Number</label>
+                                        <input type="text" class="form-control" id="caseNumber" placeholder="As per court records" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="filingDate" class="form-label">Filing Date</label>
+                                        <input type="date" class="form-control" id="filingDate" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select class="form-select" id="status" required>
+                                            <option value="" selected disabled>Select Status</option>
+                                            <option value="Filed">Filed</option>
+                                            <option value="Hearing Scheduled">Hearing Scheduled</option>
+                                            <option value="Closed">Closed</option>
+                                            <option value="Appealed">Appealed</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="nextHearingDate" class="form-label">Next Hearing Date</label>
+                                        <input type="date" class="form-control" id="nextHearingDate">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="legalCounsel" class="form-label">Legal Counsel Name</label>
+                                        <select class="form-select" id="legalCounsel" required>
+                                            <option value="" selected disabled>Select Counsel</option>
+                                            <option value="Adv. Rajesh Kumar">Adv. Rajesh Kumar</option>
+                                            <option value="Adv. Priya Sharma">Adv. Priya Sharma</option>
+                                            <option value="Adv. Amit Patel">Adv. Amit Patel</option>
+                                            <option value="Other">Other (specify in remarks)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="assignedOfficer" class="form-label">Assigned AAI Officer</label>
+                                        <input type="text" class="form-control" id="assignedOfficer" placeholder="Name with Employee ID" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="caseSummary" class="form-label">Case Summary</label>
+                                    <textarea class="form-control" id="caseSummary" rows="4" required></textarea>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Uploaded Documents</label>
+                                    <div class="file-upload">
+                                        <label for="caseDocuments" class="file-upload-label">
+                                            <i class="fas fa-upload me-2"></i>Choose Files
+                                        </label>
+                                        <input type="file" class="file-upload-input" id="caseDocuments" multiple>
+                                        <span class="file-name" id="caseDocumentsName">No files chosen</span>
+                                    </div>
+                                    <small class="text-muted">(Petition, Notices, Affidavit, etc.)</small>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="remarks" class="form-label">Remarks</label>
+                                    <textarea class="form-control" id="remarks" rows="2"></textarea>
+                                </div>
+                                
+                                <div class="d-flex justify-content-end gap-3">
+                                    <button type="reset" class="btn btn-reset">Reset</button>
+                                    <button type="submit" class="btn btn-submit">Submit Case</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <i class="fas fa-bell me-2"></i> Legal Notices Form
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#formsAccordion">
+                        <div class="accordion-body">
+                            <form id="legalNoticeForm" class="form-container">
+                                <div class="form-header">
+                                    <h3 class="form-title">Legal Notices Form</h3>
+                                    <i class="fas fa-bell form-icon"></i>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="noticeId" class="form-label">Notice ID</label>
+                                        <input type="text" class="form-control" id="noticeId" value="AAI-NOTICE-2025-XXX" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="issuedTo" class="form-label">Issued To</label>
+                                        <input type="text" class="form-control" id="issuedTo" placeholder="Vendor Name, Department" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control" id="subject" placeholder="Short title of the issue" required>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="noticeDate" class="form-label">Notice Date</label>
+                                        <input type="date" class="form-control" id="noticeDate" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="dueResponseDate" class="form-label">Due Response Date</label>
+                                        <input type="date" class="form-control" id="dueResponseDate" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="noticeType" class="form-label">Type of Notice</label>
+                                        <select class="form-select" id="noticeType" required>
+                                            <option value="" selected disabled>Select Notice Type</option>
+                                            <option value="Show Cause">Show Cause</option>
+                                            <option value="Warning">Warning</option>
+                                            <option value="Termination">Termination</option>
+                                            <option value="Legal Notice">Legal Notice</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="issuedBy" class="form-label">Issued By</label>
+                                        <input type="text" class="form-control" id="issuedBy" placeholder="AAI Official Name" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Attached Document</label>
+                                    <div class="file-upload">
+                                        <label for="noticeDocument" class="file-upload-label">
+                                            <i class="fas fa-upload me-2"></i>Choose File
+                                        </label>
+                                        <input type="file" class="file-upload-input" id="noticeDocument" accept=".pdf">
+                                        <span class="file-name" id="noticeDocumentName">No file chosen</span>
+                                    </div>
+                                    <small class="text-muted">(PDF format only)</small>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="responseStatus" class="form-label">Response Status</label>
+                                        <select class="form-select" id="responseStatus" required>
+                                            <option value="" selected disabled>Select Status</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Received">Received</option>
+                                            <option value="Escalated">Escalated</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="followUpAction" class="form-label">Follow-up Action</label>
+                                    <textarea class="form-control" id="followUpAction" rows="3" required></textarea>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="noticeRemarks" class="form-label">Remarks</label>
+                                    <textarea class="form-control" id="noticeRemarks" rows="2"></textarea>
+                                </div>
+                                
+                                <div class="d-flex justify-content-end gap-3">
+                                    <button type="reset" class="btn btn-reset">Reset</button>
+                                    <button type="submit" class="btn btn-submit">Submit Notice</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <i class="fas fa-file-contract me-2"></i> Contract Review Tracking Form
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#formsAccordion">
+                        <div class="accordion-body">
+                            <form id="contractReviewForm" class="form-container">
+                                <div class="form-header">
+                                    <h3 class="form-title">Contract Review Tracking Form</h3>
+                                    <i class="fas fa-file-contract form-icon"></i>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="contractId" class="form-label">Contract ID</label>
+                                        <input type="text" class="form-control" id="contractId" value="AAI-CONTRACT-2025-XXX" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="contractTitle" class="form-label">Contract Title</label>
+                                        <input type="text" class="form-control" id="contractTitle" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="department" class="form-label">Department Requesting Review</label>
+                                        <select class="form-select" id="department" required>
+                                            <option value="" selected disabled>Select Department</option>
+                                            <option value="Commerce">Commerce</option>
+                                            <option value="IT">IT</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="HR">HR</option>
+                                            <option value="Operations">Operations</option>
+                                            <option value="Finance">Finance</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="vendorName" class="form-label">Vendor Name</label>
+                                        <input type="text" class="form-control" id="vendorName" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="submittedDate" class="form-label">Date Submitted for Review</label>
+                                        <input type="date" class="form-control" id="submittedDate" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="legalOfficer" class="form-label">Assigned Legal Officer</label>
+                                        <select class="form-select" id="legalOfficer" required>
+                                            <option value="" selected disabled>Select Officer</option>
+                                            <option value="Mr. Sharma">Mr. Sharma</option>
+                                            <option value="Ms. Gupta">Ms. Gupta</option>
+                                            <option value="Mr. Singh">Mr. Singh</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="reviewStatus" class="form-label">Review Status</label>
+                                        <select class="form-select" id="reviewStatus" required>
+                                            <option value="" selected disabled>Select Status</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Reviewed">Reviewed</option>
+                                            <option value="Sent Back">Sent Back</option>
+                                            <option value="Approved">Approved</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="finalReviewedDate" class="form-label">Final Reviewed Date</label>
+                                        <input type="date" class="form-control" id="finalReviewedDate">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="suggestions" class="form-label">Suggestions/Edits</label>
+                                    <textarea class="form-control" id="suggestions" rows="4" required></textarea>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Signed Copy Uploaded</label>
+                                        <div class="file-upload">
+                                            <label for="signedCopy" class="file-upload-label">
+                                                <i class="fas fa-upload me-2"></i>Choose File
+                                            </label>
+                                            <input type="file" class="file-upload-input" id="signedCopy">
+                                            <span class="file-name" id="signedCopyName">No file chosen</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="complianceClause" class="form-label">Compliance Clause Present?</label>
+                                        <div class="d-flex align-items-center mt-2">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="complianceClause" id="complianceYes" value="Yes">
+                                                <label class="form-check-label" for="complianceYes">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="complianceClause" id="complianceNo" value="No">
+                                                <label class="form-check-label" for="complianceNo">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="nextReviewDate" class="form-label">Next Review Due Date</label>
+                                    <input type="date" class="form-control" id="nextReviewDate">
+                                    <small class="text-muted">(For renewable contracts only)</small>
+                                </div>
+                                
+                                <div class="d-flex justify-content-end gap-3">
+                                    <button type="reset" class="btn btn-reset">Reset</button>
+                                    <button type="submit" class="btn btn-submit">Submit Review</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            <i class="fas fa-user-tie me-2"></i> Lawyer/Counsel Master Record Form
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#formsAccordion">
+                        <div class="accordion-body">
+                            <form id="lawyerRecordForm" class="form-container">
+                                <div class="form-header">
+                                    <h3 class="form-title">Lawyer/Counsel Master Record Form</h3>
+                                    <i class="fas fa-user-tie form-icon"></i>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lawyerId" class="form-label">Lawyer ID</label>
+                                        <input type="text" class="form-control" id="lawyerId" value="AAI-LAWYER-XXX" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lawyerName" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="lawyerName" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="specialization" class="form-label">Specialization</label>
+                                        <select class="form-select" id="specialization" required>
+                                            <option value="" selected disabled>Select Specialization</option>
+                                            <option value="Corporate">Corporate</option>
+                                            <option value="Criminal">Criminal</option>
+                                            <option value="Tax">Tax</option>
+                                            <option value="Civil">Civil</option>
+                                            <option value="Arbitration">Arbitration</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phoneNumber" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="email" class="form-label">Email ID</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="retainerType" class="form-label">Retainer / Panel Type</label>
+                                        <select class="form-select" id="retainerType" required>
+                                            <option value="" selected disabled>Select Type</option>
+                                            <option value="On-Panel">On-Panel</option>
+                                            <option value="Retainer">Retainer</option>
+                                            <option value="Case-Based">Case-Based</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="feeAgreement" class="form-label">Fee Agreement Terms</label>
+                                    <textarea class="form-control" id="feeAgreement" rows="3" required></textarea>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="casesHandled" class="form-label">Cases Handled (Linked Case IDs)</label>
+                                    <input type="text" class="form-control" id="casesHandled" placeholder="AAI-LAW-2025-001, AAI-LAW-2025-002">
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Documents (MoU / Contract)</label>
+                                    <div class="file-upload">
+                                        <label for="lawyerDocuments" class="file-upload-label">
+                                            <i class="fas fa-upload me-2"></i>Choose Files
+                                        </label>
+                                        <input type="file" class="file-upload-input" id="lawyerDocuments" multiple>
+                                        <span class="file-name" id="lawyerDocumentsName">No files chosen</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-end gap-3">
+                                    <button type="reset" class="btn btn-reset">Reset</button>
+                                    <button type="submit" class="btn btn-submit">Submit Record</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            <i class="fas fa-question-circle me-2"></i> RTI / Legal Queries Log Form
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#formsAccordion">
+                        <div class="accordion-body">
+                            <form id="rtiQueryForm" class="form-container">
+                                <div class="form-header">
+                                    <h3 class="form-title">RTI / Legal Queries Log Form</h3>
+                                    <i class="fas fa-question-circle form-icon"></i>
+                                </div>
+                                
+                                                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="queryId" class="form-label">Query ID</label>
+                                        <input type="text" class="form-control" id="queryId" value="AAI-QUERY-2025-XXX" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="requestType" class="form-label">Request Type</label>
+                                        <select class="form-select" id="requestType" required>
+                                            <option value="" selected disabled>Select Request Type</option>
+                                            <option value="RTI">RTI</option>
+                                            <option value="Internal">Internal</option>
+                                            <option value="Govt Order">Govt Order</option>
+                                            <option value="Media">Media</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="requestedBy" class="form-label">Requested By</label>
+                                        <input type="text" class="form-control" id="requestedBy" placeholder="Name of person or org" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="receiptDate" class="form-label">Date of Receipt</label>
+                                        <input type="date" class="form-control" id="receiptDate" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="querySubject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control" id="querySubject" required>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="forwardedTo" class="form-label">Forwarded To</label>
+                                        <input type="text" class="form-control" id="forwardedTo" placeholder="AAI Officer / Legal Advisor" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="responsePreparedBy" class="form-label">Response Prepared By</label>
+                                        <input type="text" class="form-control" id="responsePreparedBy" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="responseDate" class="form-label">Response Date</label>
+                                        <input type="date" class="form-control" id="responseDate">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="queryStatus" class="form-label">Status</label>
+                                        <select class="form-select" id="queryStatus" required>
+                                            <option value="" selected disabled>Select Status</option>
+                                            <option value="Open">Open</option>
+                                            <option value="Replied">Replied</option>
+                                            <option value="Escalated">Escalated</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Upload Reply</label>
+                                    <div class="file-upload">
+                                        <label for="replyDocument" class="file-upload-label">
+                                            <i class="fas fa-upload me-2"></i>Choose File
+                                        </label>
+                                        <input type="file" class="file-upload-input" id="replyDocument" accept=".pdf,.doc,.docx">
+                                        <span class="file-name" id="replyDocumentName">No file chosen</span>
+                                    </div>
+                                    <small class="text-muted">(PDF/Word format)</small>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="queryRemarks" class="form-label">Remarks</label>
+                                    <textarea class="form-control" id="queryRemarks" rows="2"></textarea>
+                                </div>
+                                
+                                <div class="d-flex justify-content-end gap-3">
+                                    <button type="reset" class="btn btn-reset">Reset</button>
+                                    <button type="submit" class="btn btn-submit">Submit Query</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            <i class="fas fa-folder-open me-2"></i> Legal Document Repository Form
+                        </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#formsAccordion">
+                        <div class="accordion-body">
+                            <form id="documentRepoForm" class="form-container">
+                                <div class="form-header">
+                                    <h3 class="form-title">Legal Document Repository Form</h3>
+                                    <i class="fas fa-folder-open form-icon"></i>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="documentId" class="form-label">Document ID</label>
+                                        <input type="text" class="form-control" id="documentId" value="AAI-DOC-2025-XXX" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="documentName" class="form-label">Document Name/Title</label>
+                                        <input type="text" class="form-control" id="documentName" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="documentType" class="form-label">Document Type</label>
+                                        <select class="form-select" id="documentType" required>
+                                            <option value="" selected disabled>Select Document Type</option>
+                                            <option value="Agreement">Agreement</option>
+                                            <option value="MoU">MoU</option>
+                                            <option value="NDA">NDA</option>
+                                            <option value="Affidavit">Affidavit</option>
+                                            <option value="Policy">Policy</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="createdDate" class="form-label">Created Date</label>
+                                        <input type="date" class="form-control" id="createdDate" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="linkedCase" class="form-label">Linked Case / Contract / Notice</label>
+                                    <input type="text" class="form-control" id="linkedCase" placeholder="Start typing to search...">
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="signedParties" class="form-label">Signed Parties</label>
+                                    <input type="text" class="form-control" id="signedParties" placeholder="Names of signing parties">
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="validityStart" class="form-label">Validity Period Start</label>
+                                        <input type="date" class="form-control" id="validityStart">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="validityEnd" class="form-label">Validity Period End</label>
+                                        <input type="date" class="form-control" id="validityEnd">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Uploaded File</label>
+                                    <div class="file-upload">
+                                        <label for="documentFile" class="file-upload-label">
+                                            <i class="fas fa-upload me-2"></i>Choose File
+                                        </label>
+                                        <input type="file" class="file-upload-input" id="documentFile" accept=".pdf,.doc,.docx">
+                                        <span class="file-name" id="documentFileName">No file chosen</span>
+                                    </div>
+                                    <small class="text-muted">(PDF/Word format)</small>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="securityLevel" class="form-label">Security Level</label>
+                                        <select class="form-select" id="securityLevel" required>
+                                            <option value="" selected disabled>Select Security Level</option>
+                                            <option value="Confidential">Confidential</option>
+                                            <option value="Internal">Internal</option>
+                                            <option value="Public">Public</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lastReviewed" class="form-label">Last Reviewed</label>
+                                        <input type="date" class="form-control" id="lastReviewed">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Review Reminder Set?</label>
+                                    <div class="d-flex align-items-center mt-2">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="reviewReminder" id="reminderYes" value="Yes">
+                                            <label class="form-check-label" for="reminderYes">Yes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="reviewReminder" id="reminderNo" value="No" checked>
+                                            <label class="form-check-label" for="reminderNo">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-end gap-3">
+                                    <button type="reset" class="btn btn-reset">Reset</button>
+                                    <button type="submit" class="btn btn-submit">Submit Document</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>AAI Asset Management</h5>
+                    <p>Comprehensive asset lifecycle management platform for Airport Authority of India.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../index.html" id="footer-nav">Home</a></li>
+                        <li><a href="../pages/dashboard.html" id="footer-nav">Dashboard</a></li>
+                        <li><a href="../pages/workflow.html" id="footer-nav">Workflow</a></li>
+                        <li><a href="../pages/ITticketing.html" id="footer-nav">IT Tickets</a></li>
+                        <li><a href="../pages/contact.html" id="footer-nav">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../pages/contact.html#faq" id="footer-nav">FAQs</a></li>
+                        <li><a href="../pages/contact.html#guides" id="footer-nav">User Guides</a></li>
+                        <li><a href="../pages/contact.html#training" id="footer-nav">Training Videos</a></li>
+                        <li><a href="#" id="footer-nav">System Updates</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../legal/privacy-policy.html" id="footer-nav">Privacy Policy</a></li>
+                        <li><a href="../legal/security-policy.html" id="footer-nav">Security Policy</a></li>
+                        <li><a href="../legal/terms-of-use.html" id="footer-nav">Terms of Use</a></li>
+                        <li><a href="#" id="footer-nav" class="active">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">Copyright &copy; 2025 Airport Authority of India. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="../sitemap.html" id="footer-nav">Sitemap</a>
+                        <a href="#" id="footer-nav" class="active">Accessibility</a>
+                        <a href="../pages/contact.html#feedback" id="footer-nav">Feedback</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize file upload display names
+        document.addEventListener('DOMContentLoaded', function() {
+            // File upload display functionality
+            const fileInputs = document.querySelectorAll('.file-upload-input');
+            
+            fileInputs.forEach(input => {
+                const fileNameDisplay = document.getElementById(input.id + 'Name');
+                
+                input.addEventListener('change', function() {
+                    if (this.files.length > 0) {
+                        if (this.files.length === 1) {
+                            fileNameDisplay.textContent = this.files[0].name;
+                        } else {
+                            fileNameDisplay.textContent = this.files.length + ' files selected';
+                        }
+                    } else {
+                        fileNameDisplay.textContent = 'No file chosen';
+                    }
+                });
+            });
+
+            // Form submission handlers
+            const forms = document.querySelectorAll('form');
+            
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Basic validation
+                    let isValid = true;
+                    const requiredFields = this.querySelectorAll('[required]');
+                    
+                    requiredFields.forEach(field => {
+                        if (!field.value.trim()) {
+                            field.classList.add('is-invalid');
+                            isValid = false;
+                        } else {
+                            field.classList.remove('is-invalid');
+                        }
+                    });
+                    
+                    if (isValid) {
+                        // In a real application, you would send data to server here
+                        alert('Form submitted successfully! Data would be saved in a real application.');
+                        this.reset();
+                        
+                        // Reset file names display
+                        const fileInputs = this.querySelectorAll('.file-upload-input');
+                        fileInputs.forEach(input => {
+                            document.getElementById(input.id + 'Name').textContent = 'No file chosen';
+                        });
+                    } else {
+                        alert('Please fill in all required fields.');
+                    }
+                });
+            });
+
+            // Generate IDs for new records
+            function generateId(prefix) {
+                const randomNum = Math.floor(Math.random() * 900) + 100;
+                return `${prefix}-${new Date().getFullYear()}-${randomNum}`;
+            }
+
+            // Auto-generate IDs for forms
+            document.getElementById('caseId').value = generateId('AAI-LAW');
+            document.getElementById('noticeId').value = generateId('AAI-NOTICE');
+            document.getElementById('contractId').value = generateId('AAI-CONTRACT');
+            document.getElementById('lawyerId').value = generateId('AAI-LAWYER');
+            document.getElementById('queryId').value = generateId('AAI-QUERY');
+            document.getElementById('documentId').value = generateId('AAI-DOC');
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                var navbar = document.querySelector('.navbar');
+                
+                if (window.pageYOffset > 300) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+                    
+
+
+
+
+
+
+
+
+

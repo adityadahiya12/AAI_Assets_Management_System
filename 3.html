@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airport Authority of India | Connecting the Nation</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --aai-primary: #1a3e72;  /* Deep blue */
+            --aai-secondary: #4b8bbe;  /* Medium blue */
+            --aai-accent: #f6b26b;  /* Warm gold */
+            --aai-light: #e9f2f9;  /* Light blue */
+            --aai-dark: #0d1f3d;  /* Navy blue */
+            --aai-success: #5cb85c;  /* Green */
+            --aai-danger: #d9534f;  /* Red */
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--aai-white);
+        }
+        
+        /* Hero Background Animation */
+        .hero-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, rgba(26, 62, 114, 0.9), rgba(13, 31, 61, 0.9)), 
+                        url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80');
+            background-size: cover;
+            background-position: center;
+            animation: bgPan 30s infinite alternate;
+        }
+        
+        @keyframes bgPan {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+        
+        /* Navbar with Glass Morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            transition: all 0.5s;
+        }
+        
+        .navbar-brand:hover img {
+            transform: rotate(15deg);
+        }
+        
+        .nav-link {
+            color: var(--aai-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover {
+            color: var(--aai-primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 62, 114, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 62, 114, 0.4);
+        }
+        
+        .btn-aai:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-aai:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-aai:hover:before {
+            left: 100%;
+        }
+        
+        .btn-aai-outline {
+            background-color: transparent;
+            color: var(--aai-primary);
+            border: 2px solid var(--aai-primary);
+            box-shadow: none;
+        }
+        
+        .btn-aai-outline:hover {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            min-height: 800px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding-top: 100px;
+        }
+        
+        .hero-section h1 {
+            font-weight: 800;
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+        
+        .hero-section p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0.9;
+        }
+        
+        .hero-scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 60px;
+            text-align: center;
+            color: var(--aai-primary);
+            font-weight: 800;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 1;
+            transition: color 0.3s ease;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        .light-bg {
+            background-color: var(--aai-light);
+        }
+        
+        .dark-bg {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark));
+            color: white;
+        }
+        
+        .dark-bg .section-title {
+            color: white;
+        }
+        
+        .dark-bg .section-title:after {
+            background: linear-gradient(90deg, white, var(--aai-accent));
+        }
+        
+        /* Enhanced Airport Network Section */
+        .airport-network-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        #airport-network-map {
+            height: 600px;
+            width: 100%;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .airport-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        .control-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--aai-dark);
+        }
+        
+        .control-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .control-group select:focus {
+            outline: none;
+            border-color: var(--aai-primary);
+            box-shadow: 0 0 0 3px rgba(26, 62, 114, 0.2);
+        }
+        
+        .flight-info-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .flight-info-box {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .flight-info-box h3 {
+            color: var(--aai-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--aai-light);
+            font-weight: 700;
+        }
+        
+        .flight-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .flight-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .flight-item:last-child {
+            border-bottom: none;
+        }
+        
+        .flight-number {
+            font-weight: 600;
+            color: var(--aai-primary);
+        }
+        
+        .flight-time {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .flight-status {
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-arrived {
+            background-color: rgba(92, 184, 92, 0.1);
+            color: var(--aai-success);
+        }
+        
+        .status-departed {
+            background-color: rgba(66, 139, 202, 0.1);
+            color: var(--aai-secondary);
+        }
+        
+        .status-delayed {
+            background-color: rgba(240, 173, 78, 0.1);
+            color: #f0ad4e;
+        }
+        
+        .status-scheduled {
+            background-color: rgba(147, 128, 208, 0.1);
+            color: #6a1b9a;
+        }
+        
+        .airport-marker {
+            width: 28px;
+            height: 28px;
+            background-color: var(--aai-primary);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        
+        .airport-marker:hover {
+            transform: scale(1.2);
+            background-color: var(--aai-accent);
+        }
+        
+        .flight-path {
+            stroke: var(--aai-primary);
+            stroke-width: 2;
+            stroke-dasharray: 10, 10;
+            animation: dash 30s linear infinite;
+            fill: none;
+            opacity: 0.6;
+        }
+        
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 1000;
+            }
+        }
+        
+        .plane-icon {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23d32f2f"><path d="M22 16.21v-1.895L14 8V4a2 2 0 0 0-4 0v4l-8 6.315v1.895l8-2.526V18l-2 2v2l3.5-1 3.5 1v-2l-2-2v-4.316l8 2.526z"/></svg>');
+            background-size: contain;
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        /* Features Section */
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            height: 100%;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-left: 5px solid var(--aai-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-left-color: var(--aai-accent);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--aai-primary);
+            margin-bottom: 20px;
+        }
+        
+        /* Stats Section */
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--aai-primary);
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--aai-dark);
+            font-weight: 600;
+        }
+        
+        .text-center.mb-5 {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-section h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero-section p {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            #airport-network-map {
+                height: 500px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: 700px;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.8rem;
+            }
+            
+            .flight-info-box {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-section p {
+                font-size: 1rem;
+            }
+            
+            .btn-aai {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .btn-aai-outline {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            #airport-network-map {
+                height: 400px;
+            }
+            
+            .control-group {
+                min-width: 100%;
+            }
+        }
+          /* AOS Animation */
+        [data-aos] {
+            opacity: 0;
+            transition-property: opacity, transform;
+        }
+        [data-aos].aos-animate {
+            opacity: 1;
+        }
+        [data-aos][data-aos-easing] {
+            transition-timing-function: var(--aos-easing);
+        }
+        [data-aos][data-aos-duration] {
+            transition-duration: var(--aos-duration);
+        }
+        [data-aos][data-aos-delay] {
+            transition-delay: var(--aos-delay);
+        }
+        [data-aos][data-aos-offset] {
+            transition-delay: calc(var(--aos-offset) * 1ms);
+        }
+        [data-aos][data-aos-anchor] {
+            transition-delay: calc(var(--aos-anchor) * 1ms);
+        }
+        [data-aos][data-aos-once] {
+            transition-delay: calc(var(--aos-once) * 1ms);
+        }
+        [data-aos][data-aos-mirror] {
+            transition-delay: calc(var(--aos-mirror) * 1ms);
+        }
+        [data-aos][data-aos-anchor-placement] {
+            transition-delay: calc(var(--aos-anchor-placement) * 1ms);
+        }
+        [data-aos][data-aos-duration] {
+            transition-delay: calc(var(--aos-duration) * 1ms);
+        }
+        [data-aos][data-aos-delay] {
+            transition-delay: calc(var(--aos-delay) * 1ms);
+        }
+        [data-aos][data-aos-offset] {
+            transition-delay: calc(var(--aos-offset) * 1ms);
+        }
+        [data-aos][data-aos-anchor] {
+            transition-delay: calc(var(--aos-anchor) * 1ms);
+        }
+        [data-aos][data-aos-once] {
+            transition-delay: calc(var(--aos-once) * 1ms);
+        }
+        [data-aos][data-aos-mirror] {
+            transition-delay: calc(var(--aos-mirror) * 1ms);
+        }
+        [data-aos][data-aos-anchor-placement] {
+            transition-delay: calc(var(--aos-anchor-placement) * 1ms);
+        }
+        #section-message{
+            font-size: 2rem;
+            color: var(--aai-dark);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        #footer-navagation{
+            color: var(--aai-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }/* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-section h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero-section p {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: 700px;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.8rem;
+            }
+            
+            .map-overlay {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-bottom: 20px;
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-section p {
+                font-size: 1rem;
+            }
+            
+            .btn-aai {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .btn-aai-outline {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+        /* Blog Section */
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin-bottom: 30px;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .blog-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .blog-body {
+            padding: 25px;
+        }
+        
+        .blog-date {
+            color: var(--aai-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Flight Path Animation */
+        .flight-path {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .flight-path .plane {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f6b26b"><path d="M22 16.21v-1.895L14 8V4a2 2 0 0 0-4 0v4l-8 6.315v1.895l8-2.526V18l-2 2v2l3.5-1 3.5 1v-2l-2-2v-4.316l8 2.526z"/></svg>');
+            background-size: contain;
+            animation: fly linear infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes fly {
+            0% { transform: translateX(-100px) translateY(0) rotate(0deg); }
+            100% { transform: translateX(calc(100vw + 100px)) translateY(calc((random(200) - 100) * 1px)) rotate(0deg); }
+        }
+        #section-title-our-key{
+            text-transform: none;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: grey;
+        }
+        #text-in-section{
+            font-size: 1.5rem;
+            color: black;
+            text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Background Animation -->
+    <div class="hero-bg"></div>
+    
+    <!-- Flight Path Animation -->
+    <div class="flight-path" id="flightPath"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Airports_Authority_of_India_Logo.svg/1200px-Airports_Authority_of_India_Logo.svg.png" alt="AAI Logo" class="img-fluid">
+                AAI
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/features.html">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/workflow.html">Workflow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/contact.html">Help</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-aai" href="pages/login.html">Employee Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container hero-content">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="animate__animated animate__fadeInDown">Connecting India Through Aviation</h1>
+                    <p class="animate__animated animate__fadeIn animate__delay-1s">Managing 137 airports across the nation with world-class infrastructure and services</p>
+                    <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="pages/dashboard.html" class="btn btn-aai btn-lg me-3">Explore Dashboard <i class="fas fa-chart-line me-2"></i></a>
+                        <a href="#airport-network" class="btn btn-aai-outline btn-lg">View Airports <i class="fas fa-map-marked-alt me-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-scroll-down" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section light-bg">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6" data-aos="fade-up">
+                    <div class="stat-item">
+                        <div class="stat-number" id="airportCounter">137</div>
+                        <div class="stat-label">Airports Managed</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-item">
+                        <div class="stat-number" id="passengerCounter">345</div>
+                        <div class="stat-label">Million Passengers</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-item">
+                        <div class="stat-number" id="flightCounter">2.1</div>
+                        <div class="stat-label">Million Flights</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-item">
+                        <div class="stat-number" id="employeeCounter">17,500</div>
+                        <div class="stat-label">Dedicated Employees</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <h2 class="section-title" id="section-title-our-key">Our Key Features</h2>
+            <p class="text-center mb-5"  id="text-in-section">Innovative solutions for modern airport management</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-network"></i>
+                        </div>
+                        <h3>Comprehensive Dashboard</h3>
+                        <p>Real-time monitoring of all airport operations with customizable widgets and analytics.</p>
+                        <a href="pages/dashboard.html" class="btn btn-aai-outline btn-sm mt-3">Click here</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3>IT Ticketing System</h3>
+                        <p>Streamlined processes for asset management, maintenance, and resource allocation.</p>
+                        <a href="pages/ITticketing.html" class="btn btn-aai-outline btn-sm mt-3">Click here</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <h3>Department of the assets</h3>
+                        <p>Integrated items for all AAI assets and operations.</p>
+                        <a href="asset/department.html" class="btn btn-aai-outline btn-sm mt-3">Click here</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Maintenance Tracking</h3>
+                        <p>Proactive maintenance scheduling and history for all critical infrastructure.</p>
+                        <a href="pages/maintance.html" class="btn btn-aai-outline btn-sm mt-3">Click here</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Security Integration</h3>
+                        <p>Centralized security management with real-time alerts and incident reporting.</p>
+                        <a href="pages/securitypolicy.html" class="btn btn-aai-outline btn-sm mt-3">Click here</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h3>Flight Network</h3>
+                        <p>Interactive map of India's airport network and flight connections.</p>
+                        <a href="#airport-network" class="btn btn-aai-outline btn-sm mt-3">View Network</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Airport Network Section -->
+    <section class="section light-bg" id="airport-network">
+        <div class="container">
+            <h2 class="section-title">India's Airport Network</h2>
+            <p class="text-center mb-5" id="text-in-section">Interactive map showing all international airports and flight connections</p>
+            
+            <div class="airport-network-container" data-aos="fade-up">
+                <div id="airport-network-map"></div>
+                <div class="airport-controls">
+                    <div class="control-group">
+                        <label for="origin">Departure Airport</label>
+                        <select id="origin">
+                            <option value="">Select departure airport</option>
+                            <option value="DEL">Indira Gandhi International Airport (Delhi)</option>
+                            <option value="BOM">Chhatrapati Shivaji Maharaj International Airport (Mumbai)</option>
+                            <option value="MAA">Chennai International Airport (Chennai)</option>
+                            <option value="BLR">Kempegowda International Airport (Bangalore)</option>
+                            <option value="HYD">Rajiv Gandhi International Airport (Hyderabad)</option>
+                            <option value="CCU">Netaji Subhas Chandra Bose International Airport (Kolkata)</option>
+                            <option value="COK">Cochin International Airport (Kochi)</option>
+                            <option value="GOI">Dabolim Airport (Goa)</option>
+                            <option value="TRV">Trivandrum International Airport (Thiruvananthapuram)</option>
+                            <option value="AMD">Sardar Vallabhbhai Patel International Airport (Ahmedabad)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="destination">Arrival Airport</label>
+                        <select id="destination">
+                            <option value="">Select arrival airport</option>
+                            <option value="DEL">Indira Gandhi International Airport (Delhi)</option>
+                            <option value="BOM">Chhatrapati Shivaji Maharaj International Airport (Mumbai)</option>
+                            <option value="MAA">Chennai International Airport (Chennai)</option>
+                            <option value="BLR">Kempegowda International Airport (Bangalore)</option>
+                            <option value="HYD">Rajiv Gandhi International Airport (Hyderabad)</option>
+                            <option value="CCU">Netaji Subhas Chandra Bose International Airport (Kolkata)</option>
+                            <option value="COK">Cochin International Airport (Kochi)</option>
+                            <option value="GOI">Dabolim Airport (Goa)</option>
+                            <option value="TRV">Trivandrum International Airport (Thiruvananthapuram)</option>
+                            <option value="AMD">Sardar Vallabhbhai Patel International Airport (Ahmedabad)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <a href="pages/showroute.html"><button id="show-route" class="btn btn-aai">Show Flight Route</button></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flight-info-container">
+                <div class="flight-info-box">
+                    <h3>Fly high, land with pride</h3>
+                    <div class="flight-list" id="departures">
+                        <!-- Departure flights will be added here by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="flight-info-box">
+                    <h3>Elevate lives, innovate the skies.</h3>
+                    <div class="flight-list" id="arrivals">
+                        <!-- Arrival flights will be added here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="section" id="blog">
+        <div class="container">
+            <h2 class="section-title"  id="section-title-our-key">Latest Updates</h2>
+            <p class="text-center mb-5" id="text-in-section">News and insights from the Airport Authority of India</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="blog-img" alt="New Terminal">
+                        <div class="blog-body">
+                            <span class="blog-date">June 15, 2025</span>
+                            <h4>New Terminal Inauguration at Delhi Airport</h4>
+                            <p>The state-of-the-art Terminal 4 at Indira Gandhi International Airport opens to the public.</p>
+                            <a href="#" class="btn btn-aai-outline btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80" class="blog-img" alt="Sustainability">
+                        <div class="blog-body">
+                            <span class="blog-date">May 28, 2025</span>
+                            <h4>Sustainability Initiatives Across AAI Airports</h4>
+                            <p>AAI announces ambitious plans for carbon neutrality by 2030 with solar power and water recycling.</p>
+                            <a href="#" class="btn btn-aai-outline btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="blog-card">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="blog-img" alt="Technology">
+                        <div class="blog-body">
+                            <span class="blog-date">April 10, 2025</span>
+                            <h4>New Biometric Boarding Systems Rolled Out</h4>
+                            <p>Facial recognition technology now operational at 15 major airports across India.</p>
+                            <a href="#" class="btn btn-aai-outline btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4" data-aos="fade-up">
+                <a href="#" class="btn btn-aai">View All Updates</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section dark-bg">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8" data-aos="fade-right">
+                    <h2>Ready to Experience Our Platform?</h2>
+                    <p class="lead">Join thousands of AAI employees who are already managing India's aviation infrastructure with our powerful tools.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end" data-aos="fade-left">
+                    <a href="pages/login.html" class="btn btn-aai btn-lg me-3">Employee Login</a>
+                    <a href="pages/contact.html" class="btn btn-aai-outline btn-lg">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Airport Authority of India</h5>
+                    <p>Connecting the nation through world-class airport infrastructure and services.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" id="footer-navagation">Home</a></li>
+                        <li><a href="pages/dashboard.html" id="footer-navagation">Dashboard</a></li>
+                        <li><a href="pages/workflow.html" id="footer-navagation">Workflow</a></li>
+                        <li><a href="#" id="footer-navagation">Features</a></li>
+                        <li><a href="pages/blog.html" id="footer-navagation">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" id="footer-navagation">User Guides</a></li>
+                        <li><a href="#" id="footer-navagation">Training Videos</a></li>
+                        <li><a href="#" id="footer-navagation">FAQs</a></li>
+                        <li><a href="#" id="footer-navagation">Policy Documents</a></li>
+                        <li><a href="#" id="footer-navagation">System Updates</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> AAI ,IGI terminal 3 , New Delhi</li>
+                        <li><i class="fas fa-phone me-2"></i> +91 11 2463 2950</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@aai.aero</li>
+                        <li><i class="fas fa-clock me-2"></i> Mon-Fri: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">Copyright &copy; 2025 Airport Authority of India. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="pages/privacypolicy.html" id="footer-navagation">Privacy Policy</a>
+                        <a href="pages/termsofuse.html" id="footer-navagation">Terms of Use</a>
+                        <a href="pages/sitemap.html" id="footer-navagation">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Leaflet Arc JS for curved flight paths -->
+    <script src="https://unpkg.com/leaflet-arc@1.0.0/L.Arc.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            var navbar = document.querySelector('.navbar');
+            if (window.pageYOffset > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Create flight path animation
+        function createFlightPaths() {
+            const flightPath = document.getElementById('flightPath');
+            const planeCount = 15;
+            
+            for (let i = 0; i < planeCount; i++) {
+                const plane = document.createElement('div');
+                plane.className = 'plane';
+                plane.style.top = Math.random() * 100 + '%';
+                plane.style.left = Math.random() * 100 + '%';
+                plane.style.animationDuration = (10 + Math.random() * 20) + 's';
+                plane.style.animationDelay = (Math.random() * 10) + 's';
+                flightPath.appendChild(plane);
+            }
+        }
+        
+        // Initialize airport network map
+        function initAirportNetworkMap() {
+            // Initialize the map centered on India
+            const map = L.map('airport-network-map').setView([20.5937, 78.9629], 5);
+            
+            // Add OpenStreetMap tiles with a light theme
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // International airports in India with coordinates and IATA codes
+            const airports = {
+                "DEL": { name: "Indira Gandhi International Airport", city: "Delhi", coords: [28.5562, 77.1000] },
+                "BOM": { name: "Chhatrapati Shivaji Maharaj International Airport", city: "Mumbai", coords: [19.0887, 72.8679] },
+                "MAA": { name: "Chennai International Airport", city: "Chennai", coords: [12.9941, 80.1707] },
+                "BLR": { name: "Kempegowda International Airport", city: "Bangalore", coords: [13.1986, 77.7066] },
+                "HYD": { name: "Rajiv Gandhi International Airport", city: "Hyderabad", coords: [17.2403, 78.4294] },
+                "CCU": { name: "Netaji Subhas Chandra Bose International Airport", city: "Kolkata", coords: [22.6547, 88.4467] },
+                "COK": { name: "Cochin International Airport", city: "Kochi", coords: [10.1520, 76.4019] },
+                "GOI": { name: "Dabolim Airport", city: "Goa", coords: [15.3808, 73.8343] },
+                "TRV": { name: "Trivandrum International Airport", city: "Thiruvananthapuram", coords: [8.4821, 76.9204] },
+                "AMD": { name: "Sardar Vallabhbhai Patel International Airport", city: "Ahmedabad", coords: [23.0772, 72.6346] }
+            };
+            
+            // Sample flight connections between airports
+            const flightConnections = [
+                { from: "DEL", to: "BOM", flights: ["AI101", "6E205", "UK911"] },
+                { from: "DEL", to: "MAA", flights: ["AI502", "6E721", "SG301"] },
+                { from: "DEL", to: "BLR", flights: ["AI503", "6E611", "UK809"] },
+                { from: "DEL", to: "HYD", flights: ["AI504", "6E221", "SG801"] },
+                { from: "DEL", to: "CCU", flights: ["AI505", "6E531", "UK501"] },
+                { from: "BOM", to: "MAA", flights: ["AI506", "6E231", "I5161"] },
+                { from: "BOM", to: "BLR", flights: ["AI507", "6E241", "I5171"] },
+                { from: "BOM", to: "HYD", flights: ["AI508", "6E251", "I5181"] },
+                { from: "BOM", to: "CCU", flights: ["AI509", "6E261", "I5191"] },
+                { from: "MAA", to: "BLR", flights: ["AI510", "6E271", "I5201"] },
+                { from: "MAA", to: "COK", flights: ["AI511", "6E281", "I5211"] },
+                { from: "MAA", to: "TRV", flights: ["AI512", "6E291", "I5221"] },
+                { from: "BLR", to: "HYD", flights: ["AI513", "6E301", "I5231"] },
+                { from: "BLR", to: "GOI", flights: ["AI514", "6E311", "I5241"] },
+                { from: "HYD", to: "AMD", flights: ["AI515", "6E321", "I5251"] }
+            ];
+            
+            // Sample flight data for arrivals and departures
+            const flightData = {
+                "DEL": {
+                    arrivals: [
+                        { flight: "AI101", from: "BOM", time: "08:15", status: "Arrived" },
+                        { flight: "AI502", from: "MAA", time: "10:30", status: "Delayed" },
+                        { flight: "6E205", from: "BOM", time: "11:45", status: "Arrived" },
+                        { flight: "UK911", from: "BOM", time: "14:20", status: "Arrived" },
+                        { flight: "AI504", from: "HYD", time: "16:10", status: "Scheduled" }
+                    ],
+                    departures: [
+                        { flight: "AI102", to: "BOM", time: "09:30", status: "Departed" },
+                        { flight: "AI503", to: "BLR", time: "11:15", status: "Boarding" },
+                        { flight: "6E206", to: "BOM", time: "13:40", status: "Scheduled" },
+                        { flight: "UK912", to: "BOM", time: "15:55", status: "Scheduled" },
+                        { flight: "AI505", to: "CCU", time: "18:30", status: "Scheduled" }
+                    ]
+                },
+                "BOM": {
+                    arrivals: [
+                        { flight: "AI102", from: "DEL", time: "10:45", status: "Arrived" },
+                        { flight: "AI506", from: "MAA", time: "12:20", status: "Arrived" },
+                        { flight: "6E206", from: "DEL", time: "14:55", status: "Scheduled" },
+                        { flight: "UK912", from: "DEL", time: "17:10", status: "Scheduled" },
+                        { flight: "AI508", from: "HYD", time: "19:25", status: "Scheduled" }
+                    ],
+                    departures: [
+                        { flight: "AI101", to: "DEL", time: "07:00", status: "Departed" },
+                        { flight: "AI507", to: "BLR", time: "10:15", status: "Departed" },
+                        { flight: "6E205", to: "DEL", time: "11:00", status: "Departed" },
+                        { flight: "UK911", to: "DEL", time: "13:30", status: "Boarding" },
+                        { flight: "AI509", to: "CCU", time: "16:45", status: "Scheduled" }
+                    ]
+                },
+                "MAA": {
+                    arrivals: [
+                        { flight: "AI502", from: "DEL", time: "10:30", status: "Arrived" },
+                        { flight: "AI506", from: "BOM", time: "12:20", status: "Arrived" },
+                        { flight: "6E721", from: "DEL", time: "14:10", status: "Delayed" }
+                    ],
+                    departures: [
+                        { flight: "AI501", to: "DEL", time: "06:45", status: "Departed" },
+                        { flight: "AI511", to: "COK", time: "09:30", status: "Boarding" },
+                        { flight: "6E722", to: "DEL", time: "12:15", status: "Scheduled" }
+                    ]
+                },
+                "BLR": {
+                    arrivals: [
+                        { flight: "AI503", from: "DEL", time: "12:45", status: "Arrived" },
+                        { flight: "AI507", from: "BOM", time: "13:20", status: "Arrived" },
+                        { flight: "6E611", from: "DEL", time: "15:30", status: "Scheduled" }
+                    ],
+                    departures: [
+                        { flight: "AI504", to: "DEL", time: "08:30", status: "Departed" },
+                        { flight: "AI513", to: "HYD", time: "11:45", status: "Boarding" },
+                        { flight: "6E612", to: "DEL", time: "14:20", status: "Scheduled" }
+                    ]
+                }
+            };
+            
+            // Add airport markers to the map
+            const airportMarkers = {};
+            Object.keys(airports).forEach(code => {
+                const airport = airports[code];
+                const marker = L.marker(airport.coords, {
+                    icon: L.divIcon({
+                        className: 'airport-marker',
+                        html: code,
+                        iconSize: [28, 28]
+                    })
+                }).addTo(map);
+                
+                marker.bindPopup(`
+                    <div style="min-width: 200px">
+                        <h4 style="margin: 0 0 5px 0; color: var(--aai-primary);">${airport.name}</h4>
+                        <p style="margin: 0 0 5px 0; color: #666;"><i class="fas fa-map-marker-alt"></i> ${airport.city}</p>
+                        <p style="margin: 0;"><strong>IATA:</strong> ${code}</p>
+                    </div>
+                `);
+                
+                airportMarkers[code] = marker;
+            });
+            
+            // Draw flight connections
+            const flightPaths = {};
+            flightConnections.forEach(connection => {
+                const fromAirport = airports[connection.from];
+                const toAirport = airports[connection.to];
+                
+                // Create an arc between the airports
+                const arc = L.arc(fromAirport.coords, toAirport.coords, {
+                    color: '#1a3e72',
+                    weight: 2,
+                    vertices: 200,
+                    opacity: 0.6,
+                    dashArray: '10, 10'
+                }).addTo(map);
+                
+                flightPaths[`${connection.from}-${connection.to}`] = arc;
+                
+                // Add popup with flight info
+                arc.bindPopup(`
+                    <div style="min-width: 200px">
+                        <h4 style="margin: 0 0 10px 0; color: var(--aai-primary);">${connection.from} to ${connection.to}</h4>
+                        <p style="margin: 0 0 5px 0;"><strong>Flights:</strong></p>
+                        <p style="margin: 0;">${connection.flights.join(', ')}</p>
+                    </div>
+                `);
+            });
+            
+            // Function to show flight route between two airports
+            function showFlightRoute(origin, destination) {
+                // Reset all paths to default style
+                Object.values(flightPaths).forEach(path => {
+                    path.setStyle({
+                        color: '#1a3e72',
+                        weight: 2,
+                        opacity: 0.6
+                    });
+                });
+                
+                // Highlight the selected route
+                const routeKey = `${origin}-${destination}`;
+                const reverseRouteKey = `${destination}-${origin}`;
+                
+                if (flightPaths[routeKey]) {
+                    flightPaths[routeKey].setStyle({
+                        color: '#d32f2f',
+                        weight: 4,
+                        opacity: 1
+                    });
+                    map.fitBounds([
+                        airports[origin].coords,
+                        airports[destination].coords
+                    ], { padding: [50, 50] });
+                    
+                    // Add plane animation
+                    animatePlane(origin, destination);
+                } else if (flightPaths[reverseRouteKey]) {
+                    flightPaths[reverseRouteKey].setStyle({
+                        color: '#d32f2f',
+                        weight: 4,
+                        opacity: 1
+                    });
+                    map.fitBounds([
+                        airports[origin].coords,
+                        airports[destination].coords
+                    ], { padding: [50, 50] });
+                    
+                    // Add plane animation
+                    animatePlane(origin, destination);
+                } else {
+                    alert("No direct flights found between these airports");
+                }
+            }
+            
+            // Function to animate a plane along the route
+            function animatePlane(origin, destination) {
+                // Remove any existing plane
+                const existingPlane = document.querySelector('.plane-icon');
+                if (existingPlane) existingPlane.remove();
+                
+                const fromCoords = airports[origin].coords;
+                const toCoords = airports[destination].coords;
+                
+                // Calculate the bearing (direction) between the two points
+                const bearing = getBearing(fromCoords[0], fromCoords[1], toCoords[0], toCoords[1]);
+                
+                // Create plane icon
+                const plane = document.createElement('div');
+                plane.className = 'plane-icon';
+                plane.style.transform = `rotate(${bearing}deg)`;
+                document.getElementById('airport-network-map').appendChild(plane);
+                
+                // Get the map container's position
+                const mapContainer = document.querySelector('.airport-network-container');
+                const mapRect = mapContainer.getBoundingClientRect();
+                
+                // Animate the plane
+                const duration = 5000; // 5 seconds
+                const startTime = performance.now();
+                
+                function animate(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Calculate current position
+                    const currentLat = fromCoords[0] + (toCoords[0] - fromCoords[0]) * progress;
+                    const currentLng = fromCoords[1] + (toCoords[1] - fromCoords[1]) * progress;
+                    
+                    // Convert lat/lng to pixel coordinates
+                    const point = map.latLngToContainerPoint([currentLat, currentLng]);
+                    
+                    // Position the plane
+                    plane.style.left = `${point.x}px`;
+                    plane.style.top = `${point.y}px`;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        plane.remove();
+                    }
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            
+            // Helper function to calculate bearing between two points
+            function getBearing(lat1, lng1, lat2, lng2) {
+                const φ1 = lat1 * Math.PI / 180;
+                const φ2 = lat2 * Math.PI / 180;
+                const Δλ = (lng2 - lng1) * Math.PI / 180;
+                
+                const y = Math.sin(Δλ) * Math.cos(φ2);
+                const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+                const θ = Math.atan2(y, x);
+                
+                return ((θ * 180 / Math.PI) + 360) % 360;
+            }
+            
+            // Function to display flight information for an airport
+            function displayFlightInfo(airportCode) {
+                const airportData = flightData[airportCode];
+                if (!airportData) return;
+                
+                const departuresList = document.getElementById('departures');
+                const arrivalsList = document.getElementById('arrivals');
+                
+                // Clear existing content
+                departuresList.innerHTML = '';
+                arrivalsList.innerHTML = '';
+                
+                // Add departure flights
+                airportData.departures.forEach(flight => {
+                    const flightItem = document.createElement('div');
+                    flightItem.className = 'flight-item';
+                    
+                    const statusClass = flight.status.toLowerCase().includes('depart') ? 'status-departed' : 
+                                        flight.status.toLowerCase().includes('board') ? 'status-scheduled' : 
+                                        flight.status.toLowerCase().includes('delay') ? 'status-delayed' : 
+                                        'status-scheduled';
+                    
+                    flightItem.innerHTML = `
+                        <div>
+                            <span class="flight-number">${flight.flight}</span><br>
+                            <span class="flight-time">${flight.time} to ${flight.to}</span>
+                        </div>
+                        <span class="flight-status ${statusClass}">${flight.status}</span>
+                    `;
+                    
+                    departuresList.appendChild(flightItem);
+                });
+                
+                // Add arrival flights
+                airportData.arrivals.forEach(flight => {
+                    const flightItem = document.createElement('div');
+                    flightItem.className = 'flight-item';
+                    
+                    const statusClass = flight.status.toLowerCase().includes('arriv') ? 'status-arrived' : 
+                                        flight.status.toLowerCase().includes('delay') ? 'status-delayed' : 
+                                        flight.status.toLowerCase().includes('scheduled') ? 'status-scheduled' : 
+                                        'status-scheduled';
+                    
+                    flightItem.innerHTML = `
+                        <div>
+                            <span class="flight-number">${flight.flight}</span><br>
+                            <span class="flight-time">${flight.time} from ${flight.from}</span>
+                        </div>
+                        <span class="flight-status ${statusClass}">${flight.status}</span>
+                    `;
+                    
+                    arrivalsList.appendChild(flightItem);
+                });
+            }
+            
+            // Event listeners
+            document.getElementById('show-route').addEventListener('click', () => {
+                const origin = document.getElementById('origin').value;
+                const destination = document.getElementById('destination').value;
+                
+                if (origin && destination) {
+                    if (origin === destination) {
+                        alert("Please select different airports for origin and destination");
+                    } else {
+                        showFlightRoute(origin, destination);
+                        displayFlightInfo(origin);
+                    }
+                } else {
+                    alert("Please select both origin and destination airports");
+                }
+            });
+            
+            // When an airport marker is clicked, show its flight info
+            Object.keys(airportMarkers).forEach(code => {
+                airportMarkers[code].on('click', () => {
+                    document.getElementById('origin').value = code;
+                    displayFlightInfo(code);
+                });
+            });
+            
+            // Initialize with Delhi airport info
+            displayFlightInfo('DEL');
+        }
+        
+        // Animate counter numbers
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const target = +counter.innerText.replace(',', '');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment).toLocaleString();
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target.toLocaleString();
+                }
+            });
+        }
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createFlightPaths();
+            initAirportNetworkMap();
+            
+            // Animate counters when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            const statsSection = document.querySelector('.light-bg');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+        });
+    </script>
+</body>
+</html>

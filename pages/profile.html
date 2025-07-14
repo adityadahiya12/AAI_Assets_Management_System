@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | AAI Asset Management System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --aai-primary: #1a3e72;  /* Deep blue */
+            --aai-secondary: #4b8bbe;  /* Medium blue */
+            --aai-accent: #f6b26b;  /* Warm gold */
+            --aai-light: #e9f2f9;  /* Light blue */
+            --aai-dark: #0d1f3d;  /* Navy blue */
+            --aai-success: #5cb85c;  /* Green */
+            --aai-danger: #d9534f;  /* Red */
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--aai-light);
+        }
+        
+        /* Navbar with Glass Morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            transition: all 0.5s;
+        }
+        
+        .navbar-brand:hover img {
+            transform: rotate(15deg);
+        }
+        
+        .nav-link {
+            color: var(--aai-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover {
+            color: var(--aai-primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 62, 114, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 62, 114, 0.4);
+        }
+        
+        .btn-aai:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-aai:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-aai:hover:before {
+            left: 100%;
+        }
+        
+        .btn-aai-outline {
+            background-color: transparent;
+            color: var(--aai-primary);
+            border: 2px solid var(--aai-primary);
+            box-shadow: none;
+        }
+        
+        .btn-aai-outline:hover {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        /* Profile Page Styles */
+        .profile-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .profile-header {
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-secondary));
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-body {
+            padding: 30px;
+        }
+        
+        .profile-section {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .profile-section:last-child {
+            border-bottom: none;
+        }
+        
+        .profile-section-title {
+            color: var(--aai-primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-section-title i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .profile-info-item {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .profile-info-label {
+            font-weight: 600;
+            width: 150px;
+            color: var(--aai-dark);
+        }
+        
+        .profile-info-value {
+            flex: 1;
+            color: #555;
+        }
+        
+        .asset-card {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        
+        .asset-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--aai-primary);
+        }
+        
+        .asset-status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background-color: rgba(92, 184, 92, 0.2);
+            color: var(--aai-success);
+        }
+        
+        .status-inactive {
+            background-color: rgba(217, 83, 79, 0.2);
+            color: var(--aai-danger);
+        }
+        
+        .status-maintenance {
+            background-color: rgba(246, 178, 107, 0.2);
+            color: #e67e22;
+        }
+        
+        .progress {
+            height: 8px;
+            border-radius: 4px;
+        }
+        
+        .progress-bar {
+            background-color: var(--aai-primary);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .profile-info-item {
+                flex-direction: column;
+            }
+            
+            .profile-info-label {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .profile-container {
+                margin: 30px 15px;
+            }
+            
+            .profile-header {
+                padding: 20px;
+            }
+            
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.png" alt="AAI Logo" class="img-fluid">
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="workflow.html">Workflow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ITticketing.html">IT Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Help Center</a>
+                    </li>
+                    <li class="nav-item dropdown ms-lg-3">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://ui-avatars.com/api/?name=Aditya+Sharma&background=1a3e72&color=fff" alt="User" class="rounded-circle me-2" width="32">
+                            Aditya S.
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-bell me-2"></i> Notifications</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Container -->
+    <div class="container">
+        <div class="profile-container">
+            <div class="profile-header">
+                <img src="https://ui-avatars.com/api/?name=Aditya+Sharma&background=fff&color=1a3e72&size=200" alt="Profile" class="profile-avatar">
+                <h3>Aditya Sharma</h3>
+                <p class="mb-0">Senior Airport Operations Officer | Delhi International Airport</p>
+                <div class="mt-3">
+                    <span class="badge bg-light text-dark me-2"><i class="fas fa-id-badge me-1"></i> EMP1001</span>
+                    <span class="badge bg-light text-dark"><i class="fas fa-shield-alt me-1"></i> Admin Access</span>
+                </div>
+            </div>
+            
+            <div class="profile-body">
+                <!-- Personal Information Section -->
+                <div class="profile-section">
+                    <h4 class="profile-section-title"><i class="fas fa-user-circle"></i> Personal Information</h4>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="profile-info-item">
+                                <div class="profile-info-label">Employee ID:</div>
+                                <div class="profile-info-value">EMP1001</div>
+                            </div>
+                            <div class="profile-info-item">
+                                <div class="profile-info-label">Full Name:</div>
+                                <div class="profile-info-value">Aditya Sharma</div>
+                            </div>
+                            <div class="profile-info-item">
+                                <div class="profile-info-label">Designation:</div>
+                                <div class="profile-info-value">Senior Airport Operations Officer</div>
+                            </div>
+                            <div class="profile-info-item">
+                                <div class="profile-info-label">Department:</div>
+                                <div class="profile-info-value">Airport Operations</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="profile-info-item">
+                                <div class="profile-info-label">AAI Email:</div>
+                                <div class="profile-info-value">aditya.s@aai.gov.in</div>
+                            </div>
+                            <div class="profile-info-item">
+                                <div class="profile-info-label">Contact Number:</div>
+                                <div class="profile-info-value">+91 98765 43210</div>
+                            </div>
+                            <div class="profile-info-item">
+                                <div class="profile-info-label">Airport:</div>
+                                <div class="profile-info-value">Delhi International Airport (DEL)</div>
+                            </div>
+                            <div class="profile-info-item">
+                                <div class="profile-info-label">Joining Date:</div>
+                                <div class="profile-info-value">15 March 2018</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-end mt-3">
+                        <button class="btn btn-aai-outline me-2"><i class="fas fa-edit me-1"></i> Edit Information</button>
+                        <button class="btn btn-aai"><i class="fas fa-save me-1"></i> Save Changes</button>
+                    </div>
+                </div>
+                
+                <!-- Security Section -->
+                <div class="profile-section">
+                    <h4 class="profile-section-title"><i class="fas fa-shield-alt"></i> Security Settings</h4>
+                    
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i> Last password change was 90 days ago. Consider updating your password for better security.
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Change Password</h5>
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="currentPassword" class="form-label">Current Password</label>
+                                            <input type="password" class="form-control" id="currentPassword">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="newPassword" class="form-label">New Password</label>
+                                            <input type="password" class="form-control" id="newPassword">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                                            <input type="password" class="form-control" id="confirmPassword">
+                                        </div>
+                                        <button type="submit" class="btn btn-aai w-100">Update Password</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Two-Factor Authentication</h5>
+                                    <p>Add an extra layer of security to your account by enabling two-factor authentication.</p>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div>
+                                            <h6 class="mb-0">SMS Authentication</h6>
+                                            <small class="text-muted">Receive OTP via SMS</small>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="smsAuthSwitch" checked>
+                                            <label class="form-check-label" for="smsAuthSwitch"></label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-0">Authenticator App</h6>
+                                            <small class="text-muted">Google Authenticator, Microsoft Authenticator</small>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="appAuthSwitch">
+                                            <label class="form-check-label" for="appAuthSwitch"></label>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    <button class="btn btn-aai-outline w-100 mt-2"><i class="fas fa-qrcode me-1"></i> Setup Authenticator</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Assigned Assets Section -->
+                <div class="profile-section">
+                    <h4 class="profile-section-title"><i class="fas fa-laptop"></i> Assigned Assets</h4>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="asset-card">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="mb-0">Dell Latitude 5420</h5>
+                                    <span class="asset-status status-active">Active</span>
+                                </div>
+                                <p class="text-muted mb-2">Laptop | Serial: DL5420X12345</p>
+                                <div class="d-flex justify-content-between text-muted small mb-3">
+                                    <span>Assigned: 12 Jan 2023</span>
+                                    <span>Warranty: 2 yrs</span>
+                                </div>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="d-flex justify-content-between small">
+                                    <span>Condition: Good</span>
+                                    <span>75%</span>
+                                </div>
+                                <button class="btn btn-aai-outline btn-sm w-100 mt-3"><i class="fas fa-ticket-alt me-1"></i> Raise Issue</button>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="asset-card">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="mb-0">iPhone 13 Pro</h5>
+                                    <span class="asset-status status-active">Active</span>
+                                </div>
+                                <p class="text-muted mb-2">Mobile | Serial: IP13PA98765</p>
+                                <div class="d-flex justify-content-between text-muted small mb-3">
+                                    <span>Assigned: 5 Mar 2023</span>
+                                    <span>Warranty: 1 yr</span>
+                                </div>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="d-flex justify-content-between small">
+                                    <span>Condition: Excellent</span>
+                                    <span>90%</span>
+                                </div>
+                                <button class="btn btn-aai-outline btn-sm w-100 mt-3"><i class="fas fa-ticket-alt me-1"></i> Raise Issue</button>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="asset-card">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="mb-0">Canon ImageRunner 2204</h5>
+                                    <span class="asset-status status-maintenance">Maintenance</span>
+                                </div>
+                                <p class="text-muted mb-2">Printer | Serial: CN2204P54321</p>
+                                <div class="d-flex justify-content-between text-muted small mb-3">
+                                    <span>Assigned: 20 Nov 2022</span>
+                                    <span>Warranty: 3 yrs</span>
+                                </div>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="d-flex justify-content-between small">
+                                    <span>Condition: Needs Service</span>
+                                    <span>45%</span>
+                                </div>
+                                <button class="btn btn-aai-outline btn-sm w-100 mt-3"><i class="fas fa-ticket-alt me-1"></i> View Ticket</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <button class="btn btn-aai"><i class="fas fa-plus me-1"></i> Request New Asset</button>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity Section -->
+                <div class="profile-section">
+                    <h4 class="profile-section-title"><i class="fas fa-history"></i> Recent Activity</h4>
+                    
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>Activity</th>
+                                    <th>Details</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>15 Jul 2023, 10:45 AM</td>
+                                    <td>Asset Checkout</td>
+                                    <td>Canon ImageRunner 2204</td>
+                                    <td><span class="badge bg-success bg-opacity-10 text-success">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>14 Jul 2023, 03:22 PM</td>
+                                    <td>Password Change</td>
+                                    <td>Account Security</td>
+                                    <td><span class="badge bg-success bg-opacity-10 text-success">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>12 Jul 2023, 09:15 AM</td>
+                                    <td>IT Ticket Created</td>
+                                    <td>Printer not working</td>
+                                    <td><span class="badge bg-warning bg-opacity-10 text-warning">In Progress</span></td>
+                                </tr>
+                                <tr>
+                                    <td>10 Jul 2023, 11:30 AM</td>
+                                    <td>Asset Request</td>
+                                    <td>New laptop for field work</td>
+                                    <td><span class="badge bg-primary bg-opacity-10 text-primary">Pending Approval</span></td>
+                                </tr>
+                                <tr>
+                                    <td>8 Jul 2023, 04:50 PM</td>
+                                    <td>Login</td>
+                                    <td>From new device (Windows)</td>
+                                    <td><span class="badge bg-success bg-opacity-10 text-success">Success</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <button class="btn btn-aai-outline"><i class="fas fa-list me-1"></i> View Full Activity Log</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Sample user data - in a real application, this would come from an API
+        const userData = {
+            name: "Aditya Sharma",
+            employeeId: "EMP1001",
+            email: "aditya.s@aai.gov.in",
+            designation: "Senior Airport Operations Officer",
+            department: "Airport Operations",
+            contact: "+91 98765 43210",
+            airport: "Delhi International Airport (DEL)",
+            joiningDate: "15 March 2018",
+            role: "admin",
+            lastPasswordChange: "90 days ago",
+            assets: [
+                {
+                    name: "Dell Latitude 5420",
+                    type: "Laptop",
+                    serial: "DL5420X12345",
+                    assignedDate: "12 Jan 2023",
+                    warranty: "2 yrs",
+                    condition: 75,
+                    status: "active"
+                },
+                {
+                    name: "iPhone 13 Pro",
+                    type: "Mobile",
+                    serial: "IP13PA98765",
+                    assignedDate: "5 Mar 2023",
+                    warranty: "1 yr",
+                    condition: 90,
+                    status: "active"
+                },
+                {
+                    name: "Canon ImageRunner 2204",
+                    type: "Printer",
+                    serial: "CN2204P54321",
+                    assignedDate: "20 Nov 2022",
+                    warranty: "3 yrs",
+                    condition: 45,
+                    status: "maintenance"
+                }
+            ],
+            activities: [
+                {
+                    date: "15 Jul 2023, 10:45 AM",
+                    activity: "Asset Checkout",
+                    details: "Canon ImageRunner 2204",
+                    status: "completed"
+                },
+                {
+                    date: "14 Jul 2023, 03:22 PM",
+                    activity: "Password Change",
+                    details: "Account Security",
+                    status: "completed"
+                },
+                {
+                    date: "12 Jul 2023, 09:15 AM",
+                    activity: "IT Ticket Created",
+                    details: "Printer not working",
+                    status: "in-progress"
+                },
+                {
+                    date: "10 Jul 2023, 11:30 AM",
+                    activity: "Asset Request",
+                    details: "New laptop for field work",
+                    status: "pending"
+                },
+                {
+                    date: "8 Jul 2023, 04:50 PM",
+                    activity: "Login",
+                    details: "From new device (Windows)",
+                    status: "success"
+                }
+            ]
+        };
+
+        // In a real application, you would use this data to populate the page
+        // For this demo, we've hardcoded the values in HTML to match this structure
+        
+        // You could add JavaScript here to make the form interactive
+        document.addEventListener('DOMContentLoaded', function() {
+            // Example: Form submission for password change
+            const passwordForm = document.querySelector('.card-body form');
+            if (passwordForm) {
+                passwordForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const currentPass = document.getElementById('currentPassword').value;
+                    const newPass = document.getElementById('newPassword').value;
+                    const confirmPass = document.getElementById('confirmPassword').value;
+                    
+                    if (newPass !== confirmPass) {
+                        alert('New passwords do not match!');
+                        return;
+                    }
+                    
+                    if (newPass.length < 8) {
+                        alert('Password must be at least 8 characters long!');
+                        return;
+                    }
+                    
+                    // In a real app, you would send this to the server
+                    alert('Password changed successfully!');
+                    passwordForm.reset();
+                });
+            }
+            
+            // Example: Toggle edit mode for profile info
+            const editBtn = document.querySelector('.btn-aai-outline');
+            const saveBtn = document.querySelector('.btn-aai');
+            
+            if (editBtn && saveBtn) {
+                editBtn.addEventListener('click', function() {
+                    const infoItems = document.querySelectorAll('.profile-info-value');
+                    infoItems.forEach(item => {
+                        const currentValue = item.textContent;
+                        item.innerHTML = `<input type="text" class="form-control form-control-sm" value="${currentValue}">`;
+                    });
+                });
+                
+                saveBtn.addEventListener('click', function() {
+                    alert('Profile information updated!');
+                    // In a real app, you would send this to the server
+                });
+            }
+        });
+    </script>
+</body>
+</html>

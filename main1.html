@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAI Asset Management Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet"  href="main1.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="\logo.png" alt="AAI Logo" class="img-fluid">
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="pages/dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/features.html">Feature</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/contact.html">Help Center</a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="pages/notification.html">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">5</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown ms-lg-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i> Addy Singh (Admin)
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="pages/adminsignup.html"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="container py-5 mt-5">
+        <!-- Welcome Banner -->
+        <div class="row mb-4" data-aos="fade-up">
+            <div class="col-12">
+                <div class="welcome-card d-flex flex-column flex-md-row justify-content-between align-items-center">
+                    <div class="text-center text-md-start mb-3 mb-md-0">
+                        <h3 class="mb-1">Welcome back, Addy Singh (Admin) <span class="wave">👋</span></h3>
+                        <p class="mb-0 text-muted">Last login: Today at 09:42 AM from Delhi, IN</p>
+                        <p class="mb-0"><small class="text-success"><i class="fas fa-circle me-1"></i> Online</small></p>
+                    </div>
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar" class="user-avatar">
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Quick Actions Panel -->
+        <div class="row mb-4" data-aos="fade-up">
+            <div class="col-12">
+                <div class="admin-panel">
+                    <h4 class="admin-panel-title"><i class="fas fa-user-shield me-2"></i>Admin Controls</h4>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3 mb-3">
+                            <button class="btn btn-aai w-100" data-bs-toggle="modal" data-bs-target="#addAssetModal">
+                                <i class="fas fa-plus-circle me-2"></i> Add Asset
+                            </button>
+                        </div>
+                        <div class="col-sm-6 col-md-3 mb-3">
+                            <button class="btn btn-aai w-100" data-bs-toggle="modal" data-bs-target="#bulkUploadModal">
+                                <i class="fas fa-file-upload me-2"></i> Bulk Upload
+                            </button>
+                        </div>
+                        <div class="col-sm-6 col-md-3 mb-3">
+                            <button class="btn btn-aai w-100" data-bs-toggle="modal" data-bs-target="#userManagementModal">
+                                <i class="fas fa-users-cog me-2"></i> Manage Users
+                            </button>
+                        </div>
+                        <div class="col-sm-6 col-md-3 mb-3">
+                            <button class="btn btn-aai w-100" data-bs-toggle="modal" data-bs-target="#generateReportModal">
+                                <i class="fas fa-file-pdf me-2"></i> Generate Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="row mb-4">
+            <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="dashboard-card card-assets">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3>Total Assets</h3>
+                            <h2 class="mb-0">2,847</h2>
+                        </div>
+                        <i class="fas fa-boxes fa-3x opacity-50"></i>
+                    </div>
+                    <div class="mt-3">
+                        <span class="badge bg-white text-dark me-2">Active: 2,145</span>
+                        <span class="badge bg-white text-dark">In Maintenance: 702</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="dashboard-card card-tickets">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3>Active Tickets</h3>
+                            <h2 class="mb-0">47</h2>
+                        </div>
+                        <i class="fas fa-ticket-alt fa-3x opacity-50"></i>
+                    </div>
+                    <div class="mt-3">
+                        <span class="badge bg-white text-dark me-2">Open: 32</span>
+                        <span class="badge bg-white text-dark">Pending: 15</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="dashboard-card card-employees">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3>Employees</h3>
+                            <h2 class="mb-0">1,602</h2>
+                        </div>
+                        <i class="fas fa-users fa-3x opacity-50"></i>
+                    </div>
+                    <div class="mt-3">
+                        <span class="badge bg-white text-dark me-2">Active: 1,587</span>
+                        <span class="badge bg-white text-dark">On Leave: 15</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="dashboard-card card-maintenance">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3>Maintenance</h3>
+                            <h2 class="mb-0">18</h2>
+                        </div>
+                        <i class="fas fa-tools fa-3x opacity-50"></i>
+                    </div>
+                    <div class="mt-3">
+                        <span class="badge bg-white text-dark me-2">Due: 5</span>
+                        <span class="badge bg-white text-dark">In Progress: 13</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mb-4">
+            <div class="col-12 mb-4" data-aos="fade-up">
+                <h2 class="section-title">Quick Actions</h2>
+            </div>
+            <div class="col-sm-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <button class="quick-action-btn w-100" data-bs-toggle="modal" data-bs-target="#requestAssetModal">
+                    <i class="fas fa-plus-circle"></i>
+                    <h5 class="mb-0">Request Asset</h5>
+                </button>
+            </div>
+            <div class="col-sm-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <button class="quick-action-btn w-100" data-bs-toggle="modal" data-bs-target="#raiseTicketModal">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h5 class="mb-0">Raise Ticket</h5>
+                </button>
+            </div>
+            <div class="col-sm-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <button class="quick-action-btn w-100" data-bs-toggle="modal" data-bs-target="#viewProfileModal">
+                    <i class="fas fa-user"></i>
+                    <h5 class="mb-0">View Profile</h5>
+                </button>
+            </div>
+            <div class="col-sm-6 col-md-3 mb-4" data-aos="fade-up" data-aos-delay="400">
+                <button class="quick-action-btn w-100" data-bs-toggle="modal" data-bs-target="#viewReportsModal">
+                    <i class="fas fa-chart-bar"></i>
+                    <h5 class="mb-0">View Reports</h5>
+                </button>
+            </div>
+        </div>
+
+        <!-- Asset Management Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="asset-table-container" data-aos="fade-up">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="asset-table-title"><i class="fas fa-boxes me-2"></i>Asset Management</h3>
+                        <div>
+                            <button class="btn btn-sm btn-aai me-2" data-bs-toggle="modal" data-bs-target="#addAssetModal">
+                                <i class="fas fa-plus me-1"></i> Add Asset
+                            </button>
+                            <button class="btn btn-sm btn-aai-outline" data-bs-toggle="modal" data-bs-target="#filterAssetsModal">
+                                <i class="fas fa-filter me-1"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="search-filter-bar mb-4">
+                        <div class="row">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                    <input type="text" class="form-control" id="assetSearchInput" placeholder="Search assets...">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                                    <select class="form-select" id="assetStatusFilter">
+                                        <option value="">All Statuses</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Maintenance">In Maintenance</option>
+                                        <option value="Retired">Retired</option>
+                                        <option value="New">New</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table id="assetsTable" class="table table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Asset ID</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Location</th>
+                                    <th>Status</th>
+                                    <th>Last Maintenance</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>AS-78945</td>
+                                    <td>Baggage Scanner T3</td>
+                                    <td>Security Equipment</td>
+                                    <td>Terminal 3</td>
+                                    <td><span class="badge-status status-urgent">Urgent</span></td>
+                                    <td>Jun 10, 2023</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1" data-bs-toggle="modal" data-bs-target="#editAssetModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-aai-outline" data-bs-toggle="modal" data-bs-target="#retireAssetModal">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AS-45218</td>
+                                    <td>X-Ray Machine</td>
+                                    <td>Security Equipment</td>
+                                    <td>Security Check</td>
+                                    <td><span class="badge-status status-upcoming">Upcoming</span></td>
+                                    <td>May 15, 2023</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-aai-outline">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AS-36789</td>
+                                    <td>Security Camera</td>
+                                    <td>Surveillance</td>
+                                    <td>Gate 5</td>
+                                    <td><span class="badge-status status-scheduled">Scheduled</span></td>
+                                    <td>Jun 1, 2023</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-aai-outline">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AS-89654</td>
+                                    <td>Metal Detector</td>
+                                    <td>Security Equipment</td>
+                                    <td>Terminal 1</td>
+                                    <td><span class="badge-status status-scheduled">Scheduled</span></td>
+                                    <td>May 28, 2023</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-aai-outline">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AS-12345</td>
+                                    <td>Fire Alarm System</td>
+                                    <td>Safety Equipment</td>
+                                    <td>Control Room</td>
+                                    <td><span class="badge-status status-upcoming">Upcoming</span></td>
+                                    <td>May 20, 2023</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-aai-outline">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AS-67890</td>
+                                    <td>HVAC System</td>
+                                    <td>Facilities</td>
+                                    <td>Terminal 2</td>
+                                    <td><span class="badge-status status-upcoming">Upcoming</span></td>
+                                    <td>May 18, 2023</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-aai-outline">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AS-34567</td>
+                                    <td>Elevator</td>
+                                    <td>Facilities</td>
+                                    <td>North Wing</td>
+                                    <td><span class="badge-status status-completed">Completed</span></td>
+                                    <td>Jun 2, 2023</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-aai-outline">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AS-98765</td>
+                                    <td>Server Rack</td>
+                                    <td>IT Equipment</td>
+                                    <td>Data Center</td>
+                                    <td><span class="badge-status status-completed">Completed</span></td>
+                                    <td>Jun 5, 2023</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-aai-outline">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AS-23456</td>
+                                    <td>Access Control System</td>
+                                    <td>Security Equipment</td>
+                                    <td>Terminal 3</td>
+                                    <td><span class="badge-status status-retired">Retired</span></td>
+                                    <td>Apr 15, 2023</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-aai-outline">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AS-87654</td>
+                                    <td>Network Switch</td>
+                                    <td>IT Equipment</td>
+                                    <td>Terminal 1</td>
+                                    <td><span class="badge-status status-upcoming">Upcoming</span></td>
+                                    <td>May 30, 2023</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-aai-outline">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-lg-8 mb-4">
+                <!-- Asset Status Chart -->
+                <div class="card dashboard-card mb-4" data-aos="fade-up">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4">Asset Status Overview</h3>
+                        <div class="chart-container">
+                            <canvas id="assetStatusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Maintenance -->
+                <div class="card dashboard-card mb-4" data-aos="fade-up">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="card-title mb-0">Upcoming Maintenance</h3>
+                            <a href="#" class="btn btn-sm btn-aai-outline">View All</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Asset ID</th>
+                                        <th>Asset Name</th>
+                                        <th>Location</th>
+                                        <th>Next Service</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>AS-78945</td>
+                                        <td>Baggage Scanner T3</td>
+                                        <td>Terminal 3</td>
+                                        <td>Tomorrow</td>
+                                        <td><span class="badge-status status-urgent">Urgent</span></td>
+                                        <td><button class="btn btn-sm btn-aai">Schedule</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AS-45218</td>
+                                        <td>X-Ray Machine</td>
+                                        <td>Security Check</td>
+                                        <td>Jun 15, 2023</td>
+                                        <td><span class="badge-status status-upcoming">Upcoming</span></td>
+                                        <td><button class="btn btn-sm btn-aai">Schedule</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AS-36789</td>
+                                        <td>Security Camera</td>
+                                        <td>Gate 5</td>
+                                        <td>Jun 18, 2023</td>
+                                        <td><span class="badge-status status-scheduled">Scheduled</span></td>
+                                        <td><button class="btn btn-sm btn-aai-outline">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AS-89654</td>
+                                        <td>Metal Detector</td>
+                                        <td>Terminal 1</td>
+                                        <td>Jun 20, 2023</td>
+                                        <td><span class="badge-status status-scheduled">Scheduled</span></td>
+                                        <td><button class="btn btn-sm btn-aai-outline">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AS-12345</td>
+                                        <td>Fire Alarm System</td>
+                                        <td>Control Room</td>
+                                        <td>Jun 25, 2023</td>
+                                        <td><span class="badge-status status-upcoming">Upcoming</span></td>
+                                        <td><button class="btn btn-sm btn-aai">Schedule</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AS-67890</td>
+                                        <td>HVAC System</td>
+                                        <td>Terminal 2</td>
+                                        <td>Jun 28, 2023</td>
+                                        <td><span class="badge-status status-upcoming">Upcoming</span></td>
+                                        <td><button class="btn btn-sm btn-aai">Schedule</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>AS-34567</td>
+                                        <td>Elevator</td>
+                                        <td>North Wing</td>
+                                        <td>Jul 2, 2023</td>
+                                        <td><span class="badge-status status-completed">Completed</span></td>
+                                        <td><button class="btn btn-sm btn-aai-outline">Details</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-4 mb-4">
+                <!-- Notifications -->
+                <div class="card dashboard-card mb-4" data-aos="fade-up">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="card-title mb-0"><i class="fas fa-bell me-2 text-primary"></i> Notifications</h3>
+                            <span class="badge bg-primary rounded-pill">5 new</span>
+                        </div>
+                        <div class="list-group list-group-flush">
+                            <a href="#" class="list-group-item list-group-item-action notification-item unread">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="mb-1">New ticket assigned</h6>
+                                    <small class="text-muted">2 min ago</small>
+                                </div>
+                                <p class="mb-0 small">Ticket #IT-2023-5897 for laptop issue</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action notification-item unread">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="mb-1">Maintenance scheduled</h6>
+                                    <small class="text-muted">1 hour ago</small>
+                                </div>
+                                <p class="mb-0 small">Baggage scanner AS-78945 on Jun 14</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action notification-item">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="mb-1">Asset return pending</h6>
+                                    <small class="text-muted">3 hours ago</small>
+                                </div>
+                                <p class="mb-0 small">Laptop LT-4521 from Ravi Kumar</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action notification-item">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="mb-1">New asset registered</h6>
+                                    <small class="text-muted">5 hours ago</small>
+                                </div>
+                                <p class="mb-0 small">Security camera SC-7894 at Terminal 2</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action notification-item">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="mb-1">SLA breach warning</h6>
+                                    <small class="text-muted">Yesterday</small>
+                                </div>
+                                <p class="mb-0 small">Ticket #IT-2023-5876 approaching deadline</p>
+                            </a>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="#" class="btn btn-sm btn-aai-outline">View All Notifications</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card dashboard-card mb-4" data-aos="fade-up">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4">Recent Activity</h3>
+                        <div class="timeline-item">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1">Ticket created</h6>
+                                <small class="text-muted">10:30 AM</small>
+                            </div>
+                            <p class="small mb-0">#IT-2023-5897 - Laptop display issue</p>
+                        </div>
+                        <div class="timeline-item warning">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1">Maintenance overdue</h6>
+                                <small class="text-muted">9:45 AM</small>
+                            </div>
+                            <p class="small mb-0">X-Ray machine AS-45218</p>
+                        </div>
+                        <div class="timeline-item success">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1">Maintenance completed</h6>
+                                <small class="text-muted">Yesterday</small>
+                            </div>
+                            <p class="small mb-0">Security camera SC-7845</p>
+                        </div>
+                        <div class="timeline-item important">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1">SLA breached</h6>
+                                <small class="text-muted">Yesterday</small>
+                            </div>
+                            <p class="small mb-0">Ticket #IT-2023-5876 not resolved</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1">Asset returned</h6>
+                                <small class="text-muted">Jun 10</small>
+                            </div>
+                            <p class="small mb-0">Access card AC-4512 from retired employee</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Asset Distribution -->
+                <div class="card dashboard-card" data-aos="fade-up">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4">Asset Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="assetDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Asset Performance Section -->
+    <section class="section dark-bg">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Asset Performance Metrics</h2>
+            <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="100">Key indicators showing the health and utilization of airport assets</p>
+            
+            <div class="row">
+                <div class="col-md-6 mb-4" data-aos="fade-right">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Maintenance Cost Trend</h5>
+                            <div class="chart-container">
+                                <canvas id="maintenanceCostChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4" data-aos="fade-left">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Asset Utilization</h5>
+                            <div class="chart-container">
+                                <canvas id="assetUtilizationChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>AAI Asset Management</h5>
+                    <p>Comprehensive asset lifecycle management platform for Airport Authority of India.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../index.html" id="footer-nav">Home</a></li>
+                        <li><a href="dashboard.html" id="footer-nav">Dashboard</a></li>
+                        <li><a href="../index.html#assets" id="footer-nav">Assets</a></li>
+                        <li><a href="../index.html#tickets" id="footer-nav">IT Tickets</a></li>
+                        <li><a href="../index.html#contact" id="footer-nav">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" id="footer-nav">User Guides</a></li>
+                        <li><a href="#" id="footer-nav">Training Videos</a></li>
+                        <li><a href="#" id="footer-nav">FAQs</a></li>
+                        <li><a href="#" id="footer-nav">Policy Documents</a></li>
+                        <li><a href="#" id="footer-nav">System Updates</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" id="footer-nav">Privacy Policy</a></li>
+                        <li><a href="#" id="footer-nav">Terms of Use</a></li>
+                        <li><a href="#" id="footer-nav">Security Policy</a></li>
+                        <li><a href="#" id="footer-nav">Accessibility</a></li>
+                        <li><a href="#" id="footer-nav">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">Copyright &copy; 2025 Airport Authority of India. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="#" id="footer-nav">Sitemap</a>
+                        <a href="#" id="footer-nav">Accessibility</a>
+                        <a href="#" id="footer-nav">Feedback</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <!-- Add Asset Modal -->
+    <div class="modal fade" id="addAssetModal" tabindex="-1" aria-labelledby="addAssetModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addAssetModalLabel"><i class="fas fa-plus-circle me-2"></i>Add New Asset</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addAssetForm">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="assetName" class="form-label">Asset Name</label>
+                                <input type="text" class="form-control" id="assetName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="assetCategory" class="form-label">Category</label>
+                                <select class="form-select" id="assetCategory" required>
+                                    <option value="">Select Category</option>
+                                    <option value="IT Equipment">IT Equipment</option>
+                                    <option value="Security Equipment">Security Equipment</option>
+                                    <option value="Facilities">Facilities</option>
+                                    <option value="Surveillance">Surveillance</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="assetLocation" class="form-label">Location</label>
+                                <select class="form-select" id="assetLocation" required>
+                                    <option value="">Select Location</option>
+                                    <option value="Terminal 1">Terminal 1</option>
+                                    <option value="Terminal 2">Terminal 2</option>
+                                    <option value="Terminal 3">Terminal 3</option>
+                                    <option value="Security Check">Security Check</option>
+                                    <option value="Control Room">Control Room</option>
+                                    <option value="Data Center">Data Center</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="assetStatus" class="form-label">Status</label>
+                                <select class="form-select" id="assetStatus" required>
+                                    <option value="">Select Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Maintenance">In Maintenance</option>
+                                    <option value="New">New</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="assetPurchaseDate" class="form-label">Purchase Date</label>
+                                <input type="date" class="form-control" id="assetPurchaseDate" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="assetWarranty" class="form-label">Warranty Period (months)</label>
+                                <input type="number" class="form-control" id="assetWarranty" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="assetValue" class="form-label">Value (₹)</label>
+                                <input type="number" class="form-control" id="assetValue" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="assetSupplier" class="form-label">Supplier</label>
+                                <input type="text" class="form-control" id="assetSupplier" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="assetDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="assetDescription" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="assetImage" class="form-label">Upload Image</label>
+                            <input class="form-control" type="file" id="assetImage">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-aai" id="saveAssetBtn">Save Asset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Asset Modal -->
+    <div class="modal fade" id="editAssetModal" tabindex="-1" aria-labelledby="editAssetModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editAssetModalLabel"><i class="fas fa-edit me-2"></i>Edit Asset</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editAssetForm">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editAssetName" class="form-label">Asset Name</label>
+                                <input type="text" class="form-control" id="editAssetName" value="Baggage Scanner T3" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editAssetCategory" class="form-label">Category</label>
+                                <select class="form-select" id="editAssetCategory" required>
+                                    <option value="Security Equipment" selected>Security Equipment</option>
+                                    <option value="IT Equipment">IT Equipment</option>
+                                    <option value="Facilities">Facilities</option>
+                                    <option value="Surveillance">Surveillance</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editAssetLocation" class="form-label">Location</label>
+                                <select class="form-select" id="editAssetLocation" required>
+                                    <option value="Terminal 3" selected>Terminal 3</option>
+                                    <option value="Terminal 1">Terminal 1</option>
+                                    <option value="Terminal 2">Terminal 2</option>
+                                    <option value="Security Check">Security Check</option>
+                                    <option value="Control Room">Control Room</option>
+                                    <option value="Data Center">Data Center</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editAssetStatus" class="form-label">Status</label>
+                                <select class="form-select" id="editAssetStatus" required>
+                                    <option value="Active">Active</option>
+                                    <option value="Maintenance" selected>In Maintenance</option>
+                                    <option value="New">New</option>
+                                    <option value="Retired">Retired</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editAssetPurchaseDate" class="form-label">Purchase Date</label>
+                                <input type="date" class="form-control" id="editAssetPurchaseDate" value="2022-05-15" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editAssetWarranty" class="form-label">Warranty Period (months)</label>
+                                <input type="number" class="form-control" id="editAssetWarranty" value="24" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="editAssetValue" class="form-label">Value (₹)</label>
+                                <input type="number" class="form-control" id="editAssetValue" value="1250000" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editAssetSupplier" class="form-label">Supplier</label>
+                                <input type="text" class="form-control" id="editAssetSupplier" value="SecurityTech Solutions" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAssetDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editAssetDescription" rows="3">High-speed baggage scanner for Terminal 3 security checkpoint</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAssetImage" class="form-label">Upload New Image</label>
+                            <input class="form-control" type="file" id="editAssetImage">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-aai" id="updateAssetBtn">Update Asset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Retire Asset Modal -->
+    <div class="modal fade" id="retireAssetModal" tabindex="-1" aria-labelledby="retireAssetModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="retireAssetModalLabel"><i class="fas fa-trash-alt me-2"></i>Retire Asset</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to retire this asset?</p>
+                    <div class="alert alert-warning">
+                        <strong>Note:</strong> Retiring an asset will remove it from active inventory but keep it in records for historical purposes.
+                    </div>
+                    <form id="retireAssetForm">
+                        <div class="mb-3">
+                            <label for="retireReason" class="form-label">Reason for Retirement</label>
+                            <select class="form-select" id="retireReason" required>
+                                <option value="">Select Reason</option>
+                                <option value="End of Life">End of Life</option>
+                                <option value="Damaged Beyond Repair">Damaged Beyond Repair</option>
+                                <option value="Technology Obsolete">Technology Obsolete</option>
+                                <option value="Replaced">Replaced</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="retireNotes" class="form-label">Additional Notes</label>
+                            <textarea class="form-control" id="retireNotes" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="retireDate" class="form-label">Retirement Date</label>
+                            <input type="date" class="form-control" id="retireDate" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-aai" id="confirmRetireBtn">Confirm Retirement</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Assets Modal -->
+    <div class="modal fade" id="filterAssetsModal" tabindex="-1" aria-labelledby="filterAssetsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterAssetsModalLabel"><i class="fas fa-filter me-2"></i>Filter Assets</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="filterAssetsForm">
+                        <div class="mb-3">
+                            <label for="filterCategory" class="form-label">Category</label>
+                            <select class="form-select" id="filterCategory">
+                                <option value="">All Categories</option>
+                                <option value="IT Equipment">IT Equipment</option>
+                                <option value="Security Equipment">Security Equipment</option>
+                                <option value="Facilities">Facilities</option>
+                                <option value="Surveillance">Surveillance</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="filterLocation" class="form-label">Location</label>
+                            <select class="form-select" id="filterLocation">
+                                <option value="">All Locations</option>
+                                <option value="Terminal 1">Terminal 1</option>
+                                <option value="Terminal 2">Terminal 2</option>
+                                <option value="Terminal 3">Terminal 3</option>
+                                <option value="Security Check">Security Check</option>
+                                <option value="Control Room">Control Room</option>
+                                <option value="Data Center">Data Center</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="filterStatus" class="form-label">Status</label>
+                            <select class="form-select" id="filterStatus">
+                                <option value="">All Statuses</option>
+                                <option value="Active">Active</option>
+                                <option value="Maintenance">In Maintenance</option>
+                                <option value="New">New</option>
+                                <option value="Retired">Retired</option>
+                            </select>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="filterDateFrom" class="form-label">Purchase Date From</label>
+                                <input type="date" class="form-control" id="filterDateFrom">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="filterDateTo" class="form-label">Purchase Date To</label>
+                                <input type="date" class="form-control" id="filterDateTo">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="filterValueMin" class="form-label">Minimum Value (₹)</label>
+                            <input type="number" class="form-control" id="filterValueMin">
+                        </div>
+                        <div class="mb-3">
+                            <label for="filterValueMax" class="form-label">Maximum Value (₹)</label>
+                            <input type="number" class="form-control" id="filterValueMax">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-aai-outline" id="resetFilterBtn">Reset</button>
+                    <button type="button" class="btn btn-aai" id="applyFilterBtn">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Upload Modal -->
+    <div class="modal fade" id="bulkUploadModal" tabindex="-1" aria-labelledby="bulkUploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bulkUploadModalLabel"><i class="fas fa-file-upload me-2"></i>Bulk Asset Upload</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info">
+                        <strong>Instructions:</strong> Upload a CSV file containing asset data. <a href="#" class="alert-link">Download template</a>
+                    </div>
+                    <form id="bulkUploadForm">
+                        <div class="mb-3">
+                            <label for="bulkUploadFile" class="form-label">Select CSV File</label>
+                            <input class="form-control" type="file" id="bulkUploadFile" accept=".csv" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="overwriteExisting">
+                            <label class="form-check-label" for="overwriteExisting">Overwrite existing assets with matching IDs</label>
+                        </div>
+                    </form>
+                    <div class="progress mt-3 d-none" id="uploadProgress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-aai" id="startUploadBtn">Start Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Management Modal -->
+    <div class="modal fade" id="userManagementModal" tabindex="-1" aria-labelledby="userManagementModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userManagementModalLabel"><i class="fas fa-users-cog me-2"></i>User Management</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="usersTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Aditya Sharma</td>
+                                    <td>aditya.sharma@aai.in</td>
+                                    <td><span class="badge bg-primary">Admin</span></td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-aai-outline"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ravi Kumar</td>
+                                    <td>ravi.kumar@aai.in</td>
+                                    <td><span class="badge bg-secondary">Manager</span></td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-aai-outline"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Priya Patel</td>
+                                    <td>priya.patel@aai.in</td>
+                                    <td><span class="badge bg-secondary">Manager</span></td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-aai-outline"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sanjay Gupta</td>
+                                    <td>sanjay.gupta@aai.in</td>
+                                    <td><span class="badge bg-info">Technician</span></td>
+                                    <td><span class="badge bg-success">Active</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-aai-outline"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Meera Singh</td>
+                                    <td>meera.singh@aai.in</td>
+                                    <td><span class="badge bg-info">Technician</span></td>
+                                    <td><span class="badge bg-warning">On Leave</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-aai-outline me-1"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-aai-outline"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-end mt-3">
+                        <button class="btn btn-aai" id="addNewUserBtn"><i class="fas fa-plus me-1"></i> Add New User</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generate Report Modal -->
+    <div class="modal fade" id="generateReportModal" tabindex="-1" aria-labelledby="generateReportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="generateReportModalLabel"><i class="fas fa-file-pdf me-2"></i>Generate Report</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reportForm">
+                        <div class="mb-3">
+                            <label for="reportType" class="form-label">Report Type</label>
+                            <select class="form-select" id="reportType" required>
+                                <option value="">Select Report Type</option>
+                                <option value="inventory">Inventory Summary</option>
+                                <option value="maintenance">Maintenance History</option>
+                                <option value="financial">Financial Analysis</option>
+                                <option value="depreciation">Depreciation Report</option>
+                                <option value="custom">Custom Report</option>
+                            </select>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="reportDateFrom" class="form-label">From Date</label>
+                                <input type="date" class="form-control" id="reportDateFrom">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="reportDateTo" class="form-label">To Date</label>
+                                <input type="date" class="form-control" id="reportDateTo">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reportFormat" class="form-label">Format</label>
+                            <select class="form-select" id="reportFormat" required>
+                                <option value="pdf" selected>PDF</option>
+                                <option value="excel">Excel</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="includeCharts">
+                            <label class="form-check-label" for="includeCharts">Include charts and graphs</label>
+                        </div>
+                    </form>
+                    <div class="alert alert-info mt-3">
+                        Reports may take a few minutes to generate. You will receive an email notification when ready.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-aai" id="generateReportBtn">Generate Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    
+    <script src="main1.js"></script>
+</body>
+
+</html>

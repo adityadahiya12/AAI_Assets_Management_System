@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Flight Route Network | Airport Authority of India</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Leaflet MarkerCluster CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <style>
+        :root {
+            --aai-primary: #1a3e72;
+            --aai-secondary: #4b8bbe;
+            --aai-accent: #f6b26b;
+            --aai-light: #e9f2f9;
+            --aai-dark: #0d1f3d;
+            --indigo: #061A40;
+            --spicejet: #F37021;
+            --airindia: #FF671F;
+            --vistara: #00AEEF;
+            --goair: #80BD01;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+        }
+        
+        .flight-header {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark));
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .flight-header h1 {
+            font-weight: 800;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .airline-logo {
+            height: 40px;
+            margin: 0 15px;
+            filter: grayscale(100%) brightness(1.2);
+            transition: all 0.3s;
+        }
+        
+        .airline-logo:hover {
+            filter: none;
+            transform: scale(1.1);
+        }
+        .flight-controls {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        #flight-map {
+            height: 600px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .leaflet-container {
+            height: 100%;
+            width: 100%;
+        }
+        .leaflet-container {
+            border-radius: 10px;
+        }
+        .leaflet-popup-content {
+            font-size: 0.9rem;
+        }
+        .leaflet-popup-content h5 {
+            margin: 0 0 5px 0;
+            font-weight: 600;
+        }
+        .leaflet-popup-content p {
+            margin: 0;
+            color: #555;
+        }
+        .leaflet-popup-content i {
+            color: var(--aai-primary);
+        }
+        
+        .flight-controls {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .flight-info-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        
+        .flight-path {
+            stroke: var(--aai-accent);
+            stroke-width: 2;
+            stroke-dasharray: 10, 10;
+            animation: dash 30s linear infinite;
+            fill: none;
+        }
+        .flight-path:hover {
+            stroke: var(--aai-primary);
+            stroke-width: 4;
+            animation-play-state: paused;
+        }
+        
+        @keyframes dash {
+            to { stroke-dashoffset: 1000; }
+        }
+        
+        .plane-icon {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23d32f2f"><path d="M22 16.21v-1.895L14 8V4a2 2 0 0 0-4 0v4l-8 6.315v1.895l8-2.526V18l-2 2v2l3.5-1 3.5 1v-2l-2-2v-4.316l8 2.526z"/></svg>');
+            background-size: contain;
+            z-index: 1000;
+        }
+        
+        .airport-marker {
+            width: 24px;
+            height: 24px;
+            background: var(--aai-primary);
+            border-radius: 50%;
+            border: 3px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 10px;
+        }
+        .airport-marker.international-marker {
+            background: var(--aai-secondary);
+            border-color: var(--aai-accent);
+        }
+        
+        .international-marker {
+            background: var(--aai-accent);
+        }
+        
+        .flight-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .flight-table th {
+            background: var(--aai-light);
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .flight-table td {
+            padding: 10px;
+            border-bottom: 1px solid var(--aai-light);
+        }
+        
+        .flight-table tr:hover {
+            background: var(--aai-light);
+        }
+        .flight-info-panel{
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 100%;
+            overflow: hidden;
+        }
+        .flight-info-panel mt-4{
+            margin-top: 1.5rem;
+            
+        }
+        
+        .flight-status {
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .flight-status.status-scheduled {
+            background: #f0f4c3;
+            color: #827717;
+        }
+        
+        .status-ontime {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status-delayed {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        
+        .status-departed {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .status-scheduled {
+            background: #f5f5f5;
+            color: #616161;
+        }
+        
+        .delhi-info {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+            overflow: hidden;
+        }
+        
+        @media (max-width: 768px) {
+            #flight-map {
+                height: 400px;
+            }
+            
+            .airline-logo {
+                height: 30px;
+                margin: 0 8px;
+            }
+        }
+        @media (max-width: 576px) {
+            .flight-controls {
+                padding: 1rem;
+            }
+            
+            .flight-info-panel {
+                padding: 1rem;
+            }
+            
+            .flight-table th, .flight-table td {
+                font-size: 0.9rem;
+            }
+        }
+        .flight-info-panel h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .flight-info-panel i {
+            color: var(--aai-primary);
+        }
+        .flight-info-panel .table-responsive {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .flight-info-panel .table-responsive::-webkit-scrollbar {
+            width: 8px;
+        }
+        .flight-info-panel .table-responsive::-webkit-scrollbar-thumb {
+            background: var(--aai-secondary);
+            border-radius: 4px;
+        }
+        .flight-info-panel .table-responsive::-webkit-scrollbar-track {
+            background: var(--aai-light);
+        }   
+        .flight-info-panel .alert {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        .flight-info-panel .alert i {
+            color: var(--aai-primary);
+        }
+        .flight-info-panel .alert.alert-info {
+            background: #e3f2fd;
+            color: #0d47a1;
+        }
+
+        .flight-info-panel .alert.alert-warning {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        .flight-info-panel .alert.alert-danger {
+            background: #ffebee;
+            color: #b71c1c;
+        }
+        .flight-info-panel .alert.alert-success {
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+    </style>
+</head>
+<body>
+    <!-- Flight Route Header -->
+    <header class="flight-header">
+        <div class="container text-center">
+            <h1>India Flight Route Network</h1>
+            <p class="lead">Explore domestic and international flight connections across India</p>
+            
+            <div class="d-flex flex-wrap justify-content-center align-items-center mt-4">
+                
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Flight Route Controls -->
+        <div class="flight-controls">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="origin" class="form-label">Departure Airport</label>
+                    <select class="form-select" id="origin">
+                        <option value="">Select departure airport</option>
+                        <option value="DEL" selected>Delhi (DEL) - Indira Gandhi International</option>
+                        <option value="BOM">Mumbai (BOM) - Chhatrapati Shivaji Maharaj</option>
+                        <option value="MAA">Chennai (MAA) - Chennai International</option>
+                        <option value="BLR">Bangalore (BLR) - Kempegowda International</option>
+                        <option value="HYD">Hyderabad (HYD) - Rajiv Gandhi International</option>
+                        <option value="CCU">Kolkata (CCU) - Netaji Subhas Chandra Bose</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="destination" class="form-label">Arrival Airport</label>
+                    <select class="form-select" id="destination">
+                        <option value="">Select arrival airport</option>
+                        <option value="NAG">Nagpur (NAG) - Dr. Babasaheb Ambedkar International</option>
+                        <option value="GOI">Goa (GOI) - Dabolim Airport</option>
+                        <option value="PNQ">Pune (PNQ) - Pune Airport</option>
+                        <option value="AMD">Ahmedabad (AMD) - Sardar Vallabhbhai Patel International</option>
+                        <option value="COK">Kochi (COK) - Cochin International</option>
+                        <option value="TRV">Thiruvananthapuram (TRV) - Trivandrum International</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3 d-flex align-items-end">
+                    <button class="btn btn-primary w-100" id="find-route">Find Best Route</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Flight Map -->
+            <div class="col-lg-8">
+                <div id="flight-map"></div>
+                
+                <div class="flight-info-panel">
+                    <h4><i class="fas fa-route me-2"></i> Route Information</h4>
+                    <div id="route-info" class="mt-3">
+                        <p class="text-muted">Select departure and arrival airports to view route information</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Flight Information -->
+            <div class="col-lg-4">
+                <div class="flight-info-panel">
+                    <h4><i class="fas fa-plane-departure me-2"></i> Departures from Delhi (DEL)</h4>
+                    <div class="table-responsive mt-3">
+                        <table class="flight-table">
+                            <thead>
+                                <tr>
+                                    <th>Flight</th>
+                                    <th>To</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="delhi-departures">
+                                <tr>
+                                    <td>AI101</td>
+                                    <td>Mumbai</td>
+                                    <td>07:00</td>
+                                    <td><span class="flight-status status-departed">Departed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>6E205</td>
+                                    <td>Bangalore</td>
+                                    <td>08:15</td>
+                                    <td><span class="flight-status status-ontime">On Time</span></td>
+                                </tr>
+                                <tr>
+                                    <td>SG301</td>
+                                    <td>Kolkata</td>
+                                    <td>09:30</td>
+                                    <td><span class="flight-status status-scheduled">Scheduled</span></td>
+                                </tr>
+                                <tr>
+                                    <td>UK911</td>
+                                    <td>Hyderabad</td>
+                                    <td>11:45</td>
+                                    <td><span class="flight-status status-scheduled">Scheduled</span></td>
+                                </tr>
+                                <tr>
+                                    <td>AI503</td>
+                                    <td>Chennai</td>
+                                    <td>13:20</td>
+                                    <td><span class="flight-status status-scheduled">Scheduled</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="flight-info-panel mt-4">
+                    <h4><i class="fas fa-plane-arrival me-2"></i> Arrivals to Delhi (DEL)</h4>
+                    <div class="table-responsive mt-3">
+                        <table class="flight-table">
+                            <thead>
+                                <tr>
+                                    <th>Flight</th>
+                                    <th>From</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="delhi-arrivals">
+                                <tr>
+                                    <td>AI102</td>
+                                    <td>Mumbai</td>
+                                    <td>08:45</td>
+                                    <td><span class="flight-status status-ontime">On Time</span></td>
+                                </tr>
+                                <tr>
+                                    <td>6E206</td>
+                                    <td>Bangalore</td>
+                                    <td>10:15</td>
+                                    <td><span class="flight-status status-delayed">Delayed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>SG302</td>
+                                    <td>Kolkata</td>
+                                    <td>11:30</td>
+                                    <td><span class="flight-status status-ontime">On Time</span></td>
+                                </tr>
+                                <tr>
+                                    <td>UK912</td>
+                                    <td>Hyderabad</td>
+                                    <td>13:45</td>
+                                    <td><span class="flight-status status-scheduled">Scheduled</span></td>
+                                </tr>
+                                <tr>
+                                    <td>AI504</td>
+                                    <td>Chennai</td>
+                                    <td>15:20</td>
+                                    <td><span class="flight-status status-scheduled">Scheduled</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Delhi Airport Information -->
+        <div class="delhi-info">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4><i class="fas fa-info-circle me-2"></i> Delhi Airport (DEL)</h4>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Indira Gandhi International Airport</p>
+                    <p><i class="fas fa-phone me-2"></i> +91 11 2565 2011</p>
+                    <p><i class="fas fa-globe me-2"></i> <a href="https://www.newdelhiairport.in" target="_blank">www.newdelhiairport.in</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Terminals</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-terminal me-2"></i> T1 - Domestic (IndiGo, SpiceJet)</li>
+                        <li><i class="fas fa-terminal me-2"></i> T2 - Domestic/International</li>
+                        <li><i class="fas fa-terminal me-2"></i> T3 - International/Full Service</li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Footer -->
+<footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Airport Authority of India</h5>
+                    <p>Connecting the nation through world-class airport infrastructure and services.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Flight Status</a></li>
+                        <li><a href="#" class="text-white">Airport Information</a></li>
+                        <li><a href="#" class="text-white">Travel Advisory</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone me-2"></i> +91 11 2463 2950</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@aai.aero</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">© 2025 Airport Authority of India. All rights reserved.</p>
+            </div>
+        </div>
+</footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Leaflet MarkerCluster -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <!-- Google Maps API (Directions) -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=geometry"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize the map centered on India
+        const map = L.map('flight-map').setView([20.5937, 78.9629], 5);
+        
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        // Major airports in India with coordinates and IATA codes
+        const airports = {
+            "DEL": { name: "Indira Gandhi International Airport", city: "Delhi", coords: [28.5562, 77.1000], international: true },
+            "BOM": { name: "Chhatrapati Shivaji Maharaj International Airport", city: "Mumbai", coords: [19.0887, 72.8679], international: true },
+            "MAA": { name: "Chennai International Airport", city: "Chennai", coords: [12.9941, 80.1707], international: true },
+            "BLR": { name: "Kempegowda International Airport", city: "Bangalore", coords: [13.1986, 77.7066], international: true },
+            "HYD": { name: "Rajiv Gandhi International Airport", city: "Hyderabad", coords: [17.2403, 78.4294], international: true },
+            "CCU": { name: "Netaji Subhas Chandra Bose International Airport", city: "Kolkata", coords: [22.6547, 88.4467], international: true },
+            "NAG": { name: "Dr. Babasaheb Ambedkar International Airport", city: "Nagpur", coords: [21.0922, 79.0472], international: false },
+            "GOI": { name: "Dabolim Airport", city: "Goa", coords: [15.3808, 73.8343], international: true },
+            "PNQ": { name: "Pune Airport", city: "Pune", coords: [18.5822, 73.9197], international: false },
+            "AMD": { name: "Sardar Vallabhbhai Patel International Airport", city: "Ahmedabad", coords: [23.0772, 72.6346], international: true },
+            "COK": { name: "Cochin International Airport", city: "Kochi", coords: [10.1520, 76.4019], international: true },
+            "TRV": { name: "Trivandrum International Airport", city: "Thiruvananthapuram", coords: [8.4821, 76.9204], international: true }
+        };
+        
+        // Flight connections between airports
+        const flightConnections = [
+            { from: "DEL", to: "BOM", flights: ["AI101", "6E205", "UK911"], duration: "2h 10m", distance: "1,140 km" },
+            { from: "DEL", to: "NAG", flights: ["6E217", "SG327"], duration: "1h 45m", distance: "875 km" },
+            { from: "DEL", to: "BLR", flights: ["AI503", "6E611", "UK809"], duration: "2h 45m", distance: "1,740 km" },
+            { from: "DEL", to: "HYD", flights: ["AI504", "6E221", "SG801"], duration: "2h 10m", distance: "1,260 km" },
+            { from: "DEL", to: "CCU", flights: ["AI505", "6E531", "UK501"], duration: "2h 15m", distance: "1,305 km" },
+            { from: "BOM", to: "NAG", flights: ["6E237", "SG417"], duration: "1h 20m", distance: "655 km" },
+            { from: "BOM", to: "BLR", flights: ["AI507", "6E241", "I5171"], duration: "1h 40m", distance: "845 km" },
+            { from: "BLR", to: "HYD", flights: ["AI513", "6E301", "I5231"], duration: "1h 10m", distance: "500 km" },
+            { from: "HYD", to: "NAG", flights: ["6E517", "SG527"], duration: "1h 10m", distance: "475 km" }
+        ];
+        
+        // Add airport markers to the map with clustering
+        const markers = L.markerClusterGroup();
+        
+        Object.keys(airports).forEach(code => {
+            const airport = airports[code];
+            const marker = L.marker(airport.coords, {
+                icon: L.divIcon({
+                    className: 'airport-marker ' + (airport.international ? 'international-marker' : ''),
+                    html: code,
+                    iconSize: [24, 24]
+                })
+            });
+            
+            marker.bindPopup(`
+                <div style="min-width: 200px">
+                    <h5 style="margin: 0 0 5px 0;">${airport.name}</h5>
+                    <p style="margin: 0 0 5px 0;"><i class="fas fa-map-marker-alt"></i> ${airport.city}</p>
+                    <p style="margin: 0;"><strong>IATA:</strong> ${code}</p>
+                    <p style="margin: 0;"><strong>Type:</strong> ${airport.international ? 'International' : 'Domestic'}</p>
+                </div>
+            `);
+            
+            markers.addLayer(marker);
+        });
+        
+        map.addLayer(markers);
+        
+        // Helper to get CSS variable value in JS
+        function getCssVar(name) {
+            return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        }
+
+        // Draw flight connections
+        const flightPaths = {};
+        flightConnections.forEach(connection => {
+            const fromAirport = airports[connection.from];
+            const toAirport = airports[connection.to];
+
+            // Create a curved line between the airports
+            const path = L.polyline.arc(fromAirport.coords, toAirport.coords, {
+                color: getCssVar('--aai-primary'),
+                weight: 2,
+                opacity: 0.6,
+                vertices: 200
+            }).addTo(map);
+
+            flightPaths[`${connection.from}-${connection.to}`] = path;
+
+            // Add popup with flight info
+            path.bindPopup(`
+                <div style="min-width: 250px">
+                    <h5 style="margin: 0 0 10px 0;">${connection.from} to ${connection.to}</h5>
+                    <p style="margin: 0 0 5px 0;"><strong>Flights:</strong> ${connection.flights.join(', ')}</p>
+                    <p style="margin: 0 0 5px 0;"><strong>Duration:</strong> ${connection.duration}</p>
+                    <p style="margin: 0;"><strong>Distance:</strong> ${connection.distance}</p>
+                </div>
+            `);
+        });
+
+        // Function to show flight route between two airports
+        function showFlightRoute(origin, destination) {
+            // Reset all paths to default style
+            Object.values(flightPaths).forEach(path => {
+                path.setStyle({
+                    color: getCssVar('--aai-primary'),
+                    weight: 2,
+                    opacity: 0.6
+                });
+            });
+            
+            // Highlight the selected route
+            const routeKey = `${origin}-${destination}`;
+            const reverseRouteKey = `${destination}-${origin}`;
+            
+            if (flightPaths[routeKey]) {
+                flightPaths[routeKey].setStyle({
+                    color: '#d32f2f',
+                    weight: 4,
+                    opacity: 1
+                });
+                map.fitBounds([
+                    airports[origin].coords,
+                    airports[destination].coords
+                ], { padding: [50, 50] });
+                
+                // Show route information
+                const connection = flightConnections.find(conn => 
+                    (conn.from === origin && conn.to === destination) || 
+                    (conn.from === destination && conn.to === origin)
+                );
+                
+                if (connection) {
+                    document.getElementById('route-info').innerHTML = `
+                        <h5>${airports[origin].city} (${origin}) to ${airports[destination].city} (${destination})</h5>
+                        <p><strong>Distance:</strong> ${connection.distance}</p>
+                        <p><strong>Flight Duration:</strong> ${connection.duration}</p>
+                        <p><strong>Available Flights:</strong> ${connection.flights.join(', ')}</p>
+                        <p><strong>Best Route:</strong> Direct flight available</p>
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle me-2"></i> 
+                            ${connection.flights.length} daily flights available on this route
+                        </div>
+                    `;
+                }
+                
+                // Add plane animation
+                animatePlane(origin, destination);
+            } else if (flightPaths[reverseRouteKey]) {
+                flightPaths[reverseRouteKey].setStyle({
+                    color: '#d32f2f',
+                    weight: 4,
+                    opacity: 1
+                });
+                map.fitBounds([
+                    airports[origin].coords,
+                    airports[destination].coords
+                ], { padding: [50, 50] });
+                
+                // Add plane animation
+                animatePlane(origin, destination);
+            } else {
+                // If no direct flight, find connecting flights
+                findConnectingFlights(origin, destination);
+            }
+        }
+        
+        // Function to find connecting flights
+        function findConnectingFlights(origin, destination) {
+            // Simple algorithm to find one-stop connections
+            const possibleConnections = [];
+            
+            // Find airports that have flights from origin and to destination
+            flightConnections.forEach(conn1 => {
+                if (conn1.from === origin) {
+                    flightConnections.forEach(conn2 => {
+                        if (conn2.from === conn1.to && conn2.to === destination) {
+                            possibleConnections.push({
+                                via: conn1.to,
+                                flights1: conn1.flights,
+                                flights2: conn2.flights,
+                                totalDuration: addDurations(conn1.duration, conn2.duration),
+                                totalDistance: addDistances(conn1.distance, conn2.distance)
+                            });
+                        }
+                    });
+                }
+            });
+            
+            if (possibleConnections.length > 0) {
+                // Sort by total duration and take the fastest
+                possibleConnections.sort((a, b) => 
+                    parseDuration(a.totalDuration) - parseDuration(b.totalDuration)
+                );
+                
+                const bestConnection = possibleConnections[0];
+                
+                // Highlight both legs of the journey
+                flightPaths[`${origin}-${bestConnection.via}`].setStyle({
+                    color: '#d32f2f',
+                    weight: 4,
+                    opacity: 1
+                });
+                
+                flightPaths[`${bestConnection.via}-${destination}`].setStyle({
+                    color: '#d32f2f',
+                    weight: 4,
+                    opacity: 1
+                });
+                
+                // Show route information
+                document.getElementById('route-info').innerHTML = `
+                    <h5>${airports[origin].city} (${origin}) to ${airports[destination].city} (${destination})</h5>
+                    <p><strong>Connection via:</strong> ${airports[bestConnection.via].city} (${bestConnection.via})</p>
+                    <p><strong>Total Distance:</strong> ${bestConnection.totalDistance}</p>
+                    <p><strong>Total Duration:</strong> ${bestConnection.totalDuration} (including layover)</p>
+                    <p><strong>First Leg:</strong> ${origin}-${bestConnection.via} (${bestConnection.flights1.join(', ')})</p>
+                    <p><strong>Second Leg:</strong> ${bestConnection.via}-${destination} (${bestConnection.flights2.join(', ')})</p>
+                    <div class="alert alert-warning mt-3">
+                        <i class="fas fa-exclamation-triangle me-2"></i> 
+                        No direct flights available. Best option is via ${bestConnection.via} with ${possibleConnections.length} possible connections.
+                    </div>
+                `;
+                
+                // Fit bounds to show entire route
+                map.fitBounds([
+                    airports[origin].coords,
+                    airports[bestConnection.via].coords,
+                    airports[destination].coords
+                ], { padding: [50, 50] });
+            } else {
+                alert("No direct or connecting flights found between these airports");
+            }
+        }
+        
+        // Helper function to add durations (e.g. "1h 30m" + "2h 15m" = "3h 45m")
+        function addDurations(dur1, dur2) {
+            const mins1 = parseDuration(dur1);
+            const mins2 = parseDuration(dur2);
+            const totalMins = mins1 + mins2 + 60; // Add 60 mins for layover
+            
+            const hours = Math.floor(totalMins / 60);
+            const mins = totalMins % 60;
+            return `${hours}h ${mins}m`;
+        }
+        
+        // Helper function to parse duration string (e.g. "2h 30m" -> 150)
+        function parseDuration(dur) {
+            const parts = dur.split(/[h\s]/);
+            const hours = parseInt(parts[0]);
+            const mins = parseInt(parts[1]);
+            return hours * 60 + mins;
+        }
+        
+        // Helper function to add distances (e.g. "1,200 km" + "800 km" = "2,000 km")
+        function addDistances(dist1, dist2) {
+            const num1 = parseInt(dist1.replace(/,/g, ''));
+            const num2 = parseInt(dist2.replace(/,/g, ''));
+            return (num1 + num2).toLocaleString() + ' km';
+        }
+        
+        // Function to animate a plane along the route
+        function animatePlane(origin, destination) {
+            // Remove any existing plane
+            const existingPlane = document.querySelector('.plane-icon');
+            if (existingPlane) existingPlane.remove();
+            
+            const fromCoords = airports[origin].coords;
+            const toCoords = airports[destination].coords;
+            
+            // Calculate the bearing (direction) between the two points
+            const bearing = getBearing(fromCoords[0], fromCoords[1], toCoords[0], toCoords[1]);
+            
+            // Create plane icon
+            const plane = document.createElement('div');
+            plane.className = 'plane-icon';
+            plane.style.transform = `rotate(${bearing}deg)`;
+            document.getElementById('flight-map').appendChild(plane);
+            
+            // Get the map container's position
+            const mapContainer = document.getElementById('flight-map');
+            const mapRect = mapContainer.getBoundingClientRect();
+            
+            // Animate the plane
+            const duration = 5000; // 5 seconds
+            const startTime = performance.now();
+            
+            function animate(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Calculate current position
+                const currentLat = fromCoords[0] + (toCoords[0] - fromCoords[0]) * progress;
+                const currentLng = fromCoords[1] + (toCoords[1] - fromCoords[1]) * progress;
+                
+                // Convert lat/lng to pixel coordinates
+                const point = map.latLngToContainerPoint([currentLat, currentLng]);
+                
+                // Position the plane
+                plane.style.left = `${point.x}px`;
+                plane.style.top = `${point.y}px`;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    plane.remove();
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Helper function to calculate bearing between two points
+        function getBearing(lat1, lng1, lat2, lng2) {
+            const φ1 = lat1 * Math.PI / 180;
+            const φ2 = lat2 * Math.PI / 180;
+            const Δλ = (lng2 - lng1) * Math.PI / 180;
+            
+            const y = Math.sin(Δλ) * Math.cos(φ2);
+            const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+            const θ = Math.atan2(y, x);
+            
+            return ((θ * 180 / Math.PI) + 360) % 360;
+        }
+        
+        // Event listener for find route button
+        document.getElementById('find-route').addEventListener('click', () => {
+            const origin = document.getElementById('origin').value;
+            const destination = document.getElementById('destination').value;
+            if (origin && destination) {
+                showFlightRoute(origin, destination);
+            } else {
+                alert("Please select both departure and arrival airports");
+            }
+        });
+    </script>
+</body>
+</html>
