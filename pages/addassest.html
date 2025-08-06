@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Asset - AAI Asset Management</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --aai-primary: #1a3e72;
+            --aai-secondary: #4b8bbe;
+            --aai-accent: #f6b26b;
+            --aai-light: #e9f2f9;
+            --aai-dark: #0d1f3d;
+            --aai-success: #5cb85c;
+            --aai-danger: #d9534f;
+            --aai-white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--aai-light);
+            color: var(--aai-dark);
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--aai-primary) !important;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--aai-white) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--aai-white) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--aai-accent) !important;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: var(--aai-dark);
+            min-height: 100vh;
+            padding: 2rem 0;
+            position: fixed;
+            width: 250px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar .nav-link {
+            color: var(--aai-white);
+            padding: 1rem 1.5rem;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: var(--aai-primary);
+            color: var(--aai-white);
+            border-left-color: var(--aai-accent);
+        }
+
+        .sidebar .nav-link i {
+            margin-right: 0.75rem;
+            width: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Header Styles */
+        .page-header {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-secondary));
+            color: var(--aai-white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .page-header h1 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .breadcrumb {
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin-bottom: 0;
+        }
+
+        .breadcrumb-item a {
+            color: var(--aai-white);
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+        .breadcrumb-item.active {
+            color: var(--aai-accent);
+        }
+
+        /* Form Card Styles */
+        .form-card {
+            background: var(--aai-white);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-section-title {
+            color: var(--aai-primary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--aai-light);
+        }
+
+        /* Form Group Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--aai-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--aai-secondary);
+            box-shadow: 0 0 0 0.2rem rgba(75, 139, 190, 0.25);
+        }
+
+        .form-control:hover,
+        .form-select:hover {
+            border-color: var(--aai-secondary);
+        }
+
+        /* Input Icon Styles */
+        .input-group-text {
+            background-color: var(--aai-light);
+            border: 2px solid #e1e5e9;
+            border-right: none;
+            color: var(--aai-secondary);
+        }
+
+        .input-group .form-control {
+            border-left: none;
+        }
+
+        .input-group:focus-within .input-group-text {
+            border-color: var(--aai-secondary);
+        }
+
+        /* Radio Button Styles */
+        .form-check-input:checked {
+            background-color: var(--aai-secondary);
+            border-color: var(--aai-secondary);
+        }
+
+        .form-check-label {
+            font-weight: 500;
+            color: var(--aai-dark);
+        }
+
+        /* File Upload Styles */
+        .file-upload-container {
+            border: 2px dashed #e1e5e9;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-upload-container:hover {
+            border-color: var(--aai-secondary);
+            background-color: var(--aai-light);
+        }
+
+        .file-upload-container.dragover {
+            border-color: var(--aai-secondary);
+            background-color: var(--aai-light);
+        }
+
+        .preview-image {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-top: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Button Styles */
+        .btn-aai {
+            background-color: var(--aai-primary);
+            border-color: var(--aai-primary);
+            color: var(--aai-white);
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-aai:hover {
+            background-color: var(--aai-dark);
+            border-color: var(--aai-dark);
+            color: var(--aai-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-aai-outline {
+            background-color: transparent;
+            border: 2px solid var(--aai-secondary);
+            color: var(--aai-secondary);
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-aai-outline:hover {
+            background-color: var(--aai-secondary);
+            color: var(--aai-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-cancel {
+            background-color: transparent;
+            border: 2px solid var(--aai-danger);
+            color: var(--aai-danger);
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-cancel:hover {
+            background-color: var(--aai-danger);
+            color: var(--aai-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Success Banner */
+        .success-banner {
+            background: linear-gradient(135deg, var(--aai-success), #4caf50);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: none;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--aai-dark);
+            color: var(--aai-white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--aai-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shield-alt me-2"></i>
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="notification.html"><i class="fas fa-bell me-1"></i>Notifications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html"><i class="fas fa-user me-1"></i>Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html"><i class="fas fa-sign-out-alt me-1"></i>Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" style="margin-top: 80px;">
+        <!-- Success Banner -->
+        <div class="success-banner" id="successBanner">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-check-circle me-2"></i>
+                <span>Asset has been successfully added to the inventory!</span>
+            </div>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header" data-aos="fade-up">
+            <h1><i class="fas fa-plus-circle me-2"></i>Add New Asset</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="#">Asset Management</a></li>
+                    <li class="breadcrumb-item active">Add New</li>
+                </ol>
+            </nav>
+        </div>
+
+        <!-- Add Asset Form -->
+        <div class="form-card" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="form-section-title">
+                <i class="fas fa-info-circle me-2"></i>Asset Information
+            </h3>
+            
+            <form id="addAssetForm">
+                <div class="row">
+                    <!-- Asset Name -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Asset Name *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-tag"></i>
+                                </span>
+                                <input type="text" class="form-control" id="assetName" name="assetName" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Asset Category -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Asset Category *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-list"></i>
+                                </span>
+                                <select class="form-select" id="assetCategory" name="assetCategory" required>
+                                    <option value="">Select Category</option>
+                                    <option value="laptop">Laptop</option>
+                                    <option value="mobile">Mobile</option>
+                                    <option value="desktop">Desktop</option>
+                                    <option value="tablet">Tablet</option>
+                                    <option value="accessory">Accessory</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Brand -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Brand *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-building"></i>
+                                </span>
+                                <input type="text" class="form-control" id="brand" name="brand" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Model -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Model *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-cube"></i>
+                                </span>
+                                <input type="text" class="form-control" id="model" name="model" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Serial Number -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Serial Number *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-barcode"></i>
+                                </span>
+                                <input type="text" class="form-control" id="serialNumber" name="serialNumber" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Purchase Date -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Purchase Date *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-calendar"></i>
+                                </span>
+                                <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Name -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Vendor Name *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-store"></i>
+                                </span>
+                                <input type="text" class="form-control" id="vendorName" name="vendorName" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Warranty Period -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Warranty Period *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-shield-alt"></i>
+                                </span>
+                                <select class="form-select" id="warrantyPeriod" name="warrantyPeriod" required>
+                                    <option value="">Select Warranty</option>
+                                    <option value="6months">6 Months</option>
+                                    <option value="1year">1 Year</option>
+                                    <option value="2years">2 Years</option>
+                                    <option value="3years">3+ Years</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Assigned Department -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label">Assigned Department *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-building"></i>
+                                </span>
+                                <select class="form-select" id="assignedDepartment" name="assignedDepartment" required>
+                                    <option value="">Select Department</option>
+                                    <option value="IT">IT</option>
+                                    <option value="HR">HR</option>
+                                    <option value="Operations">Operations</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="ATM">ATM</option>
+                                    <option value="Commercial">Commercial</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Marketing">Marketing</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upload Photo -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label">Upload Photo (Optional)</label>
+                            <div class="file-upload-container" id="fileUploadContainer">
+                                <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                                <p class="mb-2">Drag & drop an image here or click to browse</p>
+                                <input type="file" class="form-control d-none" id="assetPhoto" name="assetPhoto" accept="image/*">
+                                <button type="button" class="btn btn-aai-outline btn-sm" onclick="document.getElementById('assetPhoto').click()">
+                                    <i class="fas fa-folder-open me-1"></i>Browse Files
+                                </button>
+                                <div id="imagePreview" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Initial Status -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label">Initial Status *</label>
+                            <div class="d-flex gap-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="initialStatus" id="inStock" value="in-stock" required>
+                                    <label class="form-check-label" for="inStock">
+                                        <i class="fas fa-warehouse me-1"></i>In Stock
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="initialStatus" id="inUse" value="in-use" required>
+                                    <label class="form-check-label" for="inUse">
+                                        <i class="fas fa-user-check me-1"></i>In Use
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notes/Remarks -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label">Notes / Remarks (Optional)</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="4" placeholder="Enter any additional information about the asset..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Buttons -->
+                <div class="d-flex gap-3 justify-content-end mt-4">
+                    <button type="button" class="btn btn-cancel" onclick="resetForm()">
+                        <i class="fas fa-times me-1"></i>Cancel
+                    </button>
+                    <button type="button" class="btn btn-aai-outline" onclick="resetForm()">
+                        <i class="fas fa-undo me-1"></i>Reset Form
+                    </button>
+                    <button type="submit" class="btn btn-aai">
+                        <div class="loading-spinner" id="loadingSpinner"></div>
+                        <i class="fas fa-plus-circle me-1"></i>Add Asset
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 AAI Asset Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // File Upload Functionality
+        const fileUploadContainer = document.getElementById('fileUploadContainer');
+        const fileInput = document.getElementById('assetPhoto');
+        const imagePreview = document.getElementById('imagePreview');
+
+        // Drag and drop functionality
+        fileUploadContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadContainer.classList.add('dragover');
+        });
+
+        fileUploadContainer.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            fileUploadContainer.classList.remove('dragover');
+        });
+
+        fileUploadContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadContainer.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFileSelect(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+
+        function handleFileSelect(file) {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.innerHTML = `
+                        <div class="text-center">
+                            <img src="${e.target.result}" class="preview-image" alt="Asset Preview">
+                            <p class="mt-2 text-muted">${file.name}</p>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="removeImage()">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please select a valid image file.');
+            }
+        }
+
+        function removeImage() {
+            fileInput.value = '';
+            imagePreview.innerHTML = '';
+        }
+
+        // Form submission
+        document.getElementById('addAssetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            
+            // Show loading state
+            loadingSpinner.style.display = 'inline-block';
+            submitButton.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Hide loading state
+                loadingSpinner.style.display = 'none';
+                submitButton.disabled = false;
+                
+                // Show success banner
+                const successBanner = document.getElementById('successBanner');
+                successBanner.style.display = 'block';
+                
+                // Reset form
+                resetForm();
+                
+                // Hide success banner after 5 seconds
+                setTimeout(() => {
+                    successBanner.style.display = 'none';
+                }, 5000);
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 2000);
+        });
+
+        // Reset form function
+        function resetForm() {
+            document.getElementById('addAssetForm').reset();
+            removeImage();
+        }
+
+        // Auto-generate serial number based on category and brand
+        document.getElementById('assetCategory').addEventListener('change', generateSerialNumber);
+        document.getElementById('brand').addEventListener('input', generateSerialNumber);
+
+        function generateSerialNumber() {
+            const category = document.getElementById('assetCategory').value;
+            const brand = document.getElementById('brand').value;
+            
+            if (category && brand) {
+                const categoryCode = category.substring(0, 3).toUpperCase();
+                const brandCode = brand.substring(0, 3).toUpperCase();
+                const randomNum = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+                
+                const serialNumber = `${categoryCode}-${brandCode}-${randomNum}`;
+                document.getElementById('serialNumber').value = serialNumber;
+            }
+        }
+
+        // Mobile sidebar toggle
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('show');
+        }
+
+        // Add mobile menu button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            if (navbarToggler) {
+                navbarToggler.addEventListener('click', toggleSidebar);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration | AAI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --aai-primary: #1a3e72;
+            --aai-secondary: #4b8bbe;
+            --aai-light: #e9f2f9;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--aai-light);
+        }
+        
+        .registration-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .registration-header {
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-secondary));
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="../home.html">
+                <img src="logo.png" alt="AAI Logo" height="40" class="d-inline-block align-top">
+                AAI Asset Management
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="registration-container">
+            <div class="registration-header">
+                <h3><i class="fas fa-user-plus me-2"></i> Employee Registration</h3>
+                <p class="mb-0">Register for access to the AAI Asset Management System</p>
+            </div>
+            
+            <div class="registration-body p-5">
+                <form id="registrationForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="employeeId" class="form-label">Employee ID</label>
+                            <input type="text" class="form-control" id="employeeId" placeholder="EMPXXXX" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">AAI Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="user@aai.gov.in" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="department" class="form-label">Department</label>
+                            <select class="form-select" id="department" required>
+                                <option value="">Select Department</option>
+                                <option value="IT">Information Technology</option>
+                                <option value="HR">Human Resources</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Operations">Operations</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="location" class="form-label">Location</label>
+                            <select class="form-select" id="location" required>
+                                <option value="">Select Location</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                        <label class="form-check-label" for="termsCheck">I agree to the terms and conditions</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-aai btn-lg w-100">Register</button>
+                </form>
+                
+                <div class="text-center mt-3">
+                    <p>Already have an account? <a href="login.html">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Registration Successful</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Your registration has been submitted successfully. After confirmation, your login details will be forwarded to your email ID.</p>
+                    <p>You will receive your credentials within 24 hours.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate passwords match
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // Show success modal
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+            
+            // In a real application, you would send the data to a server here
+            // For demo purposes, we'll just show the success message
+            this.reset();
+        });
+    </script>
+</body>
+</html>
