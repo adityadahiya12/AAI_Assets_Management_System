@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Center | AAI Asset Management System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="securitycenter.css">
+</head>
+<body>
+          <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo.png" alt="AAI Logo" class="img-fluid">
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 5px;">
+                            Admin User
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard" style="margin-top: 80px;">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2><i class="fas fa-boxes"></i> Admin Panel</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admindashboard.html" class="nav-link-sidebar">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="assetsbyadmin.html" class="nav-link-sidebar">
+                        <i class="fas fa-box"></i> Asset Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="employeemanagment.html" class="nav-link-sidebar">
+                        <i class="fas fa-users"></i> Employee Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="vendormanagment.html" class="nav-link-sidebar">
+                        <i class="fas fa-truck"></i> Vendor Management
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="adminITticketing.html" class="nav-link-sidebar">
+                        <i class="fas fa-exchange-alt"></i> IT Ticketing 
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link-sidebar">
+                        <i class="fas fa-chart-line"></i> Reports & Analytics
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="settingadmin.html" class="nav-link-sidebar">
+                        <i class="fas fa-cog"></i> System Settings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="securitycenter.html" class="nav-link-sidebar  active">
+                        <i class="fas fa-shield-alt"></i> Security Center
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="auditlog.html" class="nav-link-sidebar">
+                        <i class="fas fa-history"></i> Audit Logs
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search threats, users...">
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-aai me-2">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                    <button class="btn btn-aai-outline">
+                        <i class="fas fa-question-circle"></i> Help
+                    </button>
+                </div>
+            </div>
+
+            <!-- Security Overview Cards -->
+            <div class="security-overview">
+                <div class="security-card critical">
+                    <h3>12</h3>
+                    <p>Critical Threats</p>
+                    <div class="trend up">
+                        <i class="fas fa-arrow-up"></i> 20% from last week
+                    </div>
+                </div>
+                <div class="security-card high">
+                    <h3>28</h3>
+                    <p>High Severity Alerts</p>
+                    <div class="trend up">
+                        <i class="fas fa-arrow-up"></i> 5% from last week
+                    </div>
+                </div>
+                <div class="security-card medium">
+                    <h3>42</h3>
+                    <p>Medium Risk Events</p>
+                    <div class="trend down">
+                        <i class="fas fa-arrow-down"></i> 15% from last week
+                    </div>
+                </div>
+                <div class="security-card low">
+                    <h3>156</h3>
+                    <p>Low Priority Notices</p>
+                    <div class="trend down">
+                        <i class="fas fa-arrow-down"></i> 8% from last week
+                    </div>
+                </div>
+            </div>
+
+            <!-- Threat Dashboard -->
+            <div class="threat-dashboard">
+                <div class="threat-activity">
+                    <div class="threat-activity-header">
+                        <h3 class="threat-activity-title"><i class="fas fa-exclamation-triangle me-2"></i> Recent Threat Activity</h3>
+                        <button class="btn btn-outline">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                    </div>
+                    <table class="threat-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Threat</th>
+                                <th>Source</th>
+                                <th>Severity</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Today, 10:42 AM</td>
+                                <td>Multiple failed login attempts</td>
+                                <td>192.168.1.45 (Internal)</td>
+                                <td><span class="threat-severity severity-critical">Critical</span></td>
+                                <td>Investigating</td>
+                            </tr>
+                            <tr>
+                                <td>Today, 09:15 AM</td>
+                                <td>Suspicious file upload detected</td>
+                                <td>External (45.67.89.123)</td>
+                                <td><span class="threat-severity severity-high">High</span></td>
+                                <td>Contained</td>
+                            </tr>
+                            <tr>
+                                <td>Today, 08:30 AM</td>
+                                <td>Unauthorized access attempt</td>
+                                <td>External (98.76.54.32)</td>
+                                <td><span class="threat-severity severity-high">High</span></td>
+                                <td>Blocked</td>
+                            </tr>
+                            <tr>
+                                <td>Yesterday, 11:45 PM</td>
+                                <td>Brute force attack detected</td>
+                                <td>External (34.56.78.90)</td>
+                                <td><span class="threat-severity severity-critical">Critical</span></td>
+                                <td>Resolved</td>
+                            </tr>
+                            <tr>
+                                <td>Yesterday, 06:20 PM</td>
+                                <td>Data exfiltration attempt</td>
+                                <td>192.168.1.102 (Internal)</td>
+                                <td><span class="threat-severity severity-critical">Critical</span></td>
+                                <td>Investigating</td>
+                            </tr>
+                            <tr>
+                                <td>Yesterday, 03:15 PM</td>
+                                <td>Phishing email detected</td>
+                                <td>Email System</td>
+                                <td><span class="threat-severity severity-medium">Medium</span></td>
+                                <td>Quarantined</td>
+                            </tr>
+                            <tr>
+                                <td>Yesterday, 01:30 PM</td>
+                                <td>Unusual data access pattern</td>
+                                <td>Database Server</td>
+                                <td><span class="threat-severity severity-medium">Medium</span></td>
+                                <td>Monitoring</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="threat-map">
+                    <div class="threat-map-header">
+                        <h3 class="threat-map-title"><i class="fas fa-globe-americas me-2"></i> Threat Map</h3>
+                        <button class="btn btn-outline">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                    <div class="threat-map-container">
+                        <i class="fas fa-globe fa-3x"></i>
+                        <p>Threat visualization map would appear here</p>
+                    </div>
+                    <div class="threat-map-legend">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: var(--aai-critical);"></span>
+                            <span class="legend-label">Critical Threats</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: var(--aai-high);"></span>
+                            <span class="legend-label">High Severity</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background-color: var(--aai-medium);"></span>
+                            <span class="legend-label">Medium Risk</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Access Control -->
+            <div class="access-control">
+                <div class="access-control-header">
+                    <h3 class="access-control-title"><i class="fas fa-lock me-2"></i> Access Control</h3>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add Rule
+                    </button>
+                </div>
+                <div class="access-tabs">
+                    <div class="access-tab active" onclick="switchTab('user-access')">User Access</div>
+                    <div class="access-tab" onclick="switchTab('role-permissions')">Role Permissions</div>
+                    <div class="access-tab" onclick="switchTab('ip-restrictions')">IP Restrictions</div>
+                    <div class="access-tab" onclick="switchTab('device-policies')">Device Policies</div>
+                </div>
+                <div class="access-tab-content active" id="user-access">
+                    <table class="threat-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Role</th>
+                                <th>Last Access</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>admin.user@company.com</td>
+                                <td>Administrator</td>
+                                <td>Today, 10:45 AM</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>jane.doe@company.com</td>
+                                <td>Manager</td>
+                                <td>Today, 09:30 AM</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>john.smith@company.com</td>
+                                <td>Analyst</td>
+                                <td>Yesterday, 05:15 PM</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>temp.employee@company.com</td>
+                                <td>Guest</td>
+                                <td>Last week</td>
+                                <td><span class="status-badge status-inactive">Inactive</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="access-tab-content" id="role-permissions">
+                    <p>Role permissions management interface would appear here</p>
+                </div>
+                <div class="access-tab-content" id="ip-restrictions">
+                    <p>IP restriction rules would appear here</p>
+                </div>
+                <div class="access-tab-content" id="device-policies">
+                    <p>Device security policies would appear here</p>
+                </div>
+            </div>
+
+            <!-- User Activity Log -->
+            <div class="activity-log">
+                <div class="activity-log-header">
+                    <h3 class="activity-log-title"><i class="fas fa-history me-2"></i> User Activity Log</h3>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-file-export"></i> Export
+                    </button>
+                </div>
+                <div class="activity-log-item">
+                    <div class="activity-log-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="activity-log-content">
+                        <div class="activity-log-title">Admin login</div>
+                        <div class="activity-log-desc">User "admin.user" logged in from IP 192.168.1.100 (Chrome, Windows)</div>
+                        <div class="activity-log-time">Today, 10:45 AM</div>
+                    </div>
+                </div>
+                <div class="activity-log-item">
+                    <div class="activity-log-icon">
+                        <i class="fas fa-file-edit"></i>
+                    </div>
+                    <div class="activity-log-content">
+                        <div class="activity-log-title">Asset modified</div>
+                        <div class="activity-log-desc">User "jane.doe" modified asset ASSET-045 (Dell XPS 15)</div>
+                        <div class="activity-log-time">Today, 10:30 AM</div>
+                    </div>
+                </div>
+                <div class="activity-log-item">
+                    <div class="activity-log-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="activity-log-content">
+                        <div class="activity-log-title">New user created</div>
+                        <div class="activity-log-desc">User "admin.user" created new account for "temp.employee"</div>
+                        <div class="activity-log-time">Today, 09:15 AM</div>
+                    </div>
+                </div>
+                <div class="activity-log-item">
+                    <div class="activity-log-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="activity-log-content">
+                        <div class="activity-log-title">Password changed</div>
+                        <div class="activity-log-desc">User "john.smith" changed their password</div>
+                        <div class="activity-log-time">Yesterday, 05:30 PM</div>
+                    </div>
+                </div>
+                <div class="activity-log-item">
+                    <div class="activity-log-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="activity-log-content">
+                        <div class="activity-log-title">Data export</div>
+                        <div class="activity-log-desc">User "jane.doe" exported asset list to CSV</div>
+                        <div class="activity-log-time">Yesterday, 04:45 PM</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Settings -->
+            <div class="security-settings">
+                <h3 class="access-control-title"><i class="fas fa-cog me-2"></i> Security Settings</h3>
+                
+                <div class="setting-card">
+                    <div class="setting-header">
+                        <h4 class="setting-title">Two-Factor Authentication</h4>
+                        <label class="setting-toggle">
+                            <input type="checkbox" checked>
+                            <span class="setting-slider"></span>
+                        </label>
+                    </div>
+                    <p class="setting-description">Require users to authenticate with a second factor (SMS or authenticator app) when logging in.</p>
+                </div>
+                
+                <div class="setting-card">
+                    <div class="setting-header">
+                        <h4 class="setting-title">Password Policy Enforcement</h4>
+                        <label class="setting-toggle">
+                            <input type="checkbox" checked>
+                            <span class="setting-slider"></span>
+                        </label>
+                    </div>
+                    <p class="setting-description">Enforce strong passwords (minimum 12 characters, mixed case, numbers, and special characters).</p>
+                </div>
+                
+                <div class="setting-card">
+                    <div class="setting-header">
+                        <h4 class="setting-title">Session Timeout</h4>
+                        <label class="setting-toggle">
+                            <input type="checkbox" checked>
+                            <span class="setting-slider"></span>
+                        </label>
+                    </div>
+                    <p class="setting-description">Automatically log users out after 30 minutes of inactivity.</p>
+                </div>
+                
+                <div class="setting-card">
+                    <div class="setting-header">
+                        <h4 class="setting-title">IP Whitelisting</h4>
+                        <label class="setting-toggle">
+                            <input type="checkbox">
+                            <span class="setting-slider"></span>
+                        </label>
+                    </div>
+                    <p class="setting-description">Restrict access to only approved IP addresses (configure in IP Restrictions tab).</p>
+                </div>
+                
+                <div class="setting-card">
+                    <div class="setting-header">
+                        <h4 class="setting-title">Login Attempt Lockout</h4>
+                        <label class="setting-toggle">
+                            <input type="checkbox" checked>
+                            <span class="setting-slider"></span>
+                        </label>
+                    </div>
+                    <p class="setting-description">Lock accounts after 5 failed login attempts for 30 minutes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom JS -->
+    <script src="securitycenter.js">
+
+    </script>
+</body>
+</html>
