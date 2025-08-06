@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAI Asset Manager | Airport Authority of India</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --dark-blue: #0d1b2a;
+            --gold: #f4a261;
+            --light-blue: #1b263b;
+            --white: #e0e1dd;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(13, 27, 42, 0.9) !important;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            padding: 20px 0;
+        }
+        
+        .navbar.shrink {
+            padding: 10px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, var(--gold), #ff9e5e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .nav-link {
+            color: var(--white) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .login-btn {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            border-radius: 30px;
+            padding: 8px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-btn:hover {
+            color: var(--dark-blue);
+            transform: translateY(-3px);
+        }
+        
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .login-btn:hover::before {
+            left: 0;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .carousel-item {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .carousel-item:nth-child(1) {
+            background-image: linear-gradient(rgba(13, 27, 42, 0.7), rgba(13, 27, 42, 0.7)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80');
+        }
+        
+        .carousel-item:nth-child(2) {
+            background-image: linear-gradient(rgba(13, 27, 42, 0.7), rgba(13, 27, 42, 0.7)), url('https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .carousel-item:nth-child(3) {
+            background-image: linear-gradient(rgba(13, 27, 42, 0.7), rgba(13, 27, 42, 0.7)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .carousel-item:nth-child(4) {
+            background-image: linear-gradient(rgba(13, 27, 42, 0.7), rgba(13, 27, 42, 0.7)), url('https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+        }
+        
+        .carousel-item:nth-child(5) {
+            background-image: linear-gradient(rgba(13, 27, 42, 0.7), rgba(13, 27, 42, 0.7)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+        
+        .carousel-item:nth-child(6) {
+            background-image: linear-gradient(rgba(13, 27, 42, 0.7), rgba(13, 27, 42, 0.7)), url('https://images.unsplash.com/photo-1581093057305-3fe6b32b5725?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80');
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--white), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-btn {
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(244, 162, 97, 0.5);
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(244, 162, 97, 0.8);
+        }
+        
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Scroll Down Indicator */
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        /* Section Common Styles */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            text-align: center;
+            background: linear-gradient(90deg, var(--gold), #ff9e5e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+        
+        /* Onboarding Section */
+        .onboarding-card {
+            background: var(--light-blue);
+            border-radius: 15px;
+            padding: 30px;
+            height: 100%;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(244, 162, 97, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .onboarding-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(244, 162, 97, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        
+        .onboarding-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(244, 162, 97, 0.5);
+        }
+        
+        .onboarding-card:hover::before {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+        
+        .onboarding-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .onboarding-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        /* Return & Exit Tracking */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: var(--gold);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: var(--gold);
+            border: 4px solid var(--dark-blue);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .right::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background: var(--light-blue);
+            position: relative;
+            border-radius: 10px;
+            border: 1px solid rgba(244, 162, 97, 0.2);
+        }
+        
+        .timeline-content h3 {
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        
+        /* Service Tracker */
+        .progress-tracker {
+            background: var(--light-blue);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(244, 162, 97, 0.2);
+        }
+        
+        .tracker-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .tracker-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .tracker-id {
+            color: var(--gold);
+            font-weight: 500;
+        }
+        
+        .progress {
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            background-color: var(--gold);
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+        
+        .status-item {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: var(--dark-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .status-details {
+            flex-grow: 1;
+        }
+        
+        .status-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .status-time {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Technician Section */
+        .technician-card {
+            background: var(--light-blue);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(244, 162, 97, 0.2);
+        }
+        
+        .technician-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tech-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .tech-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--dark-blue);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .tech-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .tech-status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-in-progress {
+            background: rgba(244, 162, 97, 0.2);
+            color: var(--gold);
+        }
+        
+        .status-delayed {
+            background: rgba(255, 99, 71, 0.2);
+            color: tomato;
+        }
+        
+        .status-done {
+            background: rgba(50, 205, 50, 0.2);
+            color: limegreen;
+        }
+        
+        .tech-task {
+            margin-bottom: 10px;
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background: var(--light-blue);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(244, 162, 97, 0.2);
+        }
+        
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 0.25rem rgba(244, 162, 97, 0.25);
+            color: var(--white);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .submit-btn {
+            background: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(244, 162, 97, 0.3);
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--light-blue);
+            padding: 60px 0 20px;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        
+        .footer-title {
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links a {
+            display: block;
+            color: var(--white);
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+            transform: translateX(5px);
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: var(--gold);
+            color: var(--dark-blue);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            opacity: 0.7;
+        }
+        
+        /* Crazy Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+        
+        .pulse {
+            animation: pulse 3s ease infinite;
+        }
+        
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .rotate {
+            animation: rotate 20s linear infinite;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+            
+            .left::after, .right::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 70px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .cta-btn {
+                padding: 12px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">AAI Asset Manager</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars" style="color: var(--gold);"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#onboarding">Onboarding</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#returns">Returns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn login-btn" href="#">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <!-- Background Carousel -->
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+            <div class="carousel-inner">
+                <div class="carousel-item active"></div>
+                <div class="carousel-item"></div>
+                <div class="carousel-item"></div>
+                <div class="carousel-item"></div>
+                <div class="carousel-item"></div>
+                <div class="carousel-item"></div>
+            </div>
+        </div>
+        
+        <div class="container hero-content">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="hero-title" id="typewriter"></h1>
+                    <p class="hero-subtitle">Track, Manage, Maintain Airport IT & Infra Assets with our comprehensive management system</p>
+                    <button class="btn cta-btn pulse">Login to Portal</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-down">
+            <a href="#onboarding" class="text-white" style="font-size: 2rem;">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Onboarding Section -->
+    <section class="section" id="onboarding">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">New Employee Onboarding</h2>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="onboarding-card">
+                        <div class="onboarding-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3 class="onboarding-title">Laptop Setup</h3>
+                        <p>Get your work device configured with all necessary software and security protocols.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="onboarding-card">
+                        <div class="onboarding-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <h3 class="onboarding-title">ID Card</h3>
+                        <p>Receive your official airport identification card with access permissions.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="onboarding-card">
+                        <div class="onboarding-icon">
+                            <i class="fas fa-sim-card"></i>
+                        </div>
+                        <h3 class="onboarding-title">SIM Card</h3>
+                        <p>Company-provided SIM for official communication with data plan.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="onboarding-card">
+                        <div class="onboarding-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <h3 class="onboarding-title">Safety Gear</h3>
+                        <p>Essential safety equipment for airport operational areas.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="onboarding-card">
+                        <div class="onboarding-icon">
+                            <i class="fas fa-projector"></i>
+                        </div>
+                        <h3 class="onboarding-title">Projector</h3>
+                        <p>For presentation needs in meeting rooms and training sessions.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="onboarding-card">
+                        <div class="onboarding-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h3 class="onboarding-title">Access Badge</h3>
+                        <p>RFID enabled badge for secure access to restricted areas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Return & Exit Tracking -->
+    <section class="section bg-dark" id="returns">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Exit Asset Returns</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <h3>Request Submitted</h3>
+                        <p>Employee initiates the return process through the portal.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right" data-aos="fade-left" data-aos-delay="100">
+                    <div class="timeline-content">
+                        <h3>Confirmation Received</h3>
+                        <p>System verifies assets assigned and sends confirmation.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left" data-aos="fade-right" data-aos-delay="200">
+                    <div class="timeline-content">
+                        <h3>Appointment Scheduled</h3>
+                        <p>Employee books time slot for physical return.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right" data-aos="fade-left" data-aos-delay="300">
+                    <div class="timeline-content">
+                        <h3>Asset Inspection</h3>
+                        <p>IT team verifies condition and completeness.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left" data-aos="fade-right" data-aos-delay="400">
+                    <div class="timeline-content">
+                        <h3>Final Clearance</h3>
+                        <p>HR completes exit formalities after asset return.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Tracker -->
+    <section class="section" id="services">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Service Request & Repair Tracking</h2>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <div class="progress-tracker">
+                        <div class="tracker-header">
+                            <h3 class="tracker-title">Server Room AC Repair</h3>
+                            <span class="tracker-id">#SRV-2023-5876</span>
+                        </div>
+                        
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        
+                        <div class="status-item">
+                            <div class="status-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="status-details">
+                                <h4 class="status-title">Request Received</h4>
+                                <p class="status-time">Today, 09:30 AM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="status-item">
+                            <div class="status-icon">
+                                <i class="fas fa-user-cog"></i>
+                            </div>
+                            <div class="status-details">
+                                <h4 class="status-title">Technician Assigned</h4>
+                                <p class="status-time">Today, 10:45 AM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="status-item">
+                            <div class="status-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="status-details">
+                                <h4 class="status-title">Repair In Progress</h4>
+                                <p class="status-time">Today, 11:30 AM - Ongoing</p>
+                            </div>
+                        </div>
+                        
+                        <div class="status-item">
+                            <div class="status-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="status-details">
+                                <h4 class="status-title">Resolution</h4>
+                                <p class="status-time">Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="text-center mb-4" data-aos="fade-up">Live Technician Status</h3>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="technician-card">
+                        <div class="tech-header">
+                            <div class="tech-avatar">RS</div>
+                            <div>
+                                <h4 class="tech-name">Rajesh Sharma</h4>
+                                <span class="tech-status status-in-progress">In Progress</span>
+                            </div>
+                        </div>
+                        <p class="tech-task"><strong>Task:</strong> Terminal 1 Network Switch Replacement</p>
+                        <p class="tech-location"><i class="fas fa-map-marker-alt me-2"></i> T1 Server Room</p>
+                        <p class="tech-time"><i class="fas fa-clock me-2"></i> Started: 10:30 AM</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="technician-card">
+                        <div class="tech-header">
+                            <div class="tech-avatar">PK</div>
+                            <div>
+                                <h4 class="tech-name">Priya Kumar</h4>
+                                <span class="tech-status status-delayed">Delayed</span>
+                            </div>
+                        </div>
+                        <p class="tech-task"><strong>Task:</strong> Baggage Scanner Maintenance</p>
+                        <p class="tech-location"><i class="fas fa-map-marker-alt me-2"></i> T2 Security Area</p>
+                        <p class="tech-time"><i class="fas fa-clock me-2"></i> Started: 9:15 AM</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="technician-card">
+                        <div class="tech-header">
+                            <div class="tech-avatar">AM</div>
+                            <div>
+                                <h4 class="tech-name">Amit Mishra</h4>
+                                <span class="tech-status status-done">Done</span>
+                            </div>
+                        </div>
+                        <p class="tech-task"><strong>Task:</strong> Boarding Gate Display Repair</p>
+                        <p class="tech-location"><i class="fas fa-map-marker-alt me-2"></i> T1 Gate 12</p>
+                        <p class="tech-time"><i class="fas fa-clock me-2"></i> Completed: 11:00 AM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Contact IT Support</h2>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <div class="contact-form">
+                        <form id="supportForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <select class="form-control" id="department" required>
+                                    <option value="" disabled selected>Select Department</option>
+                                    <option>IT Infrastructure</option>
+                                    <option>Network Operations</option>
+                                    <option>Hardware Support</option>
+                                    <option>Software Support</option>
+                                    <option>Security Systems</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <select class="form-control" id="urgency" required>
+                                    <option value="" disabled selected>Urgency Level</option>
+                                    <option>Critical (System Down)</option>
+                                    <option>High (Major Impact)</option>
+                                    <option>Medium (Partial Functionality)</option>
+                                    <option>Low (General Inquiry)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <textarea class="form-control" id="message" rows="5" placeholder="Describe your issue in detail" required></textarea>
+                            </div>
+                            
+                            <div class="text-center">
+                                <button type="submit" class="btn submit-btn">Submit Request</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h3 class="footer-title">AAI Asset Manager</h3>
+                    <p class="mt-3">Comprehensive asset management solution for Airport Authority of India's IT and infrastructure resources.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <div class="footer-links mt-4">
+                        <a href="#home">Home</a>
+                        <a href="#onboarding">Onboarding</a>
+                        <a href="#returns">Asset Returns</a>
+                        <a href="#services">Services</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+                    <h3 class="footer-title">Contact Info</h3>
+                    <div class="footer-links mt-4">
+                        <p><i class="fas fa-map-marker-alt me-2"></i> Rajiv Gandhi Bhawan, Safdarjung Airport, New Delhi</p>
+                        <p><i class="fas fa-phone-alt me-2"></i> +91 11 2463 2995</p>
+                        <p><i class="fas fa-envelope me-2"></i> support@aai.aero</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="footer-title">Emergency Support</h3>
+                    <div class="footer-links mt-4">
+                        <p><i class="fas fa-phone-alt me-2"></i> +91 11 2463 2999 (24x7)</p>
+                        <p><i class="fas fa-exclamation-triangle me-2"></i> Critical issues only</p>
+                        <button class="btn btn-sm btn-outline-warning mt-2">Report Emergency</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Airport Authority of India. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Typewriter Effect -->
+    <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Navbar shrink effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('shrink');
+            } else {
+                document.querySelector('.navbar').classList.remove('shrink');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Typewriter effect
+        const typewriter = new Typewriter('#typewriter', {
+            loop: true,
+            delay: 75,
+        });
+        
+        typewriter
+            .typeString('AAI Asset Management System')
+            .pauseFor(1000)
+            .deleteAll()
+            .typeString('Track Airport Assets')
+            .pauseFor(1000)
+            .deleteAll()
+            .typeString('Optimize Resource Usage')
+            .pauseFor(1000)
+            .deleteAll()
+            .start();
+        
+        // Progress bar animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBar = document.querySelector('.progress-bar');
+            let width = 0;
+            const targetWidth = 75;
+            const interval = setInterval(function() {
+                if (width >= targetWidth) {
+                    clearInterval(interval);
+                } else {
+                    width++;
+                    progressBar.style.width = width + '%';
+                    progressBar.setAttribute('aria-valuenow', width);
+                }
+            }, 20);
+        });
+        
+        // Form submission
+        document.getElementById('supportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your support request has been submitted successfully!');
+            this.reset();
+        });
+        
+        // Carousel auto-rotation
+        const myCarousel = document.querySelector('#heroCarousel');
+        const carousel = new bootstrap.Carousel(myCarousel, {
+            interval: 5000,
+            wrap: true,
+            pause: false
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to AAI Asset Management</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --aai-primary: #1a3e72;
+            --aai-secondary: #4b8bbe;
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            width: 120px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .typewriter {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            min-height: 80px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn-welcome {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--aai-primary);
+            border: 2px solid var(--aai-primary);
+        }
+        
+        .btn-outline-light {
+            border: 2px solid white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--aai-secondary);
+            border-color: var(--aai-secondary);
+            transform: translateY(-3px);
+        }
+        
+        .btn-outline-light:hover {
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .typewriter {
+                font-size: 1.3rem;
+                min-height: 100px;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop id="bgVideo">
+            <source src="welcomevideo.mp4" type="video/mp4">
+            <!-- Fallback image if video doesn't load -->
+            <img src="https://www.passengerterminaltoday.com/wp-content/uploads/2022/12/Kuala-Lumpur-Airport-Siemens-e1671125369768.jpg" alt="Airport Background">
+        </video>
+        <div class="overlay"></div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="content">
+        <img src="logo.png" alt="AAI Logo" class="logo">
+        <h1>AAI ASSET MANAGEMENT</h1>
+        <div class="typewriter" id="typewriter"></div>
+        
+        <div class="btn-container">
+            <a href="pages/login.html" class="btn btn-primary btn-welcome">
+                <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a>
+            <a href="about.html" class="btn btn-outline-light btn-welcome">
+                <i class="fas fa-info-circle me-2"></i>About Us
+            </a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Typewriter Effect Script -->
+    <script>
+        // Typewriter effect
+        const typewriterElement = document.getElementById('typewriter');
+        const quotes = [
+            "Managing airport assets with precision and efficiency...",
+            "Ensuring smooth operations for India's aviation infrastructure...",
+            "Connecting people, places, and possibilities through technology...",
+            "Your trusted partner in airport asset management..."
+        ];
+        
+        let currentQuote = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+        
+        function typeWriter() {
+            const fullText = quotes[currentQuote];
+            
+            if (isDeleting) {
+                typewriterElement.textContent = fullText.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                typewriterElement.textContent = fullText.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+            
+            if (!isDeleting && charIndex === fullText.length) {
+                isDeleting = true;
+                typingSpeed = 1500; // Pause at end of sentence
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                currentQuote = (currentQuote + 1) % quotes.length;
+                typingSpeed = 500; // Pause before typing next
+            }
+            
+            setTimeout(typeWriter, typingSpeed);
+        }
+        
+        // Start the typewriter effect
+        setTimeout(typeWriter, 1000);
+        
+        // Fallback if video doesn't load
+        document.getElementById('bgVideo').addEventListener('error', function() {
+            this.style.display = 'none';
+            document.querySelector('.video-background').style.backgroundImage = 'url(https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)';
+            document.querySelector('.video-background').style.backgroundSize = 'cover';
+            document.querySelector('.video-background').style.backgroundPosition = 'center';
+        });
+    </script>
+</body>
+</html>
