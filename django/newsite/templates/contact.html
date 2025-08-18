@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Help | AAI Asset Management System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --aai-primary: #1a3e72;  /* Deep blue */
+            --aai-secondary: #4b8bbe;  /* Medium blue */
+            --aai-accent: #f6b26b;  /* Warm gold */
+            --aai-light: #e9f2f9;  /* Light blue */
+            --aai-dark: #0d1f3d;  /* Navy blue */
+            --aai-success: #5cb85c;  /* Green */
+            --aai-danger: #d9534f;  /* Red */
+            --aai-white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--aai-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--aai-white);
+        }
+        
+        /* Particle Background */
+        .particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            background-color: var(--aai-primary);
+        }
+        
+        /* Navbar with Glass Morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--aai-primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+            transition: all 0.5s;
+        }
+        
+        .navbar-brand:hover img {
+            transform: rotate(15deg);
+        }
+        
+        .nav-link {
+            color: var(--aai-dark);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover {
+            color: var(--aai-primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .btn-aai {
+            background-color: var(--aai-primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: none;
+            box-shadow: 0 4px 15px rgba(26, 62, 114, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-aai:hover {
+            background-color: var(--aai-secondary);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 62, 114, 0.4);
+        }
+        
+        .btn-aai:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .btn-aai:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-aai:hover:before {
+            left: 100%;
+        }
+        
+        .btn-aai-outline {
+            background-color: transparent;
+            color: var(--aai-primary);
+            border: 2px solid var(--aai-primary);
+            box-shadow: none;
+        }
+        
+        .btn-aai-outline:hover {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .contact-hero {
+            height: 60vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(135deg, rgba(26, 62, 114, 0.9), rgba(13, 31, 61, 0.9)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .contact-hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+        
+        .contact-hero h1 {
+            font-weight: 800;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+        
+        .contact-hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0.9;
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 60px;
+            text-align: center;
+            color: var(--aai-primary);
+            font-weight: 800;
+            font-size: 2.5rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--aai-primary), var(--aai-accent));
+            border-radius: 5px;
+        }
+        
+        .light-bg {
+            background-color: var(--aai-light);
+        }
+        
+        .dark-bg {
+            background: linear-gradient(135deg, var(--aai-primary), var(--aai-dark));
+            color: white;
+        }
+        
+        .dark-bg .section-title {
+            color: white;
+        }
+        
+        .dark-bg .section-title:after {
+            background: linear-gradient(90deg, white, var(--aai-accent));
+        }
+        
+        /* Contact Cards */
+        .contact-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            height: 100%;
+            border-top: 5px solid var(--aai-primary);
+            transition: all 0.3s;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--aai-primary);
+            margin-bottom: 20px;
+        }
+        
+        /* FAQ Accordion */
+        .accordion-item {
+            border: none;
+            margin-bottom: 15px;
+            border-radius: 10px !important;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .accordion-button {
+            background-color: white;
+            color: var(--aai-primary);
+            font-weight: 600;
+            padding: 20px;
+            border-radius: 10px 10px 0 0 !important;
+            box-shadow: none;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: var(--aai-primary);
+            color: white;
+        }
+        
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: rgba(0,0,0,.125);
+        }
+        
+        .accordion-body {
+            padding: 20px;
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        /* Form Styles */
+        .form-control, .form-select {
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--aai-primary);
+            box-shadow: 0 0 0 0.25rem rgba(26, 62, 114, 0.25);
+        }
+        .form-check-label{
+            font-weight: 600;
+            color: var(--aai-dark);
+        }
+        
+        
+        
+        /* Knowledge Base Cards */
+        .kb-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            transition: all 0.3s;
+            border-left: 5px solid var(--aai-primary);
+        }
+        
+        .kb-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .kb-card-header {
+            background-color: var(--aai-light);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .kb-card-body {
+            padding: 20px;
+        }
+        
+        .kb-card-body ul {
+            padding-left: 20px;
+        }
+        
+        .kb-card-body li {
+            margin-bottom: 10px;
+        }
+        
+        /* Status Indicators */
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-online {
+            background-color: var(--aai-success);
+            animation: pulse 2s infinite;
+        }
+        
+        .status-offline {
+            background-color: var(--aai-danger);
+        }
+        
+        .status-busy {
+            background-color: var(--aai-accent);
+        }
+        .list-unstyled li {
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+        #under-line{
+            text-decoration: none;
+            color: var(--aai-primary);
+            font-weight: 600;
+           
+        }
+        #under-line:hover {
+            text-decoration: underline;
+            color: var(--aai-accent);
+        }
+        #bold-text {
+            font-weight: 600;
+            color: white;
+            text-decoration: bold;
+        }
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .contact-hero h1 {
+                font-size: 3rem;
+            }
+            
+            .contact-hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contact-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-hero {
+                height: 50vh;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .contact-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-hero p {
+                font-size: 1rem;
+            }
+            
+            .btn-aai {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            .btn-aai-outline {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+           
+        }
+         #help-center{
+                font-weight: 600;
+                color: var(--aai-dark);
+                text-decoration: bold;
+                font-size: 2rem;
+            }
+            #knowledge-coupon{
+                font-weight: 600;
+                color: var(--aai-primary);
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js" class="particles-js"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="/static/logo.png" alt="AAI Logo" class="img-fluid">
+                AAI Asset Management
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'features' %}">Feature</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'workflow' %}">Workflow</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'contact' %}">Contact</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-aai" href="{% url 'login' %}">log-out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container contact-hero-content">
+            <h1 class="animate__animated animate__fadeInDown">We're Here to Help</h1>
+            <p class="animate__animated animate__fadeIn animate__delay-1s">Get in touch with our support team for any assistance with the AAI Asset Management System</p>
+            <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="contact.html" class="btn btn-aai btn-lg me-3">Contact Support <i class="fas fa-headset ms-2"></i></a>
+                <a href="#faq" class="btn btn-aai-outline btn-lg">Browse FAQs <i class="fas fa-question-circle ms-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Channels Section -->
+    <section class="section light-bg">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Support Channels</h2>
+            <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="100">Multiple ways to get the help you need</p>
+            
+            <div class="row">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>Helpdesk Support</h3>
+                        <p><strong>24/7 Support:</strong> +91-11-2467-XXXX</p>
+                        <p><strong>Email:</strong> assetsupport@aai.gov.in</p>
+                        <p><strong>Hours:</strong> 24/7 critical support<br>Mon-Fri 8:00-20:00 general queries</p>
+                        <div class="mt-4">
+                            <span class="status-indicator status-online"></span>
+                            <small class="text-muted">Current status: Online</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <h3>IT Ticketing System</h3>
+                        <p>Submit and track support tickets through our system:</p>
+                        <ul>
+                            <li>Asset-related issues</li>
+                            <li>Access problems</li>
+                            <li>System errors</li>
+                            <li>Feature requests</li>
+                        </ul>
+                        <a href="{% url 'ITticketing' %}" class="btn btn-aai mt-2">Go to Tickets</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>On-Site Support</h3>
+                        <p><strong>Headquarters:</strong><br>
+                        Rajiv Gandhi Bhawan, Safdarjung Airport,<br>
+                        New Delhi - 110003</p>
+                        <p><strong>Regional Offices:</strong> All major airports across India</p>
+                        <p><strong>Walk-in Hours:</strong> Mon-Fri 9:00-17:00</p>
+                        <a href="#" class="btn btn-aai-outline mt-2">Locate Nearest Office</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-danger mt-5" data-aos="fade-up" data-aos-delay="400">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-exclamation-triangle me-3 fa-2x"></i>
+                    <div>
+                        <h5 class="mb-1">Emergency Support</h5>
+                        <p class="mb-0">For lost/stolen assets or security breaches, immediately call: <strong>+91-11-2467-EMER (3637)</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="section" id="contact-form">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Contact Support</h2>
+            <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="100" id="bold-text">Send us a message and we'll respond within 24 hours</p>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <form id="supportForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label" id="bold-text">Full Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label" id="bold-text">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="your.email@aai.gov.in" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="employeeId" class="form-label" id="bold-text">Employee ID</label>
+                            <input type="text" class="form-control" id="employeeId" placeholder="AAI-XXXXXX" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="department" class="form-label" id="bold-text">Department</label>
+                            <select class="form-select" id="department" required>
+                                <option value="" selected disabled>Select Department</option>
+                                <option>Air Traffic Management</option>
+                                <option>Engineering</option>
+                                <option>Finance</option>
+                                <option>Human Resources</option>
+                                <option>Information Technology</option>
+                                <option>Operations</option>
+                                <option>Security</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="issueType" class="form-label"  id="bold-text">Issue Type</label>
+                            <select class="form-select" id="issueType" required>
+                                <option value="" selected disabled>Select Issue Type</option>
+                                <option>Asset Allocation</option>
+                                <option>Access Control</option>
+                                <option>Hardware Problem</option>
+                                <option>Software Problem</option>
+                                <option>System Error</option>
+                                <option>Training Request</option>
+                                <option>Other Inquiry</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="priority" class="form-label" id="bold-text">Priority</label>
+                            <select class="form-select" id="priority" required>
+                                <option value="" selected disabled>Select Priority Level</option>
+                                <option>Critical (System Down)</option>
+                                <option>High (Major Impact)</option>
+                                <option>Medium (Partial Functionality)</option>
+                                <option>Low (General Inquiry)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="message" class="form-label" id="bold-text">Detailed Description</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Please describe your issue or request in detail..." required></textarea>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="attachment" class="form-label" id="bold-text">Attachments (Screenshots, Documents)</label>
+                            <input class="form-control" type="file" id="attachment" multiple>
+                            <small class="text-muted">Maximum file size: 10MB. Allowed types: .jpg, .png, .pdf, .doc, .docx</small>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="urgentCheck">
+                            <label class="form-check-label" for="urgentCheck">Mark as urgent (response within 2 hours)</label>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="reset" class="btn btn-aai-outline me-md-2">Reset Form</button>
+                            <button type="submit" class="btn btn-aai">Submit Request <i class="fas fa-paper-plane ms-2"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section light-bg" id="faq">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Frequently Asked Questions</h2>
+            <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="100">Quick answers to common questions</p>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    How do I request a new asset?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>To request a new asset:</p>
+                                    <ol>
+                                        <li>Log in to the AAI Asset Management System</li>
+                                        <li>Navigate to the "Asset Requests" section</li>
+                                        <li>Complete the new asset request form</li>
+                                        <li>Submit for approval by your department head</li>
+                                    </ol>
+                                    <p>You'll receive notifications about the status of your request. Standard processing time is 3-5 business days.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    What should I do if my access card stops working?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>If your access card stops functioning:</p>
+                                    <ol>
+                                        <li>Try using it at different access points to confirm the issue</li>
+                                        <li>Check for visible damage to the card</li>
+                                        <li>Contact the 24/7 helpdesk immediately at +91-11-2467-XXXX</li>
+                                        <li>Visit your nearest security office for a temporary pass if needed</li>
+                                    </ol>
+                                    <p>Replacement cards are typically issued within 24 hours.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    How do I report a lost or stolen asset?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p><strong>Immediately</strong> report lost or stolen assets:</p>
+                                    <ol>
+                                        <li>Call the emergency support line: +91-11-2467-EMER (3637)</li>
+                                        <li>File a police report if theft is suspected</li>
+                                        <li>Submit a formal report through the asset management system</li>
+                                        <li>Notify your department head</li>
+                                    </ol>
+                                    <p>Delays in reporting may result in security violations.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    How can I check the status of my IT ticket?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>To check your ticket status:</p>
+                                    <ol>
+                                        <li>Log in to the AAI Asset Management System</li>
+                                        <li>Go to the "IT Tickets" section</li>
+                                        <li>Locate your ticket in the "My Tickets" tab</li>
+                                        <li>View current status and any technician notes</li>
+                                    </ol>
+                                    <p>You'll also receive email updates when your ticket status changes.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    What's the process for returning assets when leaving AAI?
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>The offboarding process includes:</p>
+                                    <ol>
+                                        <li>HR will initiate the asset return workflow</li>
+                                        <li>You'll receive a checklist of all assigned assets</li>
+                                        <li>Schedule a return appointment with IT/Admin</li>
+                                        <li>All assets must be returned in working condition</li>
+                                        <li>Complete the asset clearance form</li>
+                                    </ol>
+                                    <p>Failure to return assets may delay your clearance process.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Knowledge Base Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Knowledge Base</h2>
+            <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="100" id="help-center">Helpful resources and documentation</p>
+            
+            <div class="row">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="kb-card">
+                        <div class="kb-card-header">
+                            <h5><i class="fas fa-book me-2"></i> User Guides</h5>
+                        </div>
+                        <div class="kb-card-body">
+                            <ul>
+                                <li><a href="#" id="knowledge-coupon">Asset Management System User Manual</a></li>
+                                <li><a href="#" id="knowledge-coupon">Mobile App Installation Guide</a></li>
+                                <li><a href="#" id="knowledge-coupon">Self-Service Portal Tutorial</a></li>
+                                <li><a href="#" id="knowledge-coupon">Reporting Dashboard Guide</a></li>
+                                <li><a href="#" id="knowledge-coupon">Quick Start Reference</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="kb-card">
+                        <div class="kb-card-header">
+                            <h5><i class="fas fa-video me-2"></i> Training Videos</h5>
+                        </div>
+                        <div class="kb-card-body">
+                            <ul>
+                                <li><a href="#" id="knowledge-coupon">Asset Request Walkthrough</a></li>
+                                <li><a href="#" id="knowledge-coupon">Troubleshooting Common Issues</a></li>
+                                <li><a href="#" id="knowledge-coupon">Advanced Reporting Features</a></li>
+                                <li><a href="#" id="knowledge-coupon">Mobile App Features</a></li>
+                                <li><a href="#" id="knowledge-coupon">Security Best Practices</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="kb-card">
+                        <div class="kb-card-header">
+                            <h5><i class="fas fa-file-alt me-2"></i> Policy Documents</h5>
+                        </div>
+                        <div class="kb-card-body">
+                            <ul>
+                                <li><a href="#" id="knowledge-coupon">Asset Management Policy</a></li>
+                                <li><a href="#" id="knowledge-coupon">IT Equipment Usage Guidelines</a></li>
+                                <li><a href="#" id="knowledge-coupon">Access Control Procedures</a></li>
+                                <li><a href="#" id="knowledge-coupon">Data Security Protocols</a></li>
+                                <li><a href="#" id="knowledge-coupon">BYOD Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="400">
+                <a href="#" class="btn btn-aai">View Full Knowledge Base <i class="fas fa-arrow-right ms-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Team Section -->
+    <section class="section dark-bg">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Meet Our Support Team</h2>
+            <p class="text-center mb-5" data-aos="fade-up" data-aos-delay="100">Dedicated professionals ready to assist you</p>
+            
+            <div class="row">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-card text-center text-white mb-4">
+                        <img src="https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png" class="rounded-circle mb-3" width="120" alt="Team Member">
+                        <h4>Aditya Choudhary</h4>
+                        <p class="text-aai-light">IT Support Manager</p>
+                        <p><small>Specializes: Asset Allocation</small></p>
+                        <div class="d-flex justify-content-center">
+                            <a href="#" class="text-white me-2"><i class="fas fa-envelope"></i></a>
+                            <a href="#" class="text-white"><i class="fas fa-phone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="team-card text-center text-white mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" class="rounded-circle mb-3" width="120" alt="Team Member">
+                        <h4>Nishikant kumar</h4>
+                        <p class="text-aai-light">Access Control Specialist</p>
+                        <p><small>Specializes: Security Badges</small></p>
+                        <div class="d-flex justify-content-center">
+                            <a href="#" class="text-white me-2"><i class="fas fa-envelope"></i></a>
+                            <a href="#" class="text-white"><i class="fas fa-phone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="team-card text-center text-white mb-4">
+                        <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png" class="rounded-circle mb-3" width="120" alt="Team Member">
+                        <h4>Shiva Singh</h4>
+                        <p class="text-aai-light">Hardware Technician</p>
+                        <p><small>Specializes: Equipment Repair</small></p>
+                        <div class="d-flex justify-content-center">
+                            <a href="#" class="text-white me-2"><i class="fas fa-envelope"></i></a>
+                            <a href="#" class="text-white"><i class="fas fa-phone"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="team-card text-center text-white mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" class="rounded-circle mb-3" width="120" alt="Team Member">
+                        <h4>Amit Punia</h4>
+                        <p class="text-aai-light">Software Support</p>
+                        <p><small>Specializes: System Issues</small></p>
+                        <div class="d-flex justify-content-center">
+                            <a href="#" class="text-white me-2"><i class="fas fa-envelope"></i></a>
+                            <a href="#" class="text-white"><i class="fas fa-phone"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4" data-aos="fade-up" data-aos-delay="500">
+                <p class="lead">Our average response time is under 2 hours for critical issues and within 24 hours for general inquiries.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dark-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>AAI Asset Management</h5>
+                    <p>Comprehensive asset lifecycle management platform for Airport Authority of India.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" id="under-line">Home</a></li>
+                        <li><a href="dashboard.html" id="under-line">Dashboard</a></li>
+                        <li><a href="features.html" id="under-line">Features</a></li>
+                        <li><a href="workflow.html" id="under-line">Workflow</a></li>
+                        
+                        <li><a href="contact.html" id="under-line">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" id="under-line">User Guides</a></li>
+                        <li><a href="#" id="under-line">Training Videos</a></li>
+                        <li><a href="#faq" id="under-line">FAQs</a></li>
+                        <li><a href="#" id="under-line">Policy Documents</a></li>
+                        <li><a href="#" id="under-line">System Updates</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Legal</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="privacypolicy.html" id="under-line">Privacy Policy</a></li>
+                        <li><a href="termsofuse.html" id="under-line">Terms of Use</a></li>
+                        <li><a href="securitypolicy.html" id="under-line">Security Policy</a></li>
+                        <li><a href="accessibility.html" id="under-line">Accessibility</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">Copyright &copy; 2025 Airport Authority of India. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="sitemap.html" id="under-line">Sitemap</a>
+                        <a href="accessibility.html" id="under-line">Accessibility</a>
+                        <a href="feedback.html" id="under-line">Feedback</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    </a>
+
+    
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Back to top button
+        window.addEventListener('scroll', function() {
+            var backToTop = document.querySelector('.back-to-top');
+            var navbar = document.querySelector('.navbar');
+            
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'block';
+                navbar.classList.add('scrolled');
+            } else {
+                backToTop.style.display = 'none';
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Form submission handling
+        const supportForm = document.getElementById('supportForm');
+        if (supportForm) {
+            supportForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically send the form data to a server
+                alert('Your support request has been submitted. Our team will contact you shortly.');
+                this.reset();
+            });
+        }
+        
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+        
+        // Initialize particles.js
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+
+</html>
